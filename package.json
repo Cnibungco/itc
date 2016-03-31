@@ -1,0 +1,31 @@
+{
+  "name": "itccompetition2016",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp-nodemon": "^2.0.6",
+    "gulp-connect": "^3.2.2",
+    "gulp": "^3.9.1",
+    "gulp-ruby-sass": "^2.0.6"
+  },
+  "devDependencies": {
+    "gulp": "https://registry.npmjs.org/gulp/-/gulp-3.9.1.tgz",
+    "gulp-connect": "https://registry.npmjs.org/gulp-connect/-/gulp-connect-3.2.2.tgz",
+    "gulp-nodemon": "https://registry.npmjs.org/gulp-nodemon/-/gulp-nodemon-2.0.6.tgz",
+    "gulp-ruby-sass": "https://registry.npmjs.org/gulp-ruby-sass/-/gulp-ruby-sass-2.0.6.tgz"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cnibungco/itccompetition2016.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cnibungco/itccompetition2016/issues"
+  },
+  "homepage": "https://github.com/Cnibungco/itccompetition2016#readme"
+}
