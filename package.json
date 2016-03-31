@@ -4,10 +4,11 @@
   "description": "Team Softcom at ITC",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp-nodemon": "^2.0.6",
-    "gulp-connect": "^3.2.2",
     "gulp": "^3.9.1",
-    "gulp-ruby-sass": "^2.0.6"
+    "gulp-connect": "^3.2.2",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-ruby-sass": "^2.0.6",
+    "socketio": "^1.0.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.5.4",
