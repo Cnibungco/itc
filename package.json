@@ -4,6 +4,7 @@
   "description": "Team Softcom at ITC",
   "main": "gulpfile.js",
   "dependencies": {
+    "angular": "^1.5.3",
     "gulp": "^3.9.1",
     "gulp-connect": "^3.2.2",
     "gulp-nodemon": "^2.0.6",

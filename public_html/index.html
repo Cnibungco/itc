@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="css/test.css"></link>
+	<link rel="stylesheet" href="/assets/css/test.css"></link>
 	<title>Test</title>
-</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+    <script src="components/home/home.controller.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+    </head>
 <body>
-	<h1>hello</h1>
-</body>
 
-	<script type="text/javascript" src="script/test.js"></script>
+<div ng-app="itc">
+ 	<div ng-controller="home.controller">
+        <p>{{x}}</p>
+</div>
+</div>
+
+</body>
+</html>
+
+	<script type="text/javascript" src="assets/script/test.js"></script>
 </html>

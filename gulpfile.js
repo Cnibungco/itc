@@ -10,7 +10,7 @@ var PUBLIC_DIR = 'public_html/';
 var SCSS_SRC = PUBLIC_DIR + 'scss/**/*.scss';
 var CSS_DIR = PUBLIC_DIR + 'css/';
 var SERVER_FILE = 'server/server.js';
-var JS_SRC = PUBLIC_DIR + 'script/**/*.js';
+var JS_SRC = PUBLIC_DIR + '**/*.js';
 
 gulp.task('styles',function () {
 	return sass(SCSS_SRC)
