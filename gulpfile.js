@@ -2,28 +2,31 @@
 
 var gulp = require('gulp'),
 	sass = require('gulp-ruby-sass'),
-	connect = require('gulp-connect'),
-	nodemon = require('gulp-nodemon');
+	nodemon = require('gulp-nodemon'),
+	install = require('gulp-install'),
+	lr = require('gulp-livereload');
 
-var SCSS_SRC = 'scss/**/*.scss';
-var CSS_DIR = 'css/';
+var PUBLIC_DIR = 'public_html/';
+var SCSS_SRC = PUBLIC_DIR + 'scss/**/*.scss';
+var CSS_DIR = PUBLIC_DIR + 'css/';
 var SERVER_FILE = 'server/server.js';
-var JS_SRC = 'script/**/*.js';
+var JS_SRC = PUBLIC_DIR + 'script/**/*.js';
 
 gulp.task('styles',function () {
 	return sass(SCSS_SRC)
 	 .pipe(gulp.dest(CSS_DIR))
-	 .pipe(connect.reload());
+	 .pipe(lr());
 });
 gulp.task('html',function(){
-	gulp.src("**/*.html")
-	 .pipe(connect.reload());
+	gulp.src(PUBLIC_DIR + "/**/*.html")
+		.pipe(lr());
 });
-gulp.task('script',function(){
+gulp.task('scripts',function(){
 	gulp.src(JS_SRC)
-	 .pipe(connect.reload());
-})
+	.pipe(lr());
+});
 gulp.task('watch',function(){
+	lr.listen();
 	gulp.watch(JS_SRC, ['scripts']);
 	gulp.watch(SCSS_SRC, ['styles']);
 	gulp.watch("**/*.html", ['html']);
@@ -32,12 +35,13 @@ gulp.task('start', function () {
   nodemon({
   	script: SERVER_FILE,
   	ext: 'js',
-  	env: { 'NODE_ENV': 'development' }
+  	env: { 'NODE_ENV': 'development' },
+  	watch: [SERVER_FILE]
   })
 });
-gulp.task("connect",function(){
-	connect.server({
-		livereload: true
-	});
+gulp.task("install",function(){
+	gulp.src(['./package.json2'])
+	 .pipe(install());
 });
-gulp.task('default', ['styles','watch','connect','start']);
+
+gulp.task('default', ['install','styles','watch','start']);

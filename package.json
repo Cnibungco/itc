@@ -1,7 +1,7 @@
 {
   "name": "itccompetition2016",
   "version": "1.0.0",
-  "description": "",
+  "description": "Team Softcom at ITC",
   "main": "gulpfile.js",
   "dependencies": {
     "gulp-nodemon": "^2.0.6",
@@ -10,10 +10,16 @@
     "gulp-ruby-sass": "^2.0.6"
   },
   "devDependencies": {
+    "connect-livereload": "^0.5.4",
+    "express": "^4.13.4",
     "gulp": "https://registry.npmjs.org/gulp/-/gulp-3.9.1.tgz",
     "gulp-connect": "https://registry.npmjs.org/gulp-connect/-/gulp-connect-3.2.2.tgz",
+    "gulp-install": "^0.6.0",
+    "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "https://registry.npmjs.org/gulp-nodemon/-/gulp-nodemon-2.0.6.tgz",
-    "gulp-ruby-sass": "https://registry.npmjs.org/gulp-ruby-sass/-/gulp-ruby-sass-2.0.6.tgz"
+    "gulp-ruby-sass": "https://registry.npmjs.org/gulp-ruby-sass/-/gulp-ruby-sass-2.0.6.tgz",
+    "path": "^0.12.7",
+    "tiny-lr": "^0.2.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
