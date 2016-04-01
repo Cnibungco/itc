@@ -3,6 +3,7 @@ var app = require("express")(),
 	http = require('http').Server(app),
 	io = require("socket.io")(http);
 
+var mongo = require("./mongo.js");
 
 app.get('/', function(req, res){
   res.sendFile(path.resolve( __dirname + '/../public_html/index.html'));
@@ -19,10 +20,15 @@ io.on('connection', function(socket){
   			socket.emit("bidHistory",history);
   		})
   	});
-	socket.emit("hello",{
-  	hello: "hi",
-  	goodbye: 124
-  })
+
+    setInterval(function() {
+        socket.emit("hello",{
+            hello: "hi",
+            goodbye: 124
+        })
+    }, 1000);
+
+
 });
 
 http.listen(8080, function(){
@@ -32,4 +38,11 @@ http.listen(8080, function(){
 var bidHistory = function(uid, callback){
 	var history = ["bye","hi","it works!!!","hahaha suck it angular!"]
 	callback(history);
+}
+
+function testDB(){
+    setTimeout(function(){
+        mongo.createNewUser()
+
+    },1000)
 }
