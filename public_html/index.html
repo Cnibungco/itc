@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 	<link rel="stylesheet" href="/assets/css/test.css"></link>
 	<title>Test</title>
@@ -11,19 +11,20 @@
 		<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
 		<!-- Angular ui-router -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
-
-		<script src="components/home/home.controller.js"></script>
+        <script src="/components/app.routes.js"></script>
+		<script src="/components/home/home.controller.js"></script>
     </head>
 <body>
 
-<div ng-app="itc">
- 	<div ng-controller="home.controller">
-        <p>{{x}}</p>
-</div>
-</div>
-
+<div>
+ 	<div>
+    
+    <div ui-view></div>
+    <!-- We'll also add some navigation: -->
+    <a ui-sref="state1">State 1</a>
+    <a ui-sref="state2">State 2</a>
+        </div>
 </body>
-</html>
 
 	<script type="text/javascript" src="assets/script/test.js"></script>
 </html>
