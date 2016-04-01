@@ -3,24 +3,8 @@
 <head>
 	<link rel="stylesheet" href="/assets/css/test.css"></link>
 	<title>Test</title>
-		<!-- Angular-->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-    <!-- Firebase -->
-    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
-		<!-- AngularFire -->
-		<script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
-		<!-- Angular ui-router -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
-
-		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-		<script src="/assets/script/socket/socket.js"></script>
-
-		<script src="/components/app.routes.js"></script>
-
-		<!-- home -->
-		<script src="/components/home/home.controller.js"></script>
-		<script src="/components/home/socket.factory.js"></script>
-
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     </head>
 <body>
 
@@ -28,11 +12,27 @@
  	<div>
 
     <div ui-view></div>
-    <!-- We'll also add some navigation: -->
     <a ui-sref="state1">State 1</a>
     <a ui-sref="state2">State 2</a>
   </div>
 </body>
-
+    	<!-- Angular-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+    <!-- Angular ui-router -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="/assets/script/socket/socket.js"></script>
+    <script src="app.modules.js"></script>
+	<script src="app.routes.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<!-- home -->
+    <script src="/components/home/home.controller.js"></script>
+	<script src="/components/home/socket.factory.js"></script>
 	<script type="text/javascript" src="assets/script/test.js"></script>
 </html>
