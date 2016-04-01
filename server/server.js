@@ -8,15 +8,15 @@ app.get('/', function(req, res){
   res.sendFile(path.resolve( __dirname + '/../public_html/index.html'));
 });
 
-app.get(/^(.+)$/, function(req, res){ 
+app.get(/^(.+)$/, function(req, res){
 	console.log('static file request : ' + req.params[0]);
-	res.sendFile(path.resolve(__dirname + "/../public_html/" + req.params[0])); 
+	res.sendFile(path.resolve(__dirname + "/../public_html/" + req.params[0]));
 });
 
 io.on('connection', function(socket){
   console.log('a user connected');
-  
-  socket.emit("msg",{
+
+	socket.emit("hello",{
   	hello: "hi",
   	goodbye: 124
   })

@@ -1,10 +1,10 @@
 var myApp;
-myApp = angular.module('myApp', ['ui.router']);
+myApp = angular.module('myApp', ['ui.router', 'btford.socket-io']);
 
   myApp.config(function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise("/state1");
- 
+
   $stateProvider
     .state('state1', {
       url: "/state1",
@@ -13,7 +13,10 @@ myApp = angular.module('myApp', ['ui.router']);
     .state('state1.list', {
       url: "/list",
       templateUrl: "state1.list.html",
-      controller: function($scope) {
+      controller: function($scope, mySocket) {
+        mySocket.on('hello', function () {
+          console.log("HELLO");
+        });
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
