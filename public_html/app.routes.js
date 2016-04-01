@@ -1,8 +1,13 @@
  myApp.config(function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise("/state1");
+  $urlRouterProvider.otherwise("/");
 
   $stateProvider
+    .state('home', {
+      url: "/",
+      templateUrl: "components/home/home.view.html",
+      controller: "HomeController"
+    })
     .state('state1', {
       url: "/state1",
       templateUrl: "state1.html"
