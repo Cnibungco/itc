@@ -1,19 +1,27 @@
-var express = require("express"),
-	path = require("path");
-var app = express();
+var app = require("express")(),
+	path = require("path"),
+	http = require('http').Server(app),
+	io = require("socket.io")(http);
 
-/* serves main page */
-app.get("/", function(req, res) {
-	res.sendFile(path.resolve( __dirname + '/../public_html/index.html'));
+
+app.get('/', function(req, res){
+  res.sendFile(path.resolve( __dirname + '/../public_html/index.html'));
 });
 
-/* serves all the static files */
 app.get(/^(.+)$/, function(req, res){ 
 	console.log('static file request : ' + req.params[0]);
 	res.sendFile(path.resolve(__dirname + "/../public_html/" + req.params[0])); 
 });
 
-var port = process.env.PORT || 8080;
-app.listen(port, function() {
-	console.log("Listening on " + port);
+io.on('connection', function(socket){
+  console.log('a user connected');
+  
+  socket.emit("msg",{
+  	hello: "hi",
+  	goodbye: 124
+  })
+});
+
+http.listen(8080, function(){
+  console.log('listening on *:8080');
 });

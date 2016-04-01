@@ -18,7 +18,10 @@
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "https://registry.npmjs.org/gulp-nodemon/-/gulp-nodemon-2.0.6.tgz",
     "gulp-ruby-sass": "https://registry.npmjs.org/gulp-ruby-sass/-/gulp-ruby-sass-2.0.6.tgz",
-    "path": "^0.12.7"
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "socket.io": "^1.4.5",
+    "socketio": "^1.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
