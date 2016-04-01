@@ -3,10 +3,15 @@
   $urlRouterProvider.otherwise("/");
 
   $stateProvider
-    .state('home', {
+    .state('Home', {
       url: "/",
-      templateUrl: "components/home/home.view.html",
+      templateUrl: "components/Home/home.view.html",
       controller: "HomeController"
+    })
+    .state('BidHistory', {
+      url: "/bidHistory",
+      templateUrl: "components/BidHistory/BidHistory.view.html",
+      controller: "BidHistoryController"
     })
     .state('state1', {
       url: "/state1",

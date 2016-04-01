@@ -1,5 +1,8 @@
 myApp.controller('HomeController', ['$scope', 'mySocket', function($scope, mySocket) {
 
+    $scope.title = "Home";
+
+
     mySocket.on('hello', function () {
         console.log("WASSUP");
     });

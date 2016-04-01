@@ -6,9 +6,11 @@
     </head>
 <body>
  	<div>
+        <a ui-sref="Home">Home</a>
+        <a ui-sref="BidHistory">BidHistory</a>
+        <h1>--------</h1>
         <div ui-view></div>
-        <a ui-sref="state1">State 1</a>
-        <a ui-sref="state2">State 2</a>
+
     </div>
 </body>
     <!-- Angular-->
@@ -37,8 +39,12 @@
 
     <!-- home -->
     <script src="/components/home/home.controller.js"></script>
-	<script src="/components/home/socket.factory.js"></script>
 
+    <!-- BidHistory -->
+    <script src="/components/bidHistory/bidHistory.controller.js"></script>
+
+
+    <script src="/components/home/socket.factory.js"></script>
     <script type="text/javascript" src="/components/requests.factory.js"></script>
 
 	<script type="text/javascript" src="assets/script/test.js"></script>
