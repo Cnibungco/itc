@@ -10,7 +10,7 @@
     <button class="button" ng-click="logout()"></button>
     <div ng-if="authData.google" class="list card">
       <div class="item item-avatar">
-        <img ng-src="{{authData.google.cachedUserProfile.avatar_url}}" alt="">
+        <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
         <h2>{{authData.google.displayName}}</h2>
         <p>{{authData.google.username}}</p>
         <p>Google</p>

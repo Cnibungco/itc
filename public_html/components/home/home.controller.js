@@ -3,7 +3,7 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeS
   //  $scope.me = MeService.setID(23123);
 
     mySocket.on('hello', function () {
-        console.log("WASSUP");
+       // console.log("WASSUP");
     });
 
     $scope.items = ["A", "List", "From", "HomeCtrl"];
@@ -27,9 +27,11 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeS
     }
     // This will display the user's name in our view
     $scope.authData = authData;
+        console.log(authData);
   });
     $scope.logout = function(){
         var ref = Auth;
         ref.$unauth();
     };
+    
 }]);
