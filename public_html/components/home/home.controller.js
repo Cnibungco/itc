@@ -1,6 +1,9 @@
-myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeService','Auth', function($scope, mySocket,RequestFactory,MeService, Auth) {
+myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeService','Auth', 'CreateBidService', function($scope, mySocket,RequestFactory,MeService, Auth, CreateBidService) {
     $scope.title = "Home";
   	$scope.me = MeService;
+  	// $scope.createBid = CreateBidService;
+
+  	// $scope.createBid.createNewBid("123",12313,"1231");
 
     $scope.items = ["A", "List", "From", "HomeCtrl"];
 

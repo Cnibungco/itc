@@ -16,7 +16,7 @@ app.get(/^(.+)$/, function(req, res){
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on("createNewBid", function(data){
-    mongo.createNewBid(data.uid,data.cost,data.aid,function(data){
+    mongo.createNewBid(data.uid,data.bidAmount,data.auctionID,function(data){
       socket.emit("createNewBid",data);
     });
   });
