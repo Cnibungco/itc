@@ -5,7 +5,6 @@ myApp.service("MeService", function(mySocket){
 	this.bids = [];
 	this.auctions = [];
 	this.comments = [];
-	this.bid
 
 	this.setID = function(id,username){
 		callback = function(data){
@@ -22,6 +21,21 @@ myApp.service("MeService", function(mySocket){
 		mySocket.emit("getUserInfo", {uid:id,username: username});
 		mySocket.on("getUserInfo", callback);
 		service.uid = id;
+	}
+	this.getUId = function(){
+		return service.uid;
+	}
+	this.getUsername = function(){
+		return service.username;
+	}
+	this.getBids = function(){
+		return service.bids;
+	}
+	this.getAuctions = function(){
+		return service.auctions;
+	}
+	this.getComments = function(){
+		return service.comments;
 	}
 	// this.getBidHistory = function(){
 	// 	mySocket.emit("getBidHistory", service.uid);

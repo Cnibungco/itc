@@ -1,12 +1,6 @@
 myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeService','Auth', function($scope, mySocket,RequestFactory,MeService, Auth) {
     $scope.title = "Home";
-  //  $scope.me = MeService.setID(23123);
-
-    $scope.me = MeService.setID(940);
-    // RequestFactory.getBidHistory(940);
-    mySocket.on('hello', function () {
-       // console.log("WASSUP");
-    });
+  	$scope.me = MeService;
 
     $scope.items = ["A", "List", "From", "HomeCtrl"];
 
