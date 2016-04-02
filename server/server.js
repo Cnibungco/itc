@@ -24,7 +24,17 @@ io.on('connection', function(socket){
     mongo.getUserInfo(data.uid, function(obj){
       socket.emit("getUserInfo", obj);
     })
-  })
+  });
+  socket.on("createNewAuction",function(data){
+    mongo.createNewAuction(data.uid,data.title,data.description,data.startingAmount,function(result){
+      socket.emit("createNewAuction",result);
+    });
+  });
+  socket.on("getBidHistory",function(data){
+    mongo.getBidHistory(data.bid,function(result){
+      socket.emit("getBidHistory",result);
+    });
+  });
 });
 
 http.listen(8080, function(){
