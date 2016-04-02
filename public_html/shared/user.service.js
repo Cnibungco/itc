@@ -1,4 +1,4 @@
-myApp.service("MeService", function(mySocket){
+myApp.service("UserService", function(mySocket){
 	service = this;
 	this.uid = "";
 	this.username = "";
@@ -37,8 +37,4 @@ myApp.service("MeService", function(mySocket){
 	this.getComments = function(){
 		return service.comments;
 	}
-	// this.getBidHistory = function(){
-	// 	mySocket.emit("getBidHistory", service.uid);
-	// 	mySocket.on("getBidHistory", )
-	// }
 })
