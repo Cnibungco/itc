@@ -1,50 +1,25 @@
 var app = require("express")(),
-	path = require("path"),
-	http = require('http').Server(app),
-	io = require("socket.io")(http);
+	  path = require("path"),
+    http = require('http').Server(app),
+    io = require("socket.io")(http);
 
+var sockets = require("./io.js");
 var mongo = require("./mongo.js");
+
+sockets.listen(http,io);
 
 app.get('/', function(req, res){
   res.sendFile(path.resolve( __dirname + '/../public_html/index.html'));
 });
 
 app.get(/^(.+)$/, function(req, res){
-	console.log('static file request : ' + req.params[0]);
 	res.sendFile(path.resolve(__dirname + "/../public_html/" + req.params[0]));
-});
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on("createNewBid", function(data){
-    mongo.createNewBid(data.uid,data.bidAmount,data.auctionID,function(data){
-      socket.emit("createNewBid",data);
-    });
-  });
-  socket.on("getUserInfo",function(data){
-    mongo.getUserInfo(data.uid, data.username, function(obj){
-      socket.emit("getUserInfo", obj);
-    })
-  });
-  socket.on("createNewAuction",function(data){
-    mongo.createNewAuction(data.uid,data.title,data.description,data.startingAmount,function(result){
-      socket.emit("createNewAuction",result);
-    });
-  });
-  socket.on("getBidHistory",function(uid){
-    mongo.getBidHistory(uid,function(result){
-      socket.emit("getBidHistory",result);
-    });
-  });
 });
 
 http.listen(8080, function(){
   console.log('listening on *:8080');
 });
 
-var bidHistory = function(uid, callback){
-	var history = ["bye","hi","it works!!!","hahaha suck it angular!"]
-	callback(history);
-}
 
 function testDB(){
     mongo.foo();
