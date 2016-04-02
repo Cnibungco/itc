@@ -7,10 +7,11 @@ myApp.factory('RequestFactory', function (mySocket) {
 		getBidHistory: function(uid){
 			var callback = function(obj){
 				getBidHistory = obj;
-				mySocket.removeListener("bidHistory",callback)
+				console.log(obj);
+				mySocket.removeListener("getBidHistory",callback);
 			};
-			mySocket.emit("bidHistory", uid);
-			mySocket.on("bidHistory", callback);
+			mySocket.emit("getBidHistory", uid);
+			mySocket.on("getBidHistory", callback);
 			return getBidHistory;
 		},
 		createNewBid: function(uid,cost,aid,callback){

@@ -2,6 +2,8 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeS
     $scope.title = "Home";
   //  $scope.me = MeService.setID(23123);
 
+    $scope.me = MeService.setID(940);
+    // RequestFactory.getBidHistory(940);
     mySocket.on('hello', function () {
        // console.log("WASSUP");
     });

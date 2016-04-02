@@ -21,7 +21,7 @@ io.on('connection', function(socket){
     });
   });
   socket.on("getUserInfo",function(data){
-    mongo.getUserInfo(data.uid, function(obj){
+    mongo.getUserInfo(data.uid, data.username, function(obj){
       socket.emit("getUserInfo", obj);
     })
   });
@@ -30,8 +30,8 @@ io.on('connection', function(socket){
       socket.emit("createNewAuction",result);
     });
   });
-  socket.on("getBidHistory",function(data){
-    mongo.getBidHistory(data.bid,function(result){
+  socket.on("getBidHistory",function(uid){
+    mongo.getBidHistory(uid,function(result){
       socket.emit("getBidHistory",result);
     });
   });
@@ -52,31 +52,32 @@ function testDB(){
     var UID = Math.floor((Math.random() * 1000) + 1);
     var outputCallback = function(result){console.log("CALLBACK",result)};
 
-    mongo.createNewUser(UID, "a_cool_username", outputCallback);
+    // mongo.getUserInfo(940,outputCallback);
+    // mongo.createNewUser(UID, "a_cool_username", outputCallback);
 
-    var auctionID;
+    // var auctionID;
 
-    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
-        function(result){
-            auctionID = result._id;
-            console.log(result);
+    // mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
+    //     function(result){
+    //         auctionID = result._id;
+    //         console.log(result);
 
-            //Bid on my own auction 3 times
-            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
-            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
-            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
+    //         //Bid on my own auction 3 times
+    //         mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+    //         mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+    //         mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
 
-            });
+    //         });
 
 
-        });
+    //     });
 
-    mongo.getBidHistory(940,outputCallback);
+    // mongo.getBidHistory(940,outputCallback);
 
 }
 
 setTimeout(function(){
     //wait 1 sec to let mongo connect for testing.
     //in prod it is fine, since no queries should execute immediately
-    //testDB();
+    // testDB();
 },1000);

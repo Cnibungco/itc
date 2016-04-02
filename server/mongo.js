@@ -15,6 +15,7 @@ exports.foo = function(){
 
 
 exports.getUserInfo = function(userID, callback){
+    console.log(userID);
     //users_collection.findOne({ _id: new ObjectId(userID)},
     users_collection.findOne({ _id: userID},
         function(err,result){
