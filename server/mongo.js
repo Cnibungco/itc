@@ -13,14 +13,17 @@ exports.foo = function(){
   console.log("MONGO FOO");
 }
 
+
 exports.getUserInfo = function(userID, callback){
-    users_collection.findOne({ _id: new ObjectId(userID)},
+    //users_collection.findOne({ _id: new ObjectId(userID)},
+    users_collection.findOne({ _id: userID},
         function(err,result){
             if (err) throw err;
             console.log("===RETRIEVED USER===");
             console.log(result);
             callback(result);
-        });
+        }
+    );
 }
 
 exports.createNewUser = function(userID, username, callback){
