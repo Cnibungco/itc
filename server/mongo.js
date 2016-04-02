@@ -29,7 +29,6 @@ exports.getUserInfo = function(userID, username, callback){
             }
             else{
                 console.log("===RETURNING USER===")
-                console.log(result);
                 callback(result);
             }
         }
