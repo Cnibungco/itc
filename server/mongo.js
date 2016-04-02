@@ -36,9 +36,10 @@ exports.createNewUser = function(userID, username, callback){
     users_collection.insert(aUser, function(err, result){
         if(err) throw err;
         console.log("+++USER CREATED+++");
-        callback(result);
+        var userDocument = result.ops[0];
+        callback(userDocument);
     })
-}
+};
 
 exports.createNewAuction = function(userID, title, description, startingAmount, callback){
     var auction = {
@@ -51,26 +52,17 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
     auctions_collection.insert(auction, function(err, result){
         if(err) throw err;
         console.log("+++AUCTION CREATED+++");
-        callback(result)
+        var auctionDocument = result.ops[0];
+        callback(auctionDocument);
+
+        users_collection.update({_id: userID},{$push: {auctions: auctionDocument._id}}, function(err, added){
+            if(err) throw err;
+            console.log("Updated user.auctions[] with users new auction");
+        });
     })
 }
 
-exports.createNewAuction = function(userID, title, description, startingAmount, callback){
-    var auction = {
-        title: title,
-        description: description,
-        userID: userID,
-        startingAmount : startingAmount
-    };
-
-    auctions_collection.insert(auction, function(err, result){
-        if(err) throw err;
-        console.log("+++AUCTION CREATED+++");
-        callback(result)
-    })
-}
-
-exports.createNewBid = function(userID, bidAmount, auctionID){
+exports.createNewBid = function(userID, bidAmount, auctionID, callback){
     var bid = {
         userID: userID,
         amount : bidAmount,
@@ -80,9 +72,30 @@ exports.createNewBid = function(userID, bidAmount, auctionID){
     bids_collection.insert(bid, function(err, result){
         if(err) throw err;
         console.log("+++BID CREATED+++");
-        console.log(result)
+
+        var bidDocument = result.ops[0];
+        callback(bidDocument);
+
+        users_collection.update({_id: userID},{$push: {bids: bidDocument._id}}, function(err, added){
+            if(err) throw err;
+            console.log("Updated user.bids[] with users new bid.");
+        });
     })
 }
+
+exports.getBidHistory = function(userID, callback){
+    var user = {_id: userID};
+    users_collection.find(user,{bids: true}).toArray( function(err, result){
+
+        console.log("====Got User Bids====");
+        var bids = result[0].bids;
+        bids_collection.find({ _id: { $in: bids } }).toArray(function(err, result){
+            if (err) throw err;
+            console.log("====Got User Bids Info====")
+            callback(result)
+        });
+    });
+};
 
 
 

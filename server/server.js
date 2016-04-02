@@ -48,19 +48,29 @@ function testDB(){
 
     mongo.createNewUser(UID, "a_cool_username", outputCallback);
 
+    var auctionID;
 
-    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20, outputCallback)
+    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
+        function(result){
+            auctionID = result._id;
+            console.log(result);
 
-    //Bid on my own auction 5 times
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
+            //Bid on my own auction 3 times
+            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
+
+            });
+
+
+        });
+
+    mongo.getBidHistory(940,outputCallback);
+
 }
 
 setTimeout(function(){
     //wait 1 sec to let mongo connect for testing.
     //in prod it is fine, since no queries should execute immediately
-    testDB();
+    //testDB();
 },1000);
