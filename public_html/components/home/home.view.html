@@ -6,5 +6,15 @@
     </h1>
 
     <p ng-repeat="item in items">{{item}}</p>
+    <button class="button" ng-click="login('google')"></button>
+    <button class="button" ng-click="logout"></button>
+    <div ng-if="authData.google" class="list card">
+      <div class="item item-avatar">
+        <img ng-src="{{authData.google.cachedUserProfile.avatar_url}}" alt="">
+        <h2>{{authData.google.displayName}}</h2>
+        <p>{{authData.google.username}}</p>
+        <p>Google</p>
+      </div>
+    </div>
 
 </div>
