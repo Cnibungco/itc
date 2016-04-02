@@ -27,7 +27,8 @@ function testDB(){
     var UID = Math.floor((Math.random() * 1000) + 1);
     var outputCallback = function(result){console.log("CALLBACK",result)};
 
-    mongo.getUserInfo(999999, "a_cool_username", outputCallback);
+    mongo.createNewUser(UID, "cool_username", outputCallback);
+    //mongo.getUserInfo(999999, "a_cool_username", outputCallback);
 
     var auctionID;
 
@@ -41,10 +42,10 @@ function testDB(){
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
 
-        });
+             });
         });
 
-    mongo.getBidHistory(940,outputCallback);
+    mongo.getBidHistory(UID,outputCallback);
 }
 
 setTimeout(function(){

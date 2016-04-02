@@ -6,6 +6,8 @@ var db;
 var users_collection;
 var bids_collection;
 var auctions_collection;
+var bid_history__collection;
+
 
 var exports = module.exports = {}
 
@@ -50,7 +52,16 @@ exports.createNewUser = function(userID, username, callback){
         console.log("+++USER CREATED+++");
         var userDocument = result.ops[0];
         callback(userDocument);
+    });
+
+    var emptyBidHistory = {
+        _id: userID,
+        history: []
+    };
+    bid_history__collection.insert(emptyBidHistory, function(err, result){
+        console.log("+++Initialized New User's Bid History in bid_history_collection");
     })
+
 };
 
 exports.createNewAuction = function(userID, title, description, startingAmount, callback){
@@ -58,7 +69,8 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
         title: title,
         description: description,
         userID: userID,
-        startingAmount : startingAmount
+        startingAmount : startingAmount,
+        bids: []
     };
 
     auctions_collection.insert(auction, function(err, result){
@@ -72,7 +84,8 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
             console.log("Updated user.auctions[] with users new auction");
         });
     })
-}
+};
+
 
 exports.createNewBid = function(userID, bidAmount, auctionID, callback){
     var bid = {
@@ -88,24 +101,41 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
         var bidDocument = result.ops[0];
         callback(bidDocument);
 
+        //Update users_collections.bids[]
         users_collection.update({_id: userID},{$push: {bids: bidDocument._id}}, function(err, added){
             if(err) throw err;
             console.log("Updated user.bids[] with users new bid.");
         });
+
+        //Update auctions_collections.bids[]
+        auctions_collection.update({_id: auctionID},{$push: {bids: bidDocument._id}}, function(err, added){
+            if(err) throw err;
+            console.log("Updated auction.bids[] with users new bid.");
+        });
+
+        //update user's bid_history_collection.history[]
+        auctions_collection.findOne({_id: auctionID},function(err, result){
+            console.log("AUCTION: ", result)
+            var newBidHistoryBid = {
+                bid: bidDocument,
+                auction: result
+            };
+            console.log("newBidHistoryBid",newBidHistoryBid)
+            bid_history__collection.update({_id: userID},{$push: {history: newBidHistoryBid}}, function(err, added){
+                if(err) throw err;
+                console.log("Updated bid_history_collection.history[] with users new bid.");
+            });
+        });
     })
-}
+};
 
 exports.getBidHistory = function(userID, callback){
     var user = {_id: userID};
-    users_collection.find(user,{bids: true}).toArray( function(err, result){
+    bid_history__collection.find(user,{history: true}).toArray( function(err, result){
 
-        console.log("====Got User Bids====");
-        var bids = result[0].bids;
-        bids_collection.find({ _id: { $in: bids } }).toArray(function(err, result){
-            if (err) throw err;
-            console.log("====Got User Bids Info====")
-            callback(result)
-        });
+        console.log("====Got Bid History for user: "+userID +"====");
+        callback(result);
+
     });
 };
 
@@ -116,31 +146,12 @@ mongodb.MongoClient.connect(uri, function(err, dbRef) {
     if(err) throw err;
     db = dbRef;
     setupCollections();
-
-    //createNewUser("googleUNIQUETHINGFROMOAUTH", "isaacsiegel", function(){});
-
-    //createNewAuction("googleUNIQUETHINGFROMOAUTH", "Mow My Lawn",
-    //    "I would like someone to mow my lawn once a week. I have a lawnmower.", 20, function(){});
-    //
-    //createNewBid("googleUNIQUETHINGFROMOAUTH", 20, function(){});
-
-
-
-    //getUserInfo("googleUNIQUETHINGFROMOAUTH",function(){});
-
-    //var thing = cursor.toArray(function(err,result){
-    //    console.log(result)
-    //
-    //});
-    //cursor.each(function(err,doc){
-    //    console.log(doc)
-    //
-    //})
 });
 
 
 function setupCollections(){
     users_collection = db.collection('users');
     bids_collection = db.collection('bids');
-    auctions_collection = db.collection('requests');
+    auctions_collection = db.collection('auctions');
+    bid_history__collection = db.collection("bid_history");
 }
