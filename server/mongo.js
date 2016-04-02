@@ -14,15 +14,24 @@ exports.foo = function(){
 }
 
 
-exports.getUserInfo = function(userID, callback){
-    console.log(userID);
+exports.getUserInfo = function(userID, username, callback){
     //users_collection.findOne({ _id: new ObjectId(userID)},
     users_collection.findOne({ _id: userID},
         function(err,result){
             if (err) throw err;
             console.log("===RETRIEVED USER===");
-            console.log(result);
-            callback(result);
+            if (!result){
+                //first time user, create account
+                console.log("===NEW USER===")
+                exports.createNewUser(userID, username, function(result){
+                    callback(result);
+                });
+            }
+            else{
+                console.log("===RETURNING USER===")
+                console.log(result);
+                callback(result);
+            }
         }
     );
 }

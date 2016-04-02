@@ -52,28 +52,24 @@ function testDB(){
     var UID = Math.floor((Math.random() * 1000) + 1);
     var outputCallback = function(result){console.log("CALLBACK",result)};
 
-    // mongo.getUserInfo(940,outputCallback);
-    // mongo.createNewUser(UID, "a_cool_username", outputCallback);
+    mongo.getUserInfo(999999, "a_cool_username", outputCallback);
 
-    // var auctionID;
+    var auctionID;
 
-    // mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
-    //     function(result){
-    //         auctionID = result._id;
-    //         console.log(result);
+    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
+        function(result){
+             auctionID = result._id;
+             console.log(result);
 
-    //         //Bid on my own auction 3 times
-    //         mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
-    //         mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
-    //         mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
+             //Bid on my own auction 3 times
+             mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+             mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+             mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
 
-    //         });
+        });
+        });
 
-
-    //     });
-
-    // mongo.getBidHistory(940,outputCallback);
-
+    mongo.getBidHistory(940,outputCallback);
 }
 
 setTimeout(function(){
