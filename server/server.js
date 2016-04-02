@@ -15,20 +15,16 @@ app.get(/^(.+)$/, function(req, res){
 });
 io.on('connection', function(socket){
   console.log('a user connected');
-  	socket.on("bidHistory",function(uid){
-  		bidHistory(uid,function(history){
-  			socket.emit("bidHistory",history);
-  		})
-  	});
-
-    setInterval(function() {
-        socket.emit("hello",{
-            hello: "hi",
-            goodbye: 124
-        })
-    }, 1000);
-
-
+  socket.on("createNewBid", function(data){
+    mongo.createNewBid(data.uid,data.cost,data.aid,function(data){
+      socket.emit("createNewBid",data);
+    });
+  });
+  socket.on("getUserInfo",function(data){
+    mongo.getUserInfo(data.uid, function(obj){
+      socket.emit("getUserInfo", obj);
+    })
+  })
 });
 
 http.listen(8080, function(){
