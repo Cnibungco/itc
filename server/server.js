@@ -41,8 +41,26 @@ var bidHistory = function(uid, callback){
 }
 
 function testDB(){
-    setTimeout(function(){
-        mongo.createNewUser()
+    mongo.foo();
+    //UID needs to come from oauth, random for testing
+    var UID = Math.floor((Math.random() * 1000) + 1);
+    var outputCallback = function(result){console.log("CALLBACK",result)};
 
-    },1000)
+    mongo.createNewUser(UID, "a_cool_username", outputCallback);
+
+
+    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20, outputCallback)
+
+    //Bid on my own auction 5 times
+    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
+    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
+    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
+    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
+    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
 }
+
+setTimeout(function(){
+    //wait 1 sec to let mongo connect for testing.
+    //in prod it is fine, since no queries should execute immediately
+    testDB();
+},1000);

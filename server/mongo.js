@@ -10,7 +10,7 @@ var auctions_collection;
 var exports = module.exports = {}
 
 exports.foo = function(){
-  console.log("HELLO");
+  console.log("MONGO FOO");
 }
 
 exports.getUserInfo = function(userID, callback){
