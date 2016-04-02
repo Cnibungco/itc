@@ -15,20 +15,26 @@ app.get(/^(.+)$/, function(req, res){
 });
 io.on('connection', function(socket){
   console.log('a user connected');
-  	socket.on("bidHistory",function(uid){
-  		bidHistory(uid,function(history){
-  			socket.emit("bidHistory",history);
-  		})
-  	});
-
-    setInterval(function() {
-        socket.emit("hello",{
-            hello: "hi",
-            goodbye: 124
-        })
-    }, 1000);
-
-
+  socket.on("createNewBid", function(data){
+    mongo.createNewBid(data.uid,data.cost,data.aid,function(data){
+      socket.emit("createNewBid",data);
+    });
+  });
+  socket.on("getUserInfo",function(data){
+    mongo.getUserInfo(data.uid, function(obj){
+      socket.emit("getUserInfo", obj);
+    })
+  });
+  socket.on("createNewAuction",function(data){
+    mongo.createNewAuction(data.uid,data.title,data.description,data.startingAmount,function(result){
+      socket.emit("createNewAuction",result);
+    });
+  });
+  socket.on("getBidHistory",function(data){
+    mongo.getBidHistory(data.bid,function(result){
+      socket.emit("getBidHistory",result);
+    });
+  });
 });
 
 http.listen(8080, function(){
@@ -48,19 +54,29 @@ function testDB(){
 
     mongo.createNewUser(UID, "a_cool_username", outputCallback);
 
+    var auctionID;
 
-    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20, outputCallback)
+    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
+        function(result){
+            auctionID = result._id;
+            console.log(result);
 
-    //Bid on my own auction 5 times
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
-    mongo.createNewBid(UID, (Math.random() * 10) + 1, outputCallback);
+            //Bid on my own auction 3 times
+            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+            mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
+
+            });
+
+
+        });
+
+    mongo.getBidHistory(940,outputCallback);
+
 }
 
 setTimeout(function(){
     //wait 1 sec to let mongo connect for testing.
     //in prod it is fine, since no queries should execute immediately
-    testDB();
+    //testDB();
 },1000);

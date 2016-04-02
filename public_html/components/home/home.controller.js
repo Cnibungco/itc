@@ -1,7 +1,6 @@
-myApp.controller('HomeController', ['$scope', 'mySocket', 'Auth', function($scope, mySocket, Auth) {
-
+myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeService','Auth', function($scope, mySocket,RequestFactory,MeService, Auth) {
     $scope.title = "Home";
-
+    $scope.me = MeService.setID(23123);
 
     mySocket.on('hello', function () {
         console.log("WASSUP");
