@@ -11,7 +11,7 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeS
     $scope.items = ["A", "List", "From", "HomeCtrl"];
 
     $scope.login = function(authMethod) {
-    Auth.$authWithOAuthRedirect(authMethod).then(function(authData) {
+    Auth.$authWithOAuthRedirect(authMethod).then(function(authData){
     }).catch(function(error) {
       if (error.code === 'TRANSPORT_UNAVAILABLE') {
         Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
@@ -25,11 +25,12 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeS
     if (authData === null) {
       console.log('Not logged in yet');
     } else {
+      MeService.setID(authData.uid, authData.google.displayName); 
       console.log('Logged in as', authData.uid);
+         
     }
     // This will display the user's name in our view
     $scope.authData = authData;
-        console.log(authData);
   });
     $scope.logout = function(){
         var ref = Auth;
