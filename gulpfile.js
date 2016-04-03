@@ -7,8 +7,9 @@ var gulp = require('gulp'),
 	lr = require('gulp-livereload');
 
 var PUBLIC_DIR = 'public_html/';
-var SCSS_SRC = PUBLIC_DIR + 'scss/**/*.scss';
-var CSS_DIR = PUBLIC_DIR + 'css/';
+var SCSS_SRC = PUBLIC_DIR + 'assets/scss/**/*.scss';
+var CSS_DIR = PUBLIC_DIR + 'assets/css/';
+var SERVER_DIR = 'server/**/*.js';
 var SERVER_FILE = 'server/server.js';
 var JS_SRC = PUBLIC_DIR + '**/*.js';
 
@@ -36,7 +37,7 @@ gulp.task('start', function () {
   	script: SERVER_FILE,
   	ext: 'js',
   	env: { 'NODE_ENV': 'development' },
-  	watch: [SERVER_FILE]
+  	watch: [SERVER_DIR]
   })
 });
 gulp.task("install",function(){
