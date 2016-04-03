@@ -31,6 +31,8 @@ function testDB(){
     //mongo.getUserInfo(999999, "a_cool_username", outputCallback);
 
     var auctionID;
+    mongo.login(UID, "cool_username", outputCallback);
+    mongo.getUserInfo(UID, outputCallback);
 
     mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
         function(result){

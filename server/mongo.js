@@ -110,8 +110,8 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
 };
 
 //Getters
-exports.getUserInfo = function(userID, username, callback){
-    console.log("MONGO: getUserInfo");
+exports.login = function(userID, username, callback){
+    console.log("MONGO: login");
     //users_collection.findOne({ _id: new ObjectId(userID)},
     users_collection.findOne({ _id: userID},
         function(err,result){
@@ -129,7 +129,18 @@ exports.getUserInfo = function(userID, username, callback){
             }
         }
     );
-}
+};
+
+exports.getUserInfo = function(userID, callback){
+    console.log("MONGO: getUserInfo");
+    users_collection.findOne({ _id: userID},
+        function(err,result){
+            if (err) throw err;
+            console.log("getUserIngo",result)
+            callback(result);
+        }
+    );
+};
 
 exports.getBidHistory = function(userID, callback){
     console.log("MONGO: getBidHistory");
