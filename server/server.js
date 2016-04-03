@@ -24,7 +24,7 @@ http.listen(8080, function(){
 function testDB(){
     mongo.foo();
     //UID needs to come from oauth, random for testing
-    var UID = Math.floor((Math.random() * 1000) + 1);
+    var UID = Math.floor((Math.random() * 1000) + 1) + "";
     var outputCallback = function(result){console.log("CALLBACK",result)};
 
     mongo.createNewUser(UID, "cool_username", outputCallback);
@@ -50,6 +50,8 @@ function testDB(){
     mongo.getBidHistory(UID,outputCallback);
 
     mongo.searchAuctions("lawn",outputCallback)
+
+    mongo.getUserOpenAuctions("google:115290454625517269520",outputCallback)
 }
 
 setTimeout(function(){

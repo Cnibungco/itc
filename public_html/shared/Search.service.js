@@ -2,13 +2,13 @@ myApp.service("SearchService", function(mySocket){
 	service = this;
 
 	this.text = "";
-	this.result = {};
+	this.results = [];
 
 	this.search = function(text){
 		console.log("searching: " + text);
 		callback = function(data){
-			service.result = data;
-			console.log(data);
+			service.results = data;
+			console.log(service.results);
 			mySocket.removeListener("searchAuctions");
 		}
 		mySocket.emit("searchAuctions", text);
@@ -18,7 +18,7 @@ myApp.service("SearchService", function(mySocket){
 	this.getText = function(){
 		return service.text;
 	}
-	this.getResult = function(){
-		return service.result;
+	this.getResults = function(){
+		return service.results;
 	}
 })

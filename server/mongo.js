@@ -154,8 +154,10 @@ exports.getBidHistory = function(userID, callback){
 exports.getAuctionDetails = function(auctionID, callback){
     console.log("MONGO: getAuctionDetails");
 
-    auctions_collection.findOne({_id: auctionID}, function(err, result){
+    auctions_collection.findOne({ _id: new ObjectId(auctionID)}, function(err, result){
+        if (err) throw err;
         var auctionDocument = result;
+        console.log("DOC",auctionDocument)
         bids_collection.find({_id: { $in: auctionDocument.bids }})
             .toArray(
                 function(err, result){
@@ -189,6 +191,12 @@ exports.getAuctionDetails = function(auctionID, callback){
                 }
             );
     });
+};
+
+exports.getUserOpenAuctions = function(userID, callback){
+    users_collection.findOne({_id: userID},{auctions: true}, function(err, result){
+        callback(result);
+    })
 };
 
 exports.searchAuctions = function(searchText, callback){
