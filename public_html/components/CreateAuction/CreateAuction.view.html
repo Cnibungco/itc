@@ -2,4 +2,11 @@
     <h1>
         {{title}}
     </h1>
+
+    <input ng-model="formInput.title" type="text" class="form-control" placeholder="Auction Title">
+    <input type="formInput.summary" class="form-control" placeholder="Auction Summary">
+    <input type="formInput.startingPrice" class="form-control" placeholder="Auction Starting Price">
+
+    <button class="btn btn-default" type="button" ng-click="submit()">Search</button>
+
 </div>
