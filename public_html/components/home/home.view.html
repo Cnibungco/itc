@@ -18,8 +18,16 @@
         </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
 
-    <button class="button" ng-click="login('google')"></button>
-    <button class="button" ng-click="logout()"></button>
+
+    <div>
+        <!--AuctionCard ng-repeat=""-->
+        <p ng-repeat="auction in auctionSearchResults">
+            {{JSON.stringify(auction)}}
+        </p>
+    </div>
+
+    <button class="button" ng-click="login('google')">LOGIN</button>
+    <button class="button" ng-click="logout()">LOGOUT</button>
     <div ng-if="authData.google" class="list card">
       <div class="item item-avatar">
         <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
