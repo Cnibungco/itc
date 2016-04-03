@@ -16,10 +16,10 @@ myApp.service("MeService", function(mySocket){
 				service.auctions = data.auctions; 
 				service.comments = data.comments;
 			}
-			mySocket.removeListener("getUserInfo", callback);
+			mySocket.removeListener("login", callback);
 		}
-		mySocket.emit("getUserInfo", {uid:id,username: username});
-		mySocket.on("getUserInfo", callback);
+		mySocket.emit("login", {uid:id,username: username});
+		mySocket.on("login", callback);
 		service.uid = id;
 	}
 	this.getUId = function(){

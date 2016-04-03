@@ -24,13 +24,16 @@ exports.listen = function(http,io){
       });
     });
 
-    socket.on("getUserInfo",function(data){
-      mongo.getUserInfo(data.uid, data.username, function(obj){
-        if(user == null){ //THIS WILL NOT WORK LATER!!!!! HOW DO WE TELL ITS A LOGIN????
-          user = data;
-          console.log(user.username + " logged in.");
-        } 
+    socket.on("getUserInfo",function(uid){
+      mongo.getUserInfo(uid, function(obj){
         socket.emit("getUserInfo", obj);
+      })
+    });
+    socket.on("login",function(data){
+      mongo.login(data.uid, data.username, function(obj){
+        user = data;
+        console.log(user.username + " logged in.");
+        socket.emit("login", obj);
       })
     });
 
