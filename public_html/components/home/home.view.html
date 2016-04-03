@@ -18,8 +18,8 @@
         </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
 
-    <button class="button" ng-click="login('google')"></button>
-    <button class="button" ng-click="logout()"></button>
+    <button type="button" class="btn btn-primary" ng-click="login('google')">Login</button>
+    <button type="button" class="btn btn-danger" ng-click="logout()">Logout</button>
     <div ng-if="authData.google" class="list card">
       <div class="item item-avatar">
         <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
