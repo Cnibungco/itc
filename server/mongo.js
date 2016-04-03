@@ -157,7 +157,6 @@ exports.getAuctionDetails = function(auctionID, callback){
     auctions_collection.findOne({ _id: new ObjectId(auctionID)}, function(err, result){
         if (err) throw err;
         var auctionDocument = result;
-        console.log("DOC",auctionDocument)
         bids_collection.find({_id: { $in: auctionDocument.bids }})
             .toArray(
                 function(err, result){
