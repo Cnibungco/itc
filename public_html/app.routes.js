@@ -34,7 +34,11 @@
         templateUrl: "components/MyOpenAuctions/MyOpenAuctions.view.html",
         controller: "MyOpenAuctionsController"
     })
-
+    .state('CreateAuction', {
+        url: "/CreateAuction",
+        templateUrl: "components/CreateAuction/CreateAuction.view.html",
+        controller: "CreateAuctionController"
+    })
     .state('state1', {
       url: "/state1",
       templateUrl: "state1.html"
