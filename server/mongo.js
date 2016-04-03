@@ -81,6 +81,7 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
 
         var bidDocument = result.ops[0];
         callback(bidDocument);
+        updateAuctionLowestPrice(auctionID, bidAmount);
 
         //Update users_collections.bids[] and auction.bidHistory[]
         users_collection.update({_id: userID},{$push: {bids: bidDocument._id}}, function(err, added){
@@ -178,6 +179,22 @@ exports.getAuctionDetails = function(auctionID, callback){
             );
     });
 };
+
+exports.searchAuctions = function(searchText, callback){
+    auctions_collection.find({ $text: { $search: searchText}}).toArray({
+
+    })
+}
+
+//PRIVATE FUNCTIONS
+function updateAuctionLowestPrice(auctionID, bidAmount){
+    auctions_collection.findOne({_id: auctionID},{currentLowestPrice: true}, function(err, result){
+        var currentPrice = result.currentLowestPrice;
+        if (currentPrice == "-" || currentPrice > bidAmount){
+            auctions_collection.update({_id: auctionID}, {$set: {currentLowestPrice: bidAmount}});
+        }
+    })
+}
 
 //Mongo Setup
 mongodb.MongoClient.connect(uri, function(err, dbRef) {
