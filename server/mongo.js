@@ -181,10 +181,26 @@ exports.getAuctionDetails = function(auctionID, callback){
 };
 
 exports.searchAuctions = function(searchText, callback){
-    auctions_collection.find({ $text: { $search: searchText}}).toArray({
-
+    auctions_collection.find({ $text: { $search: searchText}}).toArray(function(err, result){
+        var auctionDocuments = result;
+        var remainingQueryCount = auctionDocuments.length;
+        if (auctionDocuments.length == 0){
+            callback([]);
+            return;
+        }
+        auctionDocuments.forEach(function(auction){
+            (function(auction){
+                users_collection.findOne({_id: auction.userID},function(err, result){
+                    auction.user = result;
+                    remainingQueryCount--;
+                    if (remainingQueryCount == 0){
+                        callback(auctionDocuments)
+                    }
+                });
+            }(auction))
+        })
     })
-}
+};
 
 //PRIVATE FUNCTIONS
 function updateAuctionLowestPrice(auctionID, bidAmount){

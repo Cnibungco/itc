@@ -46,6 +46,8 @@ function testDB(){
         });
 
     mongo.getBidHistory(UID,outputCallback);
+
+    mongo.searchAuctions("lawn",outputCallback)
 }
 
 setTimeout(function(){
