@@ -8,20 +8,113 @@ var bids_collection;
 var auctions_collection;
 var bid_history__collection;
 
-
 var exports = module.exports = {}
 
 exports.foo = function(){
   console.log("MONGO FOO");
 }
 
+//Creators
+exports.createNewUser = function(userID, username, callback){
+    console.log("MONGO: createNewUser");
 
+    var aUser = {
+        _id: userID,
+        username: username,
+        bids: [],
+        auctions: [],
+        comments: {
+        }
+    };
+
+    users_collection.insert(aUser, function(err, result){
+        if(err) throw err;
+        var userDocument = result.ops[0];
+        callback(userDocument);
+    });
+
+    var emptyBidHistory = {
+        _id: userID,
+        history: []
+    };
+    bid_history__collection.insert(emptyBidHistory, function(err, result){
+        //console.log("+++Initialized New User's Bid History in bid_history_collection");
+    })
+};
+
+exports.createNewAuction = function(userID, title, description, startingAmount, callback){
+    console.log("MONGO: createNewAuction");
+
+    var auction = {
+        title: title,
+        description: description,
+        userID: userID,
+        startingAmount : startingAmount,
+        bids: [],
+        isOpen: true,
+        currentLowestPrice: "-"
+    };
+
+    auctions_collection.insert(auction, function(err, result){
+        if(err) throw err;
+        var auctionDocument = result.ops[0];
+        callback(auctionDocument);
+
+        //Update user.auctions[] with users new auction
+        users_collection.update({_id: userID},{$push: {auctions: auctionDocument._id}}, function(err, added){
+            if(err) throw err;
+        });
+    })
+};
+
+exports.createNewBid = function(userID, bidAmount, auctionID, callback){
+    console.log("MONGO: createNewBid");
+    var bid = {
+        userID: userID,
+        amount : bidAmount,
+        auctionID: auctionID
+    };
+
+    bids_collection.insert(bid, function(err, result){
+        if(err) throw err;
+        //console.log("+++BID CREATED+++");
+
+        var bidDocument = result.ops[0];
+        callback(bidDocument);
+
+        //Update users_collections.bids[] and auction.bidHistory[]
+        users_collection.update({_id: userID},{$push: {bids: bidDocument._id}}, function(err, added){
+            if(err) throw err;
+            //console.log("Updated user.bids[] with users new bid.");
+        });
+
+        //Update auctions_collections.bids[]
+        auctions_collection.update({_id: auctionID},{$push: {bids: bidDocument._id}}, function(err, added){
+            if(err) throw err;
+            //console.log("Updated auction.bids[] with users new bid.");
+        });
+
+        //update user's bid_history_collection.history[]
+        auctions_collection.findOne({_id: auctionID},function(err, result){
+            var newBidHistoryBid = {
+                bid: bidDocument,
+                auction: result
+            };
+            bid_history__collection.update({_id: userID},{$push: {history: newBidHistoryBid}}, function(err, added){
+                if(err) throw err;
+                //console.log("Updated bid_history_collection.history[] with users new bid.");
+            });
+        });
+    })
+};
+
+//Getters
 exports.getUserInfo = function(userID, username, callback){
+    console.log("MONGO: getUserInfo");
     //users_collection.findOne({ _id: new ObjectId(userID)},
     users_collection.findOne({ _id: userID},
         function(err,result){
             if (err) throw err;
-            console.log("===RETRIEVED USER===");
             if (!result){
                 //first time user, create account
                 console.log("===NEW USER===")
@@ -37,110 +130,18 @@ exports.getUserInfo = function(userID, username, callback){
     );
 }
 
-exports.createNewUser = function(userID, username, callback){
-    var aUser = {
-        _id: userID,
-        username: username,
-        bids: [],
-        auctions: [],
-        comments: {
-        }
-    };
-
-    users_collection.insert(aUser, function(err, result){
-        if(err) throw err;
-        console.log("+++USER CREATED+++");
-        var userDocument = result.ops[0];
-        callback(userDocument);
-    });
-
-    var emptyBidHistory = {
-        _id: userID,
-        history: []
-    };
-    bid_history__collection.insert(emptyBidHistory, function(err, result){
-        console.log("+++Initialized New User's Bid History in bid_history_collection");
-    })
-
-};
-
-exports.createNewAuction = function(userID, title, description, startingAmount, callback){
-    var auction = {
-        title: title,
-        description: description,
-        userID: userID,
-        startingAmount : startingAmount,
-        bids: [],
-        bidHistory: [],
-        isOpen: true,
-        currentLowestPrice: "-"
-    };
-
-    auctions_collection.insert(auction, function(err, result){
-        if(err) throw err;
-        console.log("+++AUCTION CREATED+++");
-        var auctionDocument = result.ops[0];
-        callback(auctionDocument);
-
-        users_collection.update({_id: userID},{$push: {auctions: auctionDocument._id}}, function(err, added){
-            if(err) throw err;
-            console.log("Updated user.auctions[] with users new auction");
-        });
-    })
-};
-
-
-exports.createNewBid = function(userID, bidAmount, auctionID, callback){
-    var bid = {
-        userID: userID,
-        amount : bidAmount,
-        auctionID: auctionID
-    };
-
-    bids_collection.insert(bid, function(err, result){
-        if(err) throw err;
-        console.log("+++BID CREATED+++");
-
-        var bidDocument = result.ops[0];
-        callback(bidDocument);
-
-        //Update users_collections.bids[] and auction.bidHistory[]
-        users_collection.update({_id: userID},{$push: {bids: bidDocument._id}}, function(err, added){
-            if(err) throw err;
-            console.log("Updated user.bids[] with users new bid.");
-        });
-
-        //Update auctions_collections.bids[]
-        auctions_collection.update({_id: auctionID},{$push: {bids: bidDocument._id}}, function(err, added){
-            if(err) throw err;
-            console.log("Updated auction.bids[] with users new bid.");
-        });
-
-        //update user's bid_history_collection.history[]
-        auctions_collection.findOne({_id: auctionID},function(err, result){
-            var newBidHistoryBid = {
-                bid: bidDocument,
-                auction: result
-            };
-            bid_history__collection.update({_id: userID},{$push: {history: newBidHistoryBid}}, function(err, added){
-                if(err) throw err;
-                console.log("Updated bid_history_collection.history[] with users new bid.");
-            });
-        });
-    })
-};
-
 exports.getBidHistory = function(userID, callback){
+    console.log("MONGO: getBidHistory");
     var user = {_id: userID};
     bid_history__collection.find(user,{history: true}).toArray( function(err, result){
-
-        console.log("====Got Bid History for user: "+userID +"====");
+        //console.log("====Got Bid History for user: "+userID +"====");
         callback(result);
-
     });
 };
 
 exports.getAuctionDetails = function(auctionID, callback){
+    console.log("MONGO: getAuctionDetails");
+
     auctions_collection.findOne({_id: auctionID}, function(err, result){
         var auctionDocument = result;
         bids_collection.find({_id: { $in: auctionDocument.bids }})
@@ -178,16 +179,12 @@ exports.getAuctionDetails = function(auctionID, callback){
     });
 };
 
-
-
-
-//Connect to mLab
+//Mongo Setup
 mongodb.MongoClient.connect(uri, function(err, dbRef) {
     if(err) throw err;
     db = dbRef;
     setupCollections();
 });
-
 
 function setupCollections(){
     users_collection = db.collection('users');
