@@ -4,15 +4,37 @@
 
   $stateProvider
     .state('Home', {
-      url: "/",
-      templateUrl: "components/Home/home.view.html",
-      controller: "HomeController"
+        url: "/",
+        templateUrl: "components/Home/home.view.html",
+        controller: "HomeController"
+    })
+    .state('ActiveBids', {
+        url: "/ActiveBids",
+        templateUrl: "components/ActiveBids/ActiveBids.view.html",
+        controller: "ActiveBidsController"
+    })
+    .state('AuctionDetails', {
+        url: "/AuctionDetails",
+        templateUrl: "components/AuctionDetails/AuctionDetails.view.html",
+        controller: "AuctionDetailsController"
     })
     .state('BidHistory', {
-      url: "/bidHistory",
-      templateUrl: "components/BidHistory/BidHistory.view.html",
-      controller: "BidHistoryController"
+        url: "/bidHistory",
+        templateUrl: "components/BidHistory/BidHistory.view.html",
+        controller: "BidHistoryController"
     })
+
+    .state('MyAuctionHistory', {
+        url: "/MyAuctionHistory",
+        templateUrl: "components/MyAuctionHistory/MyAuctionHistory.view.html",
+        controller: "MyAuctionHistoryController"
+    })
+    .state('MyOpenAuctions', {
+        url: "/MyOpenAuctions",
+        templateUrl: "components/MyOpenAuctions/MyOpenAuctions.view.html",
+        controller: "MyOpenAuctionsController"
+    })
+
     .state('state1', {
       url: "/state1",
       templateUrl: "state1.html"
