@@ -162,7 +162,9 @@ exports.getAuctionDetails = function(auctionID, callback){
                 function(err, result){
                     var auctionBids = result;
                     var remainingQueries = auctionBids.length;
-
+                    if (remainingQueries == 0){
+                        callback(auctionDocument);
+                    }
                     for (var i = 0; i < auctionBids.length; i++) {
                         var bid = auctionBids[i];
                         (function (bid){
