@@ -1,9 +1,5 @@
-myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeService','Auth', 'GetBidHistoryService', 'CreateBidService' , 'CreateAuctionService' , 'NewAuctionListenerService' ,'AuthData',
-	function($scope, mySocket,RequestFactory,MeService, Auth, GetBidHistoryService, CreateBidService, CreateAuctionService, NewAuctionListenerService, AuthData) {
-  	// $scope.hist.getBidHistory("123");
-  	// $scope.createBid = CreateBidService;
-
-  	// $scope.createBid.createNewBid("123",12313,"1231");
+myApp.controller('HomeController', ['$scope', 'mySocket', 'MeService','Auth', 'AuthData', 'SearchService', 
+	function($scope, mySocket,MeService, Auth, AuthData, SearchService) {
 
     $scope.items = ["A", "List", "From", "HomeCtrl"];
     $scope.title = "Home";
@@ -17,25 +13,12 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeS
 
     $scope.me = MeService;
 
-    $scope.NewAuctionListener = NewAuctionListenerService;
-    $scope.CreateAuction = CreateAuctionService;
+    $scope.formInput;
+    $scope.auctionSearchResults = function(){
+        return SearchService.getResults()
+    };
 
-    setInterval(function(){
-		// console.log("hi")
-		// $scope.title = "Home";
-		// $scope.me = MeService;
-		// $scope.hist = GetBidHistoryService;
-		// $scope.hist.getBidHistory(MeService.getUId());
-		// $scope.CreateAuction.createAuction("myTitle","myDescription",555);
-		// console.log("added");
-		// $scope.createBid = CreateBidService;
-		// $scope.createBid.createNewBid(12313,"1231");
-	},2000);
-	setTimeout(function(){
-		// $scope.NewAuctionListener.listen(function(data){
-		// 	console.log(data);
-		// });
-	},3000);
-	
-
+    $scope.search = function(){
+    	SearchService.search($scope.formInput.searchText);
+    }
 }]);

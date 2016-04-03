@@ -8,18 +8,22 @@
 
     </h1>
 
-
-    <div class="col-lg-6">
+    <div class="col-sm-12">
         <div class="input-group">
-            <input ng-model="formInput.searchText" type="text" class="form-control" placeholder="Search for Auctions...">
-      <span class="input-group-btn">
-        <button ng-click="search()" class="btn btn-default" type="button">Go!</button>
-      </span>
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-
-    <button type="button" class="btn btn-primary" ng-click="login('google')">Login</button>
+        <input ng-model="formInput.searchText" type="text" class="form-control" placeholder="Search for Auctions...">
+    <button ng-click="search()" class="btn btn-default" type="button">Go!</button>
+            </br>
+        <button type="button" class="btn btn-primary" ng-click="login('google')">Login</button>
     <button type="button" class="btn btn-danger" ng-click="logout()">Logout</button>
+    <div>
+    </div><!-- /.col-lg-6 -->
+    <div>
+        <!--AuctionCard ng-repeat=""-->
+        <p ng-repeat="auction in auctionSearchResults()">
+            {{auction}}
+        </p>
+    </div>
+
     <div ng-if="authData.google" class="list card">
       <div class="item item-avatar">
         <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">

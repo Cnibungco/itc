@@ -23,7 +23,12 @@ exports.listen = function(http,io){
         }
       });
     });
+    socket.on("searchAuctions",function(text){
+      mongo.searchAuctions(text,function(results){
 
+        socket.emit("searchAuctions",results);
+      })
+    })
     socket.on("getUserInfo",function(uid){
       mongo.getUserInfo(uid, function(obj){
         socket.emit("getUserInfo", obj);
@@ -38,7 +43,7 @@ exports.listen = function(http,io){
     });
 
     socket.on("createNewAuction",function(data){
-      mongo.createNewAuction(user.uid,data.title,data.description,data.startingAmount,function(result){
+      mongo.createNewAuction(user.uid,data.title,data.description,data.startingPrice,function(result){
         socket.emit("createNewAuction",result);
         for(key in sockets){
           if(sockets[key].listenAuctions == true)
