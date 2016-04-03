@@ -1,41 +1,25 @@
-myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeService','Auth', 'GetBidHistoryService', 'CreateBidService' , 'CreateAuctionService' , 'NewAuctionListenerService' , 
-	function($scope, mySocket,RequestFactory,MeService, Auth, GetBidHistoryService, CreateBidService, CreateAuctionService, NewAuctionListenerService) {
+myApp.controller('HomeController', ['$scope', 'mySocket', 'RequestFactory', 'MeService','Auth', 'GetBidHistoryService', 'CreateBidService' , 'CreateAuctionService' , 'NewAuctionListenerService' ,'AuthData',
+	function($scope, mySocket,RequestFactory,MeService, Auth, GetBidHistoryService, CreateBidService, CreateAuctionService, NewAuctionListenerService, AuthData) {
   	// $scope.hist.getBidHistory("123");
   	// $scope.createBid = CreateBidService;
 
   	// $scope.createBid.createNewBid("123",12313,"1231");
 
     $scope.items = ["A", "List", "From", "HomeCtrl"];
+    $scope.title = "Home";
 
-    $scope.login = function(authMethod) {
-    Auth.$authWithOAuthRedirect(authMethod).then(function(authData){
-    }).catch(function(error) {
-      if (error.code === 'TRANSPORT_UNAVAILABLE') {
-        Auth.$authWithOAuthPopup(authMethod).then(function(authData) {
-        });
-      } else {
-        console.log(error);
-      }
-    });
-  };
-    Auth.$onAuth(function(authData) {
-    if (authData === null) {
-      console.log('Not logged in yet');
-    } else {
-      MeService.setID(authData.uid, authData.google.displayName); 
-      console.log('Logged in as', authData.uid);
-         
-    }
-    // This will display the user's name in our view
-    $scope.authData = authData;
-  });
-    $scope.logout = function(){
-        var ref = Auth;
-        ref.$unauth();
-    };
 
-  	$scope.NewAuctionListener = NewAuctionListenerService;
-  	$scope.CreateAuction = CreateAuctionService;
+    $scope.login = AuthData.login;
+
+    //$scope.authData = AuthData.getAuthData();
+
+    $scope.logout = AuthData.logout;
+
+    $scope.me = MeService;
+
+    $scope.NewAuctionListener = NewAuctionListenerService;
+    $scope.CreateAuction = CreateAuctionService;
+
     setInterval(function(){
 		// console.log("hi")
 		// $scope.title = "Home";

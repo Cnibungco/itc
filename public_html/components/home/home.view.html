@@ -4,6 +4,8 @@
     <h1>
         {{title}}
         {{me.getUId()}}
+        {{me.getUsername()}}
+
     </h1>
 
     <p ng-repeat="item in items">{{item}}</p>
@@ -14,7 +16,8 @@
         <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
         <h2>{{authData.google.displayName}}</h2>
         <p>{{authData.google.username}}</p>
-        <p>Google</p>
+
+          <p>Google</p>
       </div>
     </div>
 
