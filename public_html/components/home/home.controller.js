@@ -14,11 +14,11 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'MeService','Auth', 'A
     $scope.me = MeService;
 
     $scope.formInput;
-    $scope.auctionSearchResults = {};
-    $scope.auctionSearchResults.results = ["his"];
+    $scope.auctionSearchResults = function(){
+        return SearchService.getResults()
+    };
 
     $scope.search = function(){
     	SearchService.search($scope.formInput.searchText);
-    	$scope.auctionSearchResults.results = SearchService.getResults();
     }
 }]);
