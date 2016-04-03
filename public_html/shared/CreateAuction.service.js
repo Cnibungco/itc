@@ -3,22 +3,22 @@ myApp.service("CreateAuctionService", function(mySocket){
 
 	this.title = "";
 	this.description = "";
-	this.startingAmount = "";
+	this.startingPrice = "";
 	this.auctionID = "";
 
-	this.createAuction = function(title,description,startingAmount){
+	this.createAuction = function(title,description,startingPrice){
 		callback = function(data){
 			service.auctionID = data._id;
 		}
 		mySocket.emit("createNewAuction",{
 			title: title,
 			description: description,
-			startingAmount: startingAmount
+			startingPrice: startingPrice
 		});
 		mySocket.on("createNewAuction",callback);
 		service.title = title;
 		service.description = description; 
-		service.startingAmount = startingAmount;
+		service.startingPrice = startingPrice;
 	}
 	this.getTitle = function(){
 		return service.title;
@@ -26,8 +26,8 @@ myApp.service("CreateAuctionService", function(mySocket){
 	this.getDescription = function(){
 		return service.description;
 	}
-	this.getStartingAmount = function(){
-		return service.startingAmount;
+	this.getStartingPrice = function(){
+		return service.startingPrice;
 	}
 	this.getAuctionID = function(){
 		return service.auctionID;
