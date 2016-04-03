@@ -41,7 +41,7 @@ function testDB(){
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
-
+                 mongo.getAuctionDetails(auctionID,outputCallback)
              });
         });
 
