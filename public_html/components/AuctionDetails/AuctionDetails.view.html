@@ -6,10 +6,10 @@
     <h4>{{$auction.title}}</h4>
         <p>{{auction}}</p>
         <p>
-    Description: {{auction.description}}</br>
-    Starting Amount: {{auction.startingAmount}}</br>
-    Current Lowest Price: {{auction.currentLowestPrice}}</br>
-    Client: {{auction.user.username}}</br>
+    Description: {{getAuction().description}}</br>
+    Starting Amount: {{getAuction().startingAmount}}</br>
+    Current Lowest Price: {{getAuction().currentLowestPrice}}</br>
+    Client: {{getAuction().user.username}}</br>
 </p>
     </div>
 

@@ -90,13 +90,13 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
         });
 
         //Update auctions_collections.bids[]
-        auctions_collection.update({_id: auctionID},{$push: {bids: bidDocument._id}}, function(err, added){
+        auctions_collection.update({_id: new ObjectId(auctionID)},{$push: {bids: bidDocument._id}}, function(err, added){
             if(err) throw err;
             //console.log("Updated auction.bids[] with users new bid.");
         });
 
         //update user's bid_history_collection.history[]
-        auctions_collection.findOne({_id: auctionID},function(err, result){
+        auctions_collection.findOne({_id: new ObjectId(auctionID)},function(err, result){
             var newBidHistoryBid = {
                 bid: bidDocument,
                 auction: result
@@ -164,6 +164,7 @@ exports.getAuctionDetails = function(auctionID, callback){
                     var remainingQueries = auctionBids.length;
                     if (remainingQueries == 0){
                         callback(auctionDocument);
+                        return;
                     }
                     for (var i = 0; i < auctionBids.length; i++) {
                         var bid = auctionBids[i];
@@ -236,7 +237,7 @@ function updateAuctionLowestPrice(auctionID, bidAmount){
     auctions_collection.findOne({_id: new ObjectId(auctionID)},{currentLowestPrice: true}, function(err, result){
         var currentPrice = result.currentLowestPrice;
         if (currentPrice == "-" || currentPrice > bidAmount){
-            auctions_collection.update({_id: auctionID}, {$set: {currentLowestPrice: bidAmount}});
+            auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {currentLowestPrice: bidAmount}});
         }
     })
 }

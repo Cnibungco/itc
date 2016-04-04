@@ -34,7 +34,8 @@ function testDB(){
     mongo.login(UID, "cool_username", outputCallback);
     mongo.getUserInfo(UID, outputCallback);
 
-    mongo.createNewAuction(UID,"Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
+    UID = "google:115290454625517269520";
+    mongo.createNewAuction(UID,"helloWorld Mow my Lawn","Mow my lawn twice a week. I live in Long Beach",20,
         function(result){
              auctionID = result._id;
              console.log(result);
@@ -43,7 +44,10 @@ function testDB(){
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
              mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(){
-                 mongo.getAuctionDetails(auctionID,outputCallback)
+                 setTimeout(function(){
+                     mongo.getAuctionDetails(auctionID,outputCallback)
+
+                 },1000)
              });
         });
 
