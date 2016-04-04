@@ -1,4 +1,4 @@
-myApp.service("AuthData", function(Auth, MeService) {
+myApp.service("AuthData", function(Auth, MeService, $state) {
     service = this;
     this.data;
 
@@ -26,6 +26,7 @@ myApp.service("AuthData", function(Auth, MeService) {
     Auth.$onAuth(function (authData) {
         if (authData === null) {
             console.log('Not logged in yet');
+            $state.go("Home");
         } else {
             MeService.setID(authData.uid, authData.google.displayName);
             console.log('Logged in as', authData.uid);

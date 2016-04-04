@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="stylesheet" href="/assets/css/test.css"></link>
 	<title>Test</title>
-    </head>
+</head>
 <body>
  	<div>
-        <a ui-sref="Home">Home</a>
-        <a ui-sref="ActiveBids">ActiveBids</a>
-        <a ui-sref="AuctionDetails">AuctionDetails</a>
-        <a ui-sref="BidHistory">BidHistory</a>
-        <a ui-sref="MyAuctionHistory">MyAuctionHistory</a>
-        <a ui-sref="MyOpenAuctions">MyOpenAuctions</a>
-        <a ui-sref="CreateAuction">CreateAuction</a>
-
-
-        <h1>--------</h1>
+        <navigation></navigation>
         <div ui-view></div>
-
     </div>
 </body>
     <!-- Angular-->
@@ -63,6 +56,7 @@
     <script src="/components/MyOpenAuctions/MyOpenAuctions.controller.js"></script>
     <script src="/components/CreateAuction/CreateAuction.controller.js"></script>
 <script src="/components/ServiceCard/ServiceCard.controller.js"></script>
+<script src="components/navbar.controller.js"></script>
 
 
 	<script type="text/javascript" src="assets/script/test.js"></script>

@@ -4,13 +4,6 @@ myApp.controller('HomeController', ['$scope', 'mySocket', 'MeService','Auth', 'A
     $scope.items = ["A", "List", "From", "HomeCtrl"];
     $scope.title = "Home";
 
-
-    $scope.login = AuthData.login;
-
-    //$scope.authData = AuthData.getAuthData();
-
-    $scope.logout = AuthData.logout;
-
     $scope.me = MeService;
 
     $scope.formInput;

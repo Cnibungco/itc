@@ -4,8 +4,8 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
    	AuctionDetailsService.getAuctionDetails($stateParams.auctionID);
     //replace with obj returned by server
     $scope.auction = function(){
-    	return AuctionDetailsService.getResult();
-    }
+    	return AuctionDetailsService.getResult()
+    };
 
 
 

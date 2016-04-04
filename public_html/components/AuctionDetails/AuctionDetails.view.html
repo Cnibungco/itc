@@ -2,10 +2,15 @@
     <h1>
         {{title}}
     </h1>
-
-    <p>{{auction.title}}</p>
-    <p>{{auction.description}}</p>
-    <p>------</p>
-    <p>{{auction()}}</p>
+    <div>
+    <h4>{{$auction.title}}</h4>
+        <p>{{auction}}</p>
+        <p>
+    Description: {{auction.description}}</br>
+    Starting Amount: {{auction.startingAmount}}</br>
+    Current Lowest Price: {{auction.currentLowestPrice}}</br>
+    Client: {{auction.user.username}}</br>
+</p>
+    </div>
 
 </div>

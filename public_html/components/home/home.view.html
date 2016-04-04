@@ -3,6 +3,7 @@
 
     <h1>
         {{title}}
+        </br>
         {{me.getUId()}}
         {{me.getUsername()}}
 
@@ -11,10 +12,9 @@
     <div class="col-sm-12">
         <div class="input-group">
         <input ng-model="formInput.searchText" type="text" class="form-control" placeholder="Search for Auctions...">
-    <button ng-click="search()" class="btn btn-default" type="button">Go!</button>
+    <button ng-click="search()" ng-submit="search()" class="btn btn-default" type="button">Go!</button>
             </br>
-        <button type="button" class="btn btn-primary" ng-click="login('google')">Login</button>
-    <button type="button" class="btn btn-danger" ng-click="logout()">Logout</button>
+
     <div>
     </div><!-- /.col-lg-6 -->
     <div>
