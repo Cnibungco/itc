@@ -5,6 +5,8 @@ var sockets = {};
 exports.listen = function(http,io){
   io.on('connection', function(socket){
     var user;
+    socket.listenAuction = [];
+
     console.log('Socket "' + socket.id + '" connected');
     sockets[socket.id] = socket;
 
@@ -15,6 +17,10 @@ exports.listen = function(http,io){
     });
 
     socket.on("createNewBid", function(data){
+      if(user == null){
+        console.log("ERROR:: User not logged in.");
+        return;
+      } 
       mongo.createNewBid(user.uid,data.bidAmount,data.auctionID,function(result){
         socket.emit("createNewBid",result);
         for(key in sockets){
@@ -42,11 +48,19 @@ exports.listen = function(http,io){
       })
     });
     socket.on("getUserOpenAuctions", function(){
+      if(user == null){
+        console.log("ERROR:: User not logged in.");
+        return;
+      } 
       mongo.getUserOpenAuctions(user.uid,function(auctions){
         socket.emit("getUserOpenAuctions",auctions);
       })
     })
     socket.on("createNewAuction",function(data){
+      if(user == null){
+        console.log("ERROR:: User not logged in.");
+        return;
+      } 
       mongo.createNewAuction(user.uid,data.title,data.description,data.startingPrice,function(result){
         socket.emit("createNewAuction",result);
         for(key in sockets){

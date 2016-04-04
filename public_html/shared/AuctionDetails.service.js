@@ -4,6 +4,7 @@ myApp.service("AuctionDetailsService", function(mySocket){
 	this.result = {};
 
 	this.getAuctionDetails = function(auctionID){
+		if(auctionID == "") return;
 		callback = function(data){
 			service.result = data;
 		}
