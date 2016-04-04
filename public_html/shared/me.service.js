@@ -6,7 +6,6 @@ myApp.service("MeService", function(mySocket){
 	this.auctions = [];
 	this.comments = [];
 	this.openAuctions = [];
-
 	this.setID = function(id,username){
 		callback = function(data){
 			if(data == null){

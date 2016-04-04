@@ -80,11 +80,11 @@ exports.listen = function(http,io){
         socket.emit("getBidHistory",result);
       });
     });
-    socket.on("getAuctionHistory", function(uid){
+    socket.on("getAuctionHistory"), function(uid){
       mongo.getAuctionHistory(uid, function(result){
         socket.emit("getAuctionHistory",result);
       });
-    });
+    }
     socket.on("startNewAuctionListener",function(){
       socket.listenAuctions = true;
     })
