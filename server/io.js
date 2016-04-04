@@ -51,7 +51,12 @@ exports.listen = function(http,io){
         }
       });
     });
-
+    socket.on("getAuctionDetails", function(auctionID){
+      mongo.getAuctionDetails(auctionID,function(data){
+        socket.emit("getAuctionDetails",data);
+      })
+    });
+    
     socket.on("getBidHistory",function(uid){
       mongo.getBidHistory(uid,function(result){
         socket.emit("getBidHistory",result);
