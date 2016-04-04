@@ -6,5 +6,9 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
     $scope.getAuction = AuctionDetailsService.getResult;
     // CreateBidService.createNewBid(35,"5701ccde13cb519f50e4bbc3"); this will make a bid
 
+    $scope.createBid = function(bidAmount, auctionID){
+        CreateBidService.createNewBid(bidAmount, auctionID);
+    }
+
 
 }]);

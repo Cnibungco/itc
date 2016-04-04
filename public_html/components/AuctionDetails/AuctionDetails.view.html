@@ -11,5 +11,8 @@
 		    Current Lowest Price: {{getAuction().currentLowestPrice}}</br>
 		    Client: {{getAuction().user.username}}</br>
 		</p>
+        <input ng-model="bidAmount">
+
+        <button ng-click="createBid(bidAmount, getAuction()._id)">Submit Bid</button>
 	</div>
 </div>
