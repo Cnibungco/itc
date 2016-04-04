@@ -233,7 +233,7 @@ exports.searchAuctions = function(searchText, callback){
 
 //PRIVATE FUNCTIONS
 function updateAuctionLowestPrice(auctionID, bidAmount){
-    auctions_collection.findOne({_id: auctionID},{currentLowestPrice: true}, function(err, result){
+    auctions_collection.findOne({_id: new ObjectId(auctionID)},{currentLowestPrice: true}, function(err, result){
         var currentPrice = result.currentLowestPrice;
         if (currentPrice == "-" || currentPrice > bidAmount){
             auctions_collection.update({_id: auctionID}, {$set: {currentLowestPrice: bidAmount}});
