@@ -18,8 +18,10 @@
     <div>
     </div><!-- /.col-lg-6 -->
     <div>
+
         <card ng-repeat="auction in auctionSearchResults()" auction=auction>
         </card>
+
     </div>
 
     <div ng-if="authData.google" class="list card">

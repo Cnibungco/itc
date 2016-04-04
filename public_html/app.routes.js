@@ -14,7 +14,7 @@
         controller: "ActiveBidsController"
     })
     .state('AuctionDetails', {
-        url: "/AuctionDetails",
+        url: "/AuctionDetails/:auctionID",
         templateUrl: "components/AuctionDetails/AuctionDetails.view.html",
         controller: "AuctionDetailsController"
     })

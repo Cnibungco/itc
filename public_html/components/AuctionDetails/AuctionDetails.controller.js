@@ -1,7 +1,7 @@
-myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService', function($scope, AuctionDetailsService) {
-
+myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService','$stateParams',
+    function($scope, AuctionDetailsService, $stateParams) {
     $scope.title = "AuctionDetails";
-   	AuctionDetailsService.getAuctionDetails("570193220a7c0198fa8e242e");
+   	AuctionDetailsService.getAuctionDetails($stateParams.auctionID);
     //replace with obj returned by server
     $scope.auction = function(){
     	return AuctionDetailsService.getResult();
