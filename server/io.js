@@ -41,7 +41,11 @@ exports.listen = function(http,io){
         socket.emit("login", obj);
       })
     });
-
+    socket.on("getUserOpenAuctions", function(){
+      mongo.getUserOpenAuctions(user.uid,function(auctions){
+        socket.emit("getUserOpenAuctions",auctions);
+      })
+    })
     socket.on("createNewAuction",function(data){
       mongo.createNewAuction(user.uid,data.title,data.description,data.startingPrice,function(result){
         socket.emit("createNewAuction",result);

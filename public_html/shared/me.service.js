@@ -1,10 +1,11 @@
 myApp.service("MeService", function(mySocket){
-	service = this;
+	var service = this;
 	this.uid = "";
 	this.username = "";
 	this.bids = [];
 	this.auctions = [];
 	this.comments = [];
+	this.openAuctions = [];
 
 	this.setID = function(id,username){
 		callback = function(data){
@@ -37,8 +38,17 @@ myApp.service("MeService", function(mySocket){
 	this.getComments = function(){
 		return service.comments;
 	}
-	// this.getBidHistory = function(){
-	// 	mySocket.emit("getBidHistory", service.uid);
-	// 	mySocket.on("getBidHistory", )
-	// }
+
+	this.loadOpenAuctions = function(){
+		console.log("req");
+		callback = function(data){
+			service.openAuctions = data;
+			console.log(data);
+		}
+		mySocket.emit("getUserOpenAuctions");
+		mySocket.on("getUserOpenAuctions", callback);
+	}
+	this.getOpenAuctions = function(){
+		return service.openAuctions;
+	}
 })
