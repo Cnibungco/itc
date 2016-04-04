@@ -195,8 +195,17 @@ exports.getAuctionDetails = function(auctionID, callback){
 };
 
 exports.getUserOpenAuctions = function(userID, callback){
-    users_collection.findOne({_id: userID},{auctions: true}, function(err, result){
-        callback(result);
+    users_collection.findOne({_id: userID},{auctions: true, _id: false}, function(err, result){
+        var auctionIDs = result.auctions;
+
+        if (auctionIDs.length == 0){
+            callback([]);
+            return;
+        }
+
+        auctions_collection.find({_id: {$in: auctionIDs}, isOpen: true}).toArray( function(err, result){
+            callback(result);
+        });
     })
 };
 
