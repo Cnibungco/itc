@@ -9,8 +9,16 @@
 		    Description: {{getAuction().description}}</br>
 		    Starting Amount: {{getAuction().startingAmount}}</br>
 		    Current Lowest Price: {{getAuction().currentLowestPrice}}</br>
-		    Client: {{getAuction().user.username}}</br>
+		    Client: {{getAuction().owner.username}}</br>
 		</p>
+
+        <h2>Bid History</h2>
+        <div ng-repeat="bid in getAuction().bidHistory">
+            {{bid.user.username}}
+            {{bid.amount}}
+        </div>
+
+
         <input ng-model="bidAmount">
 
         <button ng-click="createBid(bidAmount, getAuction()._id)">Submit Bid</button>
