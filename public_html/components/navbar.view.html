@@ -1,29 +1,39 @@
 <html>
-<nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" ui-sref="Home">ITC</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a ui-sref="Home">Home</a></li>
-            <li><a ui-sref="AuctionDetails">Auction Details</a></li>
-            <li><a ui-sref="BidHistory">Bid History</a></li>
-            <li><a ui-sref="MyAuctionHistory">My Auction History</a></li>
-            <li><a ui-sref="MyOpenAuctions">My Open Auctions</a></li>
-            <li><a ui-sref="CreateAuction">Create Auction</a></li>
-          </ul>
-            <ul class="nav navbar-nav navbar-right">
-            <li><button ng-click="login('google')">Login</button></li>
-            <li><button ng-click="logout()">Logout</button></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">ITC</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link" ui-sref="Home">Home</a>
+      <a class="mdl-navigation__link" ui-sref="AuctionDetails">Auction Details</a>
+      <a class="mdl-navigation__link" ui-sref="BidHistory">Bid History</a>
+      <a class="mdl-navigation__link" ui-sref="MyAuctionHistory">My Auction History</a>
+      <a class="mdl-navigation__link" ui-sref="MyOpenAuctions">My Open Auctions</a>
+      <a class="mdl-navigation__link" ui-sref="CreateAuction">Create Auction</a>
+          <button ng-click="login('google')">Login</button>
+       <button ng-click="logout()">Logout</button>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">ITC</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" ui-sref="Home">Home</a>
+      <a class="mdl-navigation__link" ui-sref="AuctionDetails">Auction Details</a>
+      <a class="mdl-navigation__link" ui-sref="BidHistory">Bid History</a>
+      <a class="mdl-navigation__link" ui-sref="MyAuctionHistory">My Auction History</a>
+      <a class="mdl-navigation__link" ui-sref="MyOpenAuctions">My Open Auctions</a>
+      <a class="mdl-navigation__link" ui-sref="CreateAuction">Create Auction</a>
+       <button ng-click="login('google')">Login</button>
+       <button ng-click="logout()">Logout</button>
     </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content"><!-- Your content goes here --></div>
+  </main>
+</div>
     </html>

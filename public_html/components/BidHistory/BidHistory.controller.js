@@ -1,9 +1,7 @@
 myApp.controller('BidHistoryController', ['$scope', 'BidHistoryService', function($scope, BidHistoryService) {
     $scope.title = "BidHistory";
-    $scope.text = 'Generic Service Title';
-    $scope.data = "data";
     $scope.search = function(uid){
-    	BidHistoryService.loadBidHistory(uid);
+    	BidHistoryService.loadBidHistory("104");
     }
 
     $scope.bidHistory = function(){
