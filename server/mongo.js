@@ -23,6 +23,7 @@ exports.createNewUser = function(userID, username, callback){
         username: username,
         bids: [],
         auctions: [],
+        participatingAuctionIDs: [],
         comments: {
         }
     };
@@ -91,10 +92,13 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
         updateAuctionLowestBid(userID, auctionID, bidAmount);
 
         //Update users_collections.bids[] and auction.bidHistory[]
-        users_collection.update({_id: userID},{$push: {bids: bidDocument._id}}, function(err, added){
-            if(err) throw err;
-            //console.log("Updated user.bids[] with users new bid.");
-        });
+        users_collection.update({_id: userID},
+            {$push: {bids: bidDocument._id}, $addToSet: {participatingAuctionIDs: new ObjectId(auctionID)}},
+            function(err, added){
+                if(err) throw err;
+                //console.log("Updated user.bids[] with users new bid.");
+            }
+        );
 
         //Update auctions_collections.bids[]
         auctions_collection.update({_id: new ObjectId(auctionID)},{$push: {bids: bidDocument._id}}, function(err, added){
@@ -235,6 +239,22 @@ exports.getUserAuctionHistory = function(userID, callback){
         });
     })
 };
+
+exports.getUserParticipatingOpenAuctions = function(userID, callback){
+    users_collection.findOne({_id: userID},{participatingAuctionIDs: true, _id: false}, function(err, result){
+        var participatingAuctionIDs = result.participatingAuctionIDs;
+
+        if (participatingAuctionIDs.length == 0){
+            callback([]);
+            return;
+        }
+
+        auctions_collection.find({_id: {$in: participatingAuctionIDs}, isOpen: true}).toArray( function(err, result){
+            callback(result);
+        });
+    })
+};
+
 
 exports.searchAuctions = function(searchText, callback){
     auctions_collection.find({ $text: { $search: searchText}}).toArray(function(err, result){

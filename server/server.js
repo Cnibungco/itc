@@ -57,6 +57,8 @@ function testDB(){
 
     mongo.getUserOpenAuctions("google:115290454625517269520",outputCallback)
     mongo.getUserAuctionHistory("google:115290454625517269520",outputCallback)
+    mongo.getUserParticipatingOpenAuctions("google:100091013565947923608",outputCallback)
+
 
 }
 
