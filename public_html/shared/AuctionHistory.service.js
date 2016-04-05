@@ -1,18 +1,18 @@
 myApp.service("AuctionHistoryService", function(mySocket){
 	service = this;
-	this.uid = "";
-	this.auctionHistory = [];
+	this.auctionHistory = {};
 
 	this.loadAuctionHistory = function(uid){
+		if(uid == null || uid == ""){
+			console.log("Blank uid, cannot load Auction History");
+			return;
+		}
 		callback = function(data){
-			service.bidHistory = data;
+			console.log(data);
+			service.auctionHistory = data;
 		}
 		mySocket.emit("getAuctionHistory",uid);
 		mySocket.on("getAuctionHistory",callback);
-		service.uid = uid;
-	}
-	this.getUId = function(){
-		return service.uid;
 	}
 	this.getAuctionHistory = function(){
 		return service.auctionHistory;

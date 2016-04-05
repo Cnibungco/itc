@@ -63,6 +63,7 @@ exports.listen = function(http,io){
       } 
       mongo.createNewAuction(user.uid,data.title,data.description,data.startingPrice,function(result){
         socket.emit("createNewAuction",result);
+        console.log(result);
         for(key in sockets){
           if(sockets[key].listenAuctions == true)
             sockets[key].emit("newAuction",result);
@@ -81,7 +82,7 @@ exports.listen = function(http,io){
       });
     });
     socket.on("getAuctionHistory", function(uid){
-      mongo.getAuctionHistory(uid, function(result){
+      mongo.getUserAuctionHistory(uid, function(result){
         socket.emit("getAuctionHistory",result);
       });
     });
