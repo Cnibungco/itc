@@ -24,6 +24,10 @@ exports.createNewUser = function(userID, username, callback){
         bids: [],
         auctions: [],
         participatingAuctionIDs: [],
+        wonAuctions: {
+            incompleteAuctions: [],
+            completeAuctions: []
+        },
         comments: {
         }
     };
@@ -53,6 +57,7 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
         startingAmount : startingAmount,
         bids: [],
         isOpen: true,
+        isCompleted: false,
         currentLowestBid: {
             price: "-",
             userID: ""
@@ -253,6 +258,30 @@ exports.getUserParticipatingOpenAuctions = function(userID, callback){
             callback(result);
         });
     })
+};
+
+exports.clientChooseBid = function(userID, auctionID, bidID, callback){
+    //update auction to be closed
+    auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {isOpen: false}, $set: {winningBid: bidID}},
+        function(err, added){
+            if(err) throw err;
+        }
+    );
+
+    bids_collection.findOne({_id: bidID},{userID: true}, function(err, result){
+        var bidderID = result.userID;
+        console.log("bidderID", bidderID)
+
+
+        //update user's wonAuctions.incompleteAuctions
+        users_collection.update({_id: bidderID},{$push: {"wonAuctions.incompleteAuctions": auctionID}},
+            function(err, result){
+            }
+        );
+        callback({value: "tell isaac if you need anything"});
+
+    });
+    //TODO: notify bidder of winning the auction/service
 };
 
 
