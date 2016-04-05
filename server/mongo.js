@@ -52,7 +52,10 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
         startingAmount : startingAmount,
         bids: [],
         isOpen: true,
-        currentLowestPrice: "-"
+        currentLowestBid: {
+            price: "-",
+            userID: ""
+        }
     };
 
     auctions_collection.insert(auction, function(err, result){
@@ -85,7 +88,7 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
             callback(bidDocument);
         });
 
-        updateAuctionLowestPrice(auctionID, bidAmount);
+        updateAuctionLowestBid(userID, auctionID, bidAmount);
 
         //Update users_collections.bids[] and auction.bidHistory[]
         users_collection.update({_id: userID},{$push: {bids: bidDocument._id}}, function(err, added){
@@ -255,11 +258,19 @@ exports.searchAuctions = function(searchText, callback){
 };
 
 //PRIVATE FUNCTIONS
-function updateAuctionLowestPrice(auctionID, bidAmount){
-    auctions_collection.findOne({_id: new ObjectId(auctionID)},{currentLowestPrice: true}, function(err, result){
-        var currentPrice = result.currentLowestPrice;
-        if (currentPrice == "-" || currentPrice > bidAmount){
-            auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {currentLowestPrice: bidAmount}});
+function updateAuctionLowestBid(userID, auctionID, bidAmount){
+    auctions_collection.findOne({_id: new ObjectId(auctionID)},{currentLowestBid: true}, function(err, result){
+        var currentLowestBidPrice = result.currentLowestBid.price;
+        if (currentLowestBidPrice == "-" ||  bidAmount < currentLowestBidPrice){
+            auctions_collection.update(
+                {_id: new ObjectId(auctionID)},
+                {
+                    $set:
+                    {
+                        currentLowestBid: {price: bidAmount, user: userID}
+                    }
+                }
+            );
         }
     })
 }
