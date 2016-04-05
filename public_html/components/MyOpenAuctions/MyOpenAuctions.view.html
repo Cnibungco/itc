@@ -2,7 +2,8 @@
     <h1>
         {{title}}
     </h1>
-    <p>
-        {{openAuctions()}}
-    </p>
+
+    <p>{{openAuctions()}}</p>
+
+    <card ng-repeat="auction in openAuctions()" auction=auction></card>
 </div>

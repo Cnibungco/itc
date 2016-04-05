@@ -137,7 +137,7 @@ exports.login = function(userID, username, callback){
 
 exports.getUserInfo = function(userID, callback){
     console.log("MONGO: getUserInfo");
-    users_collection.findOne({ _id: userID},
+    users_collection.findOne({ _id: userID},{_id: true, username: true, comments: true},
         function(err,result){
             if (err) throw err;
             console.log("getUserIngo",result)
