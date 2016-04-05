@@ -15,6 +15,8 @@ myApp.service("SearchService", function(mySocket){
 		mySocket.on("searchAuctions",callback);
 		service.text = text;
 	}
+    //AutoPopulate home with some sample results
+    this.search("lawn");
 	this.getText = function(){
 		return service.text;
 	}
