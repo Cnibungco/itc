@@ -56,6 +56,8 @@ function testDB(){
     mongo.searchAuctions("lawn",outputCallback)
 
     mongo.getUserOpenAuctions("google:115290454625517269520",outputCallback)
+    mongo.getUserAuctionHistory("google:115290454625517269520",outputCallback)
+
 }
 
 setTimeout(function(){

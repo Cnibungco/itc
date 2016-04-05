@@ -217,6 +217,21 @@ exports.getUserOpenAuctions = function(userID, callback){
     })
 };
 
+exports.getUserAuctionHistory = function(userID, callback){
+    users_collection.findOne({_id: userID},{auctions: true, _id: false}, function(err, result){
+        var auctionIDs = result.auctions;
+
+        if (auctionIDs.length == 0){
+            callback([]);
+            return;
+        }
+
+        auctions_collection.find({_id: {$in: auctionIDs}}).toArray( function(err, result){
+            callback(result);
+        });
+    })
+};
+
 exports.searchAuctions = function(searchText, callback){
     auctions_collection.find({ $text: { $search: searchText}}).toArray(function(err, result){
         var auctionDocuments = result;
