@@ -9,6 +9,8 @@ angular.module('btford.socket-io', []).
   provider('socketFactory', function () {
 
     'use strict';
+    var ip = 'localhost';
+    var port = '8080';
 
     // when forwarding events, prefix the event name
     var defaultPrefix = 'socket:',
@@ -28,7 +30,7 @@ angular.module('btford.socket-io', []).
 
       return function socketFactory (options) {
         options = options || {};
-        var socket = options.ioSocket || io.connect();
+        var socket = options.ioSocket || io.connect(ip + ":" + port);
         var prefix = options.prefix === undefined ? defaultPrefix : options.prefix ;
         var defaultScope = options.scope || $rootScope;
 
