@@ -14,7 +14,10 @@
 
         <h2>Bid History</h2>
         <div ng-repeat="bid in getAuction().bidHistory">
-            {{bid.user.username}}
+
+            <a ui-sref="User({ userID: bid.userID })">
+                {{bid.user.username}}
+            </a>
             {{bid.amount}}
         </div>
 
