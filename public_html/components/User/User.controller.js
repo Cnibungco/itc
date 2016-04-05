@@ -1,7 +1,7 @@
-myApp.controller('UserController', ['$scope','$stateParams',
-    function($scope, $stateParams) {
+myApp.controller('UserController', ['$scope','$stateParams', 'UserService', 
+    function($scope, $stateParams, UserService) {
         $scope.title = "User";
-
+        UserService.setID($stateParams.userID);
         //TODO: use $stateParams.userID to query for user data
-        console.log("USER ID",$stateParams.userID)
+        $scope.user = UserService.getUser;
     }]);
