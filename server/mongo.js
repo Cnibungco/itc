@@ -80,7 +80,11 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
         //console.log("+++BID CREATED+++");
 
         var bidDocument = result.ops[0];
-        callback(bidDocument);
+        users_collection.findOne({_id: userID},{_id: true, username: true}, function(err, result){
+            bidDocument.user = result;
+            callback(bidDocument);
+        });
+
         updateAuctionLowestPrice(auctionID, bidAmount);
 
         //Update users_collections.bids[] and auction.bidHistory[]
