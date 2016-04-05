@@ -9,4 +9,8 @@
 
     <button class="btn btn-default" type="button" ng-click="submit()">Create Auction</button>
 
+    <a ui-sref="AuctionDetails({ auctionID: getAuction()._id })">
+        {{getAuction()._id}}
+    </a>
+
 </div>

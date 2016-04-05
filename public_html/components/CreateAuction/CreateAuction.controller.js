@@ -7,4 +7,5 @@ myApp.controller('CreateAuctionController', ['$scope', 'CreateAuctionService', '
    $scope.submit = function(){
    		CreateAuctionService.createAuction($scope.formInput.title,$scope.formInput.description,$scope.formInput.startingPrice);
 	}
+	$scope.getAuction = CreateAuctionService.getAuction;
 }]);
