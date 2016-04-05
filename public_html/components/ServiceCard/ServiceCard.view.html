@@ -1,5 +1,10 @@
 <div style="border: solid 2px;" ui-sref="AuctionDetails({ auctionID: $ctrl.auction._id })">
     <h4>{{$ctrl.auction.title}}</h4>
     Description: {{$ctrl.auction.description}}</br>
-    Client: {{$ctrl.auction.user.username}}</br></p>
+    Client: {{$ctrl.auction.user.username}}</br>
+
+
+    <p>-------</p>
+    <p>about the lowest bidder or auction owner</p>
+    {{$ctrl.auction.currentLowestBid.userID}}
 </div>

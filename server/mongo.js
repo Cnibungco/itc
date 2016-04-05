@@ -171,6 +171,7 @@ exports.getAuctionDetails = function(auctionID, callback){
                     function(err, result){
                         var auctionBids = result;
                         var remainingQueries = auctionBids.length;
+                        auctionDocument.bidHistory = [];
                         if (remainingQueries == 0){
                             callback(auctionDocument);
                             return;
@@ -247,10 +248,20 @@ exports.searchAuctions = function(searchText, callback){
             (function(auction){
                 users_collection.findOne({_id: auction.userID},function(err, result){
                     auction.user = result;
-                    remainingQueryCount--;
-                    if (remainingQueryCount == 0){
-                        callback(auctionDocuments)
+                    if (auction.currentLowestBid.userID == null){
+                        remainingQueryCount--;
+                        if (remainingQueryCount == 0){
+                            callback(auctionDocuments)
+                        }
                     }
+
+                    users_collection.findOne({_id: auction.currentLowestBid.userID},function(err, result){
+                        auction.currentLowestBid.user = result;
+                        remainingQueryCount--;
+                        if (remainingQueryCount == 0){
+                            callback(auctionDocuments)
+                        }
+                    });
                 });
             }(auction))
         })
@@ -267,7 +278,7 @@ function updateAuctionLowestBid(userID, auctionID, bidAmount){
                 {
                     $set:
                     {
-                        currentLowestBid: {price: bidAmount, user: userID}
+                        currentLowestBid: {price: bidAmount, userID: userID}
                     }
                 }
             );
