@@ -1,16 +1,23 @@
-<div>
+<form>
     <h1>
         {{title}}
     </h1>
-
-    <input ng-model="formInput.title" type="text" class="form-control" placeholder="Auction Title">
-    <input ng-model="formInput.description" type="text" class="form-control" placeholder="Auction Summary">
-    <input ng-model="formInput.startingPrice" type="text" class="form-control" placeholder="Auction Starting Price">
-
-    <button class="btn btn-default" type="button" ng-click="submit()">Create Auction</button>
+    <div class="mdl-textfield mdl-js-textfield">
+        <input ng-model="formInput.title" type="text" class="mdl-textfield__input" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">Auction Title</label>
+    </div> </br>
+    <div class="mdl-textfield mdl-js-textfield">
+    <input ng-model="formInput.description" type="text" class="mdl-textfield__input" id="sample2">
+    <label class="mdl-textfield__label" for="sample2">Auction Summary</label>
+    </div> </br>
+     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input ng-model="formInput.startingPrice" type="text" class="mdl-textfield__input" id="sample3">
+    <label class="mdl-textfield__label" for="sample3">Auction Starting Price</label>
+    </div> </br>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="submit()">Create Auction</button>
 
     <a ui-sref="AuctionDetails({ auctionID: getAuction()._id })">
         {{getAuction()._id}}
     </a>
 
-</div>
+</form>

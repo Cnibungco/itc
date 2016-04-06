@@ -21,9 +21,11 @@
             {{bid.amount}}
         </div>
 
-
-        <input ng-model="bidAmount">
-
-        <button ng-click="createBid(bidAmount, getAuction()._id)">Submit Bid</button>
+    <div class="mdl-textfield mdl-js-textfield">
+        <input ng-model="bidAmount" class="mdl-textfield__input" type="text" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">Make a Bid...</label>
+    </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="createBid(bidAmount, getAuction()._id)"><label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+      <i class="material-icons">done</i></button>
 	</div>
 </div>

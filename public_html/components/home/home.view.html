@@ -10,14 +10,18 @@
     </h1>
 
     <div class="col-sm-12">
-        <div class="input-group">
-        <input ng-model="formInput.searchText" type="text" class="form-control" placeholder="Search for Auctions...">
-    <button ng-click="search()" ng-submit="search()" class="btn btn-default" type="button">Go!</button>
+        <div class="mdl-textfield mdl-js-textfield">
+        <input ng-model="formInput.searchText" type="text" class="mdl-textfield__input" id="search">
+            <label class="mdl-textfield__label" for="search">Search for Auctions...</label>
+        </div>
+    <button ng-click="search()" ng-submit="search()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button"><label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+      <i class="material-icons">search</i>
+    </label></button>
             </br>
 
     <div>
     </div><!-- /.col-lg-6 -->
-    <div>
+    <div align="center">
 
         <card ng-repeat="auction in auctionSearchResults()" auction=auction>
         </card>
