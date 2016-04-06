@@ -81,7 +81,8 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
     var bid = {
         userID: userID,
         amount : bidAmount,
-        auctionID: auctionID
+        auctionID: auctionID,
+        isWinningBid : false
     };
 
     bids_collection.insert(bid, function(err, result){
@@ -270,17 +271,20 @@ exports.clientChooseBid = function(userID, auctionID, bidID, callback){
 
     bids_collection.findOne({_id: bidID},{userID: true}, function(err, result){
         var bidderID = result.userID;
-        console.log("bidderID", bidderID)
-
 
         //update user's wonAuctions.incompleteAuctions
         users_collection.update({_id: bidderID},{$push: {"wonAuctions.incompleteAuctions": auctionID}},
             function(err, result){
             }
+
         );
+
         callback({value: "tell isaac if you need anything"});
 
     });
+    bids_collection.update({_id: bidID},{$set: {isWinningBid: true}},function(){
+    });
+
     //TODO: notify bidder of winning the auction/service
 };
 
