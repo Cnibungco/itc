@@ -1,15 +1,17 @@
 <div>
 
 
-    <h1>
+ <!---   <h1>
         {{title}}
         </br>
         {{me.getUId()}}
         {{me.getUsername()}}
 
-    </h1>
+    </h1>-->
 
-    <div class="col-sm-12">
+    <div align="center">
+        <div class="bg">
+        <h1>Seek and you shall find...</h1>
         <div class="mdl-textfield mdl-js-textfield">
         <input ng-model="formInput.searchText" type="text" class="mdl-textfield__input" id="search">
             <label class="mdl-textfield__label" for="search">Search for Auctions...</label>
@@ -18,9 +20,7 @@
       <i class="material-icons">search</i>
     </label></button>
             </br>
-
-    <div>
-    </div><!-- /.col-lg-6 -->
+        </div>
     <div align="center">
 
         <card ng-repeat="auction in auctionSearchResults()" auction=auction>

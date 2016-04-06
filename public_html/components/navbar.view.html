@@ -14,8 +14,10 @@
       <a class="mdl-navigation__link" ui-sref="MyAuctionHistory">My Auction History</a>
       <a class="mdl-navigation__link" ui-sref="MyOpenAuctions">My Open Auctions</a>
       <a class="mdl-navigation__link" ui-sref="CreateAuction">Create Auction</a>
-          <button ng-click="login('google')">Login</button>
-       <button ng-click="logout()">Logout</button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="login('google')">Login</button>
+       <button id= "logout" class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="logout()">Logout<label class="mdl-button mdl-js-button mdl-button--icon" for="logout">
+      <i class="material-icons">input</i>
+    </label></button>
       </nav>
     </div>
   </header>
@@ -28,8 +30,10 @@
       <a class="mdl-navigation__link" ui-sref="MyAuctionHistory">My Auction History</a>
       <a class="mdl-navigation__link" ui-sref="MyOpenAuctions">My Open Auctions</a>
       <a class="mdl-navigation__link" ui-sref="CreateAuction">Create Auction</a>
-       <button ng-click="login('google')">Login</button>
-       <button ng-click="logout()">Logout</button>
+       <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="login('google')">Login</button>
+       <button id= "logout" class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="logout()">Logout<label class="mdl-button mdl-js-button mdl-button--icon" for="logout">
+      <i class="material-icons">exit to app</i>
+    </label></button>
     </nav>
   </div>
   <main class="mdl-layout__content">
