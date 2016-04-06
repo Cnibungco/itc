@@ -6,23 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="stylesheet" href="/assets/css/test.css"></link>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue-indigo.min.css" />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue-indigo.min.css">
 	<title>Test</title>
 </head>
 <body>
+    <div id="main-container" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
- 	<div class="container">
-        <navigation></navigation>
-        <div ui-view class="mdl-layout__content"></div>
-        <!--<footer class="mdl-mini-footer">
-        <div class="mdl-mini-footer__left-section">
-            <div class="mdl-logo">ITC</div>
-        <ul class="mdl-mini-footer__link-list">
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Terms</a></li>
-        </ul>-->
-  </div>
-</footer>
+      <header id="main-header" class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                      mdl-textfield--floating-label mdl-textfield--align-right">
+                <navigation></navigation>
+          </div>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <!-- <span class="mdl-layout-title">ITC</span> -->
+        <drawer></drawer>
+      </div>
+      <main class="mdl-layout__content container">
+        <div class="page-content" ui-view></div>
+      </main>
     </div>
 </body>
     <!-- Angular-->
@@ -60,7 +65,6 @@
     <script src="/shared/User.service.js"></script>
     <script src="/shared/AuctionHistory.service.js"></script>
 
-
     <!-- controllers -->
     <script src="/components/Home/Home.controller.js"></script>
     <script src="/components/ActiveBids/ActiveBids.controller.js"></script>
@@ -72,6 +76,7 @@
     <script src="/components/ServiceCard/ServiceCard.controller.js"></script>
     <script src="/components/User/User.controller.js"></script>
     <script src="components/navbar.controller.js"></script>
+    <script src="/components/drawer.controller.js"></script>
 
 
 	<script type="text/javascript" src="assets/script/test.js"></script>

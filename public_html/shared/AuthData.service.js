@@ -1,7 +1,16 @@
 myApp.service("AuthData", function(Auth, MeService, $state) {
-    service = this;
+    var service = this;
     this.data;
+    this.loggedIn = false;
+    var showDrawer = function(){
+        $("#main-container").addClass("mdl-layout--fixed-drawer");
+        $("#main-header").find(".mdl-layout__drawer-button").css("visibility", "visible");
+    }
+    var hideDrawer = function(){
+        $("#main-container").removeClass("mdl-layout--fixed-drawer");
+        $("#main-header").find(".mdl-layout__drawer-button").css("visibility", "hidden");
 
+    }
     this.login = function (authMethod) {
         Auth.$authWithOAuthRedirect(authMethod).then(function (authData) {
         }).catch(function (error) {
@@ -13,10 +22,10 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
             }
         });
     };
-
     this.logout = function () {
         var ref = Auth;
         ref.$unauth();
+        service.loggedIn = false;
     };
 
     this.getAuthData = function(){
@@ -25,13 +34,24 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
 
     Auth.$onAuth(function (authData) {
         if (authData === null) {
+            hideDrawer();
             console.log('Not logged in yet');
             $state.go("Home");
+            service.loggedIn = false;
         } else {
+            showDrawer();
             MeService.setID(authData.uid, authData.google.displayName);
             console.log('Logged in as', authData.uid);
             this.data = authData;
             console.log(this.data);
+            service.loggedIn = true;
         }
-    })
+    });
+    this.loggedIn = function(){
+        return service.loggedIn;
+    }
+    this.log = function(){
+        if(service.loggedIn) service.logout();
+        else service.login('google');
+    }
 });
