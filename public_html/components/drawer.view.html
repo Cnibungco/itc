@@ -1,6 +1,6 @@
 <header class="demo-drawer-header">
-	<img src="user.webp" class="demo-avatar">
-	<span>{{username()}}</span>
+	<img ui-sref="User({ userID: uid()})" src="user.webp" class="demo-avatar">
+	<a ui-sref="User({ userID: uid()})">{{username()}}</a>
 </header>
 
 <nav class="mdl-navigation">
