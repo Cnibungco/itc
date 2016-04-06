@@ -1,32 +1,36 @@
-<div>
-    <h1>
-        {{title}}
-    </h1>
-    <div>
-    <h4>{{$auction.title}}</h4>
-        <p>{{auction}}</p>
-        <p>
-		    Description: {{getAuction().description}}</br>
-		    Starting Amount: {{getAuction().startingAmount}}</br>
-		    Current Lowest Price: {{getAuction().currentLowestBid.price}}</br>
-		    Client: {{getAuction().owner.username}}</br>
-        </p>
+<div style="width: 1000px">
+    <div class="mdl-grid"  >
+        <div class="mdl-cell mdl-cell--12-col">
+            <h4>{{getAuction().title}}</h4>
+        </div>
+    </div>
+    <div class="mdl-grid"  >
+        <div class="mdl-cell mdl-cell--8-col">
+            <p> Description: {{getAuction().description}}</p>
+            <p>Starting Amount: {{getAuction().startingAmount}}</p>
+            <p>Current Lowest Price: {{getAuction().currentLowestBid.price}}</p>
+            <p>Client: {{getAuction().owner.username}}</p>
+            <h4>Make a bid</h4>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input ng-model="bidAmount" class="mdl-textfield__input" type="text" id="sample1">
+                <label class="mdl-textfield__label" for="sample1">Make a Bid...</label>
+            </div>
 
-        <h2>Bid History</h2>
-        <div ng-repeat="bid in getAuction().bidHistory">
-
-            <a ui-sref="User({ userID: bid.userID })">
-                {{bid.user.username}}
-            </a>
-            {{bid.amount}}
-            isWinningBid:{{bid.isWinningBid}}
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                    ng-click="createBid(bidAmount, getAuction()._id)">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                    <i class="material-icons">done</i>
+                </label>
+            </button>
         </div>
 
-    <div class="mdl-textfield mdl-js-textfield">
-        <input ng-model="bidAmount" class="mdl-textfield__input" type="text" id="sample1">
-        <label class="mdl-textfield__label" for="sample1">Make a Bid...</label>
+        <div class="mdl-cell mdl-cell--4-col">
+            <h4>Bid History</h4>
+            <div ng-repeat="bid in getAuction().bidHistory">
+                <a ui-sref="User({ userID: bid.userID })">{{bid.user.username}}</a>
+                {{bid.amount}}
+                isWinningBid:{{bid.isWinningBid}}
+            </div>
+        </div>
     </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="createBid(bidAmount, getAuction()._id)"><label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-      <i class="material-icons">done</i></button>
-	</div>
 </div>
