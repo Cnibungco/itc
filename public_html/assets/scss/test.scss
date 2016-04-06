@@ -1,10 +1,49 @@
 $font-stack:    Helvetica, sans-serif;
-$primary-color: #FFF;
-$text-color: #000;
+$primary-color: #ecf0f1;
+$text-color: #7f8c8d;
 
 body {
-
 	font: 100% $font-stack;
 	color: $text-color;
 	background-color: $primary-color;
+    width: 100%;
+}
+.container{
+    text-align: center;
+}
+.bg{
+    padding: 80px;
+    margin-bottom: 30px;
+    background: url("../img/city.jpg")no-repeat center center fixed;
+  background-size: 2048px 860px;
+  width: 100%;
+   top: 0;
+   left: 0;
+   z-index: -5000;
+   padding: 80px;
+  color: white;
+}
+.demo-card-wide {
+  &.mdl-card {
+    width: 512px;
+    margin: 30px;
+    display: inline-block;
+  }
+  > {
+    .mdl-card__title {
+      color: #fff;
+      height: 176px;
+      background: url('http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png') (center / cover);
+    }
+    .mdl-card__menu {
+      color: #fff;
+    }
+  }
+}
+input[type=text] {
+    width: 295px;
+    padding: 5px;
+    outline: none;
+    border: 2px solid #999999;
+    border-radius: 5px;
 }
