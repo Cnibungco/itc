@@ -1,15 +1,4 @@
 body {
-  align: center;
   font: 100% Helvetica, sans-serif;
-  color: #FFF;
+  color: #000;
   background-color: #FFF; }
-.bg{
-    background: url("../img/city.jpg")no-repeat center center fixed;
-    background-size: 2048px 860px;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: -5000;
-    padding: 80px;
-    color: white;
-}
