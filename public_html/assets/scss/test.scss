@@ -48,6 +48,8 @@ input[type=text] {
     border-radius: 5px;
 }
 
+//Drawer classes
+
 .demo-drawer-header {
     box-sizing: border-box;
     display: -webkit-flex;
@@ -66,4 +68,19 @@ input[type=text] {
     width: 48px;
     height: 48px;
     border-radius: 24px;
+}
+
+//Navbar classes
+
+.nav-button {
+    cursor: pointer;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
 }
