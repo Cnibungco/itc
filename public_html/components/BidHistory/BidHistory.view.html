@@ -3,5 +3,23 @@
         {{title}}
     </h1>
 
-  <p>{{bidHistory()}}</p>
+    <table class="mdl-data-table mdl-js-data-table">
+        <thead>
+        <tr>
+            <th class="mdl-data-table__cell--non-numeric">Bid</th>
+            <th>Bid Price</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="bid in bidHistory()[0].history">
+                <td class="mdl-data-table__cell--non-numeric">
+                    <a ui-sref="AuctionDetails({ auctionID: bid.auction._id })">{{bid.auction.title}}</a>
+                </td>
+                <td>${{bid.bid.amount}}</td>
+                <td>3:00pm</td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
