@@ -85,7 +85,11 @@ exports.listen = function(http,io){
         socket.emit("getAuctionHistory",result);
       });
     });
-
+    socket.on("ChooseBid",function(data){
+      mongo.clientChooseBid(data.userID, data.auctionID, data.bidID, function(result){
+        socket.emit("ChooseBid", result);
+      });
+    })
     socket.on("startNewAuctionListener",function(){
       socket.listenAuctions = true;
     })

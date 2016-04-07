@@ -3,7 +3,7 @@ myApp.controller('NavController', ['$scope','Auth', 'AuthData', function($scope,
 	$scope.log = AuthData.log
 	$scope.logged = AuthData.loggedIn;
 	$scope.button = function(){
-		return $scope.logged() ? 'Logout' : 'Login';
+		return $scope.logged() ? 'LOGOUT' : 'LOGIN';
 	}
 }]);
 
