@@ -44,6 +44,11 @@
         templateUrl: "components/User/User.view.html",
         controller: "UserController"
     })
+    .state('AuctionsWon', {
+        url: "/AuctionsWon",
+        templateUrl: "components/AuctionsWon/AuctionsWon.view.html",
+        controller: "AuctionsWonController"
+    })
     .state('state1', {
       url: "/state1",
       templateUrl: "state1.html"

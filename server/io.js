@@ -90,6 +90,11 @@ exports.listen = function(http,io){
         socket.emit("ChooseBid", result);
       });
     })
+    socket.on("getAuctionsWon", function(uid){
+      mongo.getUserAuctionHistory(uid, function (result) {
+        socket.emit("getAuctionsWon", result);
+      })
+    })
     socket.on("startNewAuctionListener",function(){
       socket.listenAuctions = true;
     })

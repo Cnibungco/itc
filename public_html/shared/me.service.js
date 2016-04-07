@@ -6,6 +6,8 @@ myApp.service("MeService", function(mySocket){
 	this.auctions = [];
 	this.comments = [];
 	this.openAuctions = [];
+
+	this.callbacks = [];
 	this.setID = function(id,username){
 		callback = function(data){
 			if(data == null){
@@ -21,6 +23,15 @@ myApp.service("MeService", function(mySocket){
 		mySocket.emit("login", {uid:id,username: username});
 		mySocket.on("login", callback);
 		service.uid = id;
+
+
+		service.callbacks.forEach(function (obj) {
+			obj();
+		})
+		service.callbacks = [];
+	}
+	this.addCallback = function (callback) {
+		service.callbacks.push(callback);
 	}
 	this.getUId = function(){
 		return service.uid;

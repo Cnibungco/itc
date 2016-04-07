@@ -259,13 +259,14 @@ exports.getUserParticipatingOpenAuctions = function(userID, callback){
 
 exports.clientChooseBid = function(userID, auctionID, bidID, callback){
     //update auction to be closed
-    auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {isOpen: false}, $set: {winningBid: bidID}},
+    console.log(userID + " " + auctionID + " " + bidID);
+    auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {isOpen: false, winningBid: bidID}},
         function(err, added){
             if(err) throw err;
         }
     );
 
-    bids_collection.findOne({_id: bidID},{userID: true}, function(err, result){
+    bids_collection.findOne({_id: new ObjectId(bidID)},{userID: true}, function(err, result){
         var bidderID = result.userID;
         console.log("bidderID: ", bidderID)
 
@@ -292,7 +293,7 @@ exports.clientChooseBid = function(userID, auctionID, bidID, callback){
     });
 
     //Update bid to winning bid
-    bids_collection.update({_id: bidID},{$set: {isWinningBid: true}},function(){
+    bids_collection.update({_id: new ObjectId(bidID)},{$set: {isWinningBid: true}},function(){
     });
 
     //TODO: notify bidder of winning the auction/service
