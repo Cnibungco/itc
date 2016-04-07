@@ -1,12 +1,13 @@
 myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService','$stateParams', 
     'CreateBidService', 'AuctionListenerService', 'ChooseBidService', 'MeService', 'SetFeedbackForClientService',
-    'SetFeedbackForProviderService', 'MongoTimeFactory', 'AuctionRoleService',
+    'SetFeedbackForProviderService', 'MongoTimeFactory', 'AuctionRoleService', "$state",
     function($scope, AuctionDetailsService, $stateParams, CreateBidService, AuctionListenerService, ChooseBidService,
-             MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory, AuctionRoleService) {
+             MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory, AuctionRoleService, $state) {
         
         $scope.title = "AuctionDetails";
         AuctionDetailsService.getAuctionDetails($stateParams.auctionID);
         AuctionListenerService.listen($stateParams.auctionID);
+        $state.get('AuctionDetails').onExit = AuctionListenerService.stop($stateParams.auctionID)
         //replace with obj returned by server
         $scope.getAuction = AuctionDetailsService.getResult;
         $scope.chooseBid = function(bidID){
