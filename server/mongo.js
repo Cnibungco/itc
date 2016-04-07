@@ -176,7 +176,6 @@ exports.getBidHistory = function(userID, callback){
 
 exports.getAuctionDetails = function(auctionID, callback){
     console.log("MONGO: getAuctionDetails");
-
     auctions_collection.findOne({ _id: new ObjectId(auctionID)}, function(err, result){
         if (err) throw err;
         var auctionDocument = result;

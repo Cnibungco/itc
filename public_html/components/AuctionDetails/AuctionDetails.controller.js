@@ -1,6 +1,6 @@
 myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService','$stateParams', 
     'CreateBidService', 'AuctionListenerService', 'ChooseBidService', 'MeService', 'SetFeedbackForClientService',
-    'SetFeedbackForProviderService', 'MongoTimeFactory', 'AuctionRoleService', 
+    'SetFeedbackForProviderService', 'MongoTimeFactory', 'AuctionRoleService',
     function($scope, AuctionDetailsService, $stateParams, CreateBidService, AuctionListenerService, ChooseBidService,
              MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory, AuctionRoleService) {
         
@@ -17,7 +17,7 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         }
         $scope.isClient = AuctionRoleService.isClient;
         $scope.isProvider = AuctionRoleService.isProvider;
-
+        $scope.isClosed = AuctionDetailsService.isClosed;
         AuctionDetailsService.addCallback(function () {
             $scope.providerComment = AuctionDetailsService.getResult().feedbackForClient.comment;
             $scope.providerRating = AuctionDetailsService.getResult().feedbackForClient.rating;

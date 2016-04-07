@@ -27,4 +27,12 @@ myApp.service("AuctionDetailsService", function(mySocket){
 			callback();
 		}
 	}
+	this.isClosed = function () {
+		if($.isEmptyObject(service.result)) return false;
+		return !service.result.isOpen;
+	}
+	this.setAuctionDetails = function (auction) {
+		service.result = auction;
+		console.log(service.result);
+	}
 })

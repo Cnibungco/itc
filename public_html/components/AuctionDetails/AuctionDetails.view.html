@@ -1,4 +1,4 @@
-<div style="width: 1000px">
+<div>
     <div class="mdl-grid"  >
         <div class="mdl-cell mdl-cell--12-col">
             <h4>{{getAuction().title}}</h4>
@@ -22,6 +22,23 @@
                     <i class="material-icons">done</i>
                 </label>
             </button>
+
+            <div ng-show="isClient() && isClosed()">
+                <input ng-model="providerComment" type="text" placeholder="Comment"/>
+                <input ng-model="providerRating" type="number" placeholder="Rating"/>
+                <button ng-click="setFeedbackForClient()">Submit</button>
+            </div>
+            <div ng-show="isProvider() && isClosed()">
+                <input ng-model="clientComment" type="text" placeholder="Comment"/>
+                <input ng-model="clientRating" type="number" placeholder="Rating"/>
+                <button ng-click="setFeedbackForProvider()">Submit</button>
+            </div>
+            <div ng-show="isClosed()">
+                <p>Client Comment: {{getAuction().feedbackForClient.comment}}</p>
+                <p>Client Rating: {{getAuction().feedbackForClient.rating}}</p>
+                <p>Provider Comment: {{getAuction().feedbackForProvider.comment}}</p>
+                <p>Client Rating: {{getAuction().feedbackForProvider.rating}}</p>
+            </div>
         </div>
 
         <div class="mdl-cell mdl-cell--4-col">
@@ -35,15 +52,6 @@
             </div>
         </div>
 
-        <div ng-show="isClient()">
-            <input ng-model="providerComment" type="text" placeholder="Comment"/>
-            <input ng-model="providerRating" type="number" placeholder="Rating"/>
-            <button ng-click="setFeedbackForClient()">Submit</button>
-        </div>
-        <div ng-show="isProvider()">
-            <input ng-model="clientComment" type="text" placeholder="Comment"/>
-            <input ng-model="clientRating" type="number" placeholder="Rating"/>
-            <button ng-click="setFeedbackForProvider()">Submit</button>
-        </div>
+
     </div>
 </div>

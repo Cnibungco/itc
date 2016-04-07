@@ -6,10 +6,8 @@ myApp.service("AuctionRoleService", function(MeService, AuctionDetailsService){
             if(MeService.getUId() == AuctionDetailsService.getResult().userID){
                 service.role = 1;
             }
-            if(AuctionDetailsService.getResult().isOpen == false){
-                if(MeService.getUId() == AuctionDetailsService.getResult().winner._id)
-                    service.role = 2;
-            }
+            if(MeService.getUId() == AuctionDetailsService.getResult().winner._id)
+                service.role = 2;
         })
 
     });
