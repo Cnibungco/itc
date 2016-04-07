@@ -41,7 +41,7 @@ exports.listen = function(http,io){
       })
     });
     socket.on("login",function(data){
-      mongo.login(data.uid, data.username, function(obj){
+      mongo.login(data.uid, data.username, data.profileImageURL ,function(obj){
         user = data;
         console.log(user.username + " logged in.");
         socket.emit("login", obj);

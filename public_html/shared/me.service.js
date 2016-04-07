@@ -6,9 +6,10 @@ myApp.service("MeService", function(mySocket){
 	this.auctions = [];
 	this.comments = [];
 	this.openAuctions = [];
+	this
 
 	this.callbacks = [];
-	this.setID = function(id,username){
+	this.setID = function(id,username,profileImageURL){
 		var callback = function(data){
 			if(data == null){
 				alert("Could not find user: " + service.uid);
@@ -20,7 +21,7 @@ myApp.service("MeService", function(mySocket){
 			}
 			mySocket.removeListener("login", callback);
 		}
-		mySocket.emit("login", {uid:id,username: username});
+		mySocket.emit("login", {uid:id,username: username, profileImageURL: profileImageURL});
 		mySocket.on("login", callback);
 		service.uid = id;
 
