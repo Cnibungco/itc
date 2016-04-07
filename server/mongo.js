@@ -274,6 +274,7 @@ exports.getUserAuctionHistory = function(userID, callback){
 };
 
 exports.getUserParticipatingOpenAuctions = function(userID, callback){
+    console.log(userID);
     users_collection.findOne({_id: userID},{participatingAuctionIDs: true, _id: false}, function(err, result){
         var participatingAuctionIDs = result.participatingAuctionIDs;
 

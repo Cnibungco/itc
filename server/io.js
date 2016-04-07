@@ -28,6 +28,11 @@ exports.listen = function(http,io){
         }
       });
     });
+    socket.on("getActiveBids", function (uid) {
+      mongo.getUserParticipatingOpenAuctions(uid,function (data) {
+        socket.emit("getActiveBids",data);
+      })
+    })
     socket.on("searchAuctions",function(text){
       mongo.searchAuctions(text,function(results){
 
