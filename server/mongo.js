@@ -26,7 +26,12 @@ exports.createNewUser = function(userID, username, callback){
         participatingAuctionIDs: [],
         auctionsWon: [],
         feedbackForProvider:{},
-        feedbackForClient: {}
+        feedbackForClient: {},
+        ratings: {
+            clientRating: 0,
+            providerRating: 0,
+            overallRating: 0
+        }
     };
 
     users_collection.insert(aUser, function(err, result){
@@ -350,6 +355,7 @@ exports.setFeedbackForClient = function(auctionID, comment, rating, callback){
 
         users_collection.update({_id: clientID },{$set: setObject}, function(err, result){
             if (err) throw err;
+            updateUserRatings(clientID);
         })
     })
 
@@ -372,17 +378,16 @@ exports.setFeedbackForProvider = function(auctionID, comment, rating, callback){
             var providerID = result.userID;
             console.log("providers id:", providerID);
 
-           var key = "feedbackForProvider."+auctionID;
+            var key = "feedbackForProvider."+auctionID;
             var setObject = {};
             setObject[key] = feedback;
 
             users_collection.update({_id: providerID },{$set: setObject}, function(err, result){
                 if (err) throw err;
+                updateUserRatings(providerID);
             })
         });
-
     })
-
 };
 
 exports.getAuctionsWon = function(userID, callback){
@@ -491,16 +496,78 @@ function updateAuctionLowestBid(userID, auctionID, bidAmount){
     })
 }
 
-//Mongo Setup
-mongodb.MongoClient.connect(uri, function(err, dbRef) {
-    if(err) throw err;
-    db = dbRef;
-    setupCollections();
-});
+function updateUserRatings(userID){
+    users_collection.findOne({_id: userID}, {feedbackForClient: true, feedbackForProvider: true}, function(err, result){
+        var feedbackForClient = result.feedbackForClient;
+        var feedbackForProvider = result.feedbackForProvider;
 
+        var newRatings = calculateRatings(feedbackForClient, feedbackForProvider);
+
+        users_collection.update({_id: userID}, {$set: {"ratings": newRatings}},
+            function(err, result){
+                if (err) throw err;
+            }
+        )
+    })
+}
+
+function calculateRatings(feedbackForClient, feedbackForProvider){
+    var totalClientRating = 0;
+    var totalProviderRating = 0;
+
+    var newRatings = {}
+
+    for (var auctionID in feedbackForClient) {
+        var rating = feedbackForClient[auctionID].rating;
+        totalClientRating += rating;
+    }
+
+    var clientFeedbackCount = Object.keys(feedbackForClient).length;
+    if (clientFeedbackCount == 0){
+        newRatings.clientRating = 0;
+    }
+    else{
+        newRatings.clientRating = totalClientRating / clientFeedbackCount;
+    }
+
+    for (var auctionID in feedbackForProvider) {
+        var rating = feedbackForProvider[auctionID].rating;
+        totalProviderRating += rating;
+    }
+
+    var providerFeedbackCount = Object.keys(feedbackForProvider).length;
+
+    if (providerFeedbackCount == 0){
+        newRatings.providerRating = 0;
+    }
+    else{
+        newRatings.providerRating = totalProviderRating / providerFeedbackCount;
+    }
+
+    var totalRatingsCount = providerFeedbackCount + clientFeedbackCount;
+
+    if (totalRatingsCount == 0){
+        newRatings.overallRating = 0;
+    }
+    else{
+        newRatings.overallRating = (totalClientRating + totalProviderRating) / totalRatingsCount;
+    }
+
+    return newRatings;
+}
+
+//Mongo Setup
 function setupCollections(){
     users_collection = db.collection('users');
     bids_collection = db.collection('bids');
     auctions_collection = db.collection('auctions');
     bid_history__collection = db.collection("bid_history");
 }
+
+mongodb.MongoClient.connect(uri, function(err, dbRef) {
+    if(err) throw err;
+    db = dbRef;
+    setupCollections();
+});
+
+
