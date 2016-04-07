@@ -15,7 +15,7 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
             CreateBidService.createNewBid(bidAmount, auctionID);
         }
         $scope.isClient = false;
-        $scope.isProvider = true;
+        $scope.isProvider = false;
         MeService.addCallback(function () {
             AuctionDetailsService.addCallback(function () {
                 console.log(AuctionDetailsService.getResult());
