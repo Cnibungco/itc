@@ -24,12 +24,9 @@ exports.createNewUser = function(userID, username, callback){
         bids: [],
         auctions: [],
         participatingAuctionIDs: [],
-        wonAuctions: {
-            incompleteAuctions: [],
-            completeAuctions: []
-        },
-        comments: {
-        }
+        auctionsWon: [],
+        providerCommentRatings:[],
+        clientCommentRatings: []
     };
 
     users_collection.insert(aUser, function(err, result){
@@ -57,7 +54,6 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
         startingAmount : startingAmount,
         bids: [],
         isOpen: true,
-        isCompleted: false,
         currentLowestBid: {
             price: "-",
             userID: ""
@@ -271,17 +267,31 @@ exports.clientChooseBid = function(userID, auctionID, bidID, callback){
 
     bids_collection.findOne({_id: bidID},{userID: true}, function(err, result){
         var bidderID = result.userID;
+        console.log("bidderID: ", bidderID)
 
-        //update user's wonAuctions.incompleteAuctions
-        users_collection.update({_id: bidderID},{$push: {"wonAuctions.incompleteAuctions": auctionID}},
+        //Provider
+        //take auction out of particicipatingAuctionIDs, put in auctionsWon
+        users_collection.update(
+            {_id: bidderID},
+            {
+                $pull:
+                {
+                    participatingAuctionIDs: auctionID
+                },
+                $push:
+                {
+                    auctionsWon: auctionID
+                }
+            },
             function(err, result){
+                if (err) throw err;
+                callback({value: "tell isaac if you need anything"});
             }
-
         );
 
-        callback({value: "tell isaac if you need anything"});
-
     });
+
+    //Update bid to winning bid
     bids_collection.update({_id: bidID},{$set: {isWinningBid: true}},function(){
     });
 
