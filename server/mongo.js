@@ -57,7 +57,9 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
         currentLowestBid: {
             price: "-",
             userID: ""
-        }
+        },
+        clientCommentRating: {},
+        providerCommentRating: {}
     };
 
     auctions_collection.insert(auction, function(err, result){
@@ -299,6 +301,72 @@ exports.clientChooseBid = function(userID, auctionID, bidID, callback){
     //TODO: notify bidder of winning the auction/service
 };
 
+exports.setFeedbackForClient = function(auctionID, comment, rating, callback){
+    var commentRating = {
+        comment: comment,
+        rating: rating
+    };
+    auctions_collection.update({_id: auctionID}, {}, function(){
+
+    })
+
+}
+
+exports.getAuctionsWon = function(userID, callback){
+    users_collection.findOne({_id: userID},{auctionsWon: true}, function(err,result){
+        var auctionsWonIDs = result.auctionsWon;
+        auctions_collection.find({_id: {$in: auctionsWonIDs}}).toArray( function(err, result){
+            var auctionsWon = result;
+            var remainingQueries = auctionsWon.length * 2;
+
+            if (remainingQueries == 0){
+                callback([]);
+                return;
+            }
+
+            for (var i = 0; i < auctionsWon.length; i++) {
+                var auction = auctionsWon[i];
+                (function (auction){
+                    bids_collection.findOne(
+                        {
+                            _id: new ObjectId(auction.winningBid)
+                        },
+                        function(err, result){
+                            if (err) throw err;
+                            auction.winningBid = result;
+                            remainingQueries--;
+                            if (remainingQueries == 0){
+                                callback(auctionsWon);
+                            }
+                        }
+                    )
+                }(auction));
+
+                (function (auction){
+                    users_collection.findOne(
+                        {
+                            _id: auction.userID
+                        },
+                        {
+                            _id: true,
+                            username: true,
+                        },
+                        function(err, result){
+                            if (err) throw err;
+                            auction.owner = result;
+                            remainingQueries--;
+                            if (remainingQueries == 0){
+                                callback(auctionsWon);
+                            }
+                        }
+                    )
+                }(auction));
+            }
+
+        });
+
+    })
+}
 
 exports.searchAuctions = function(searchText, callback){
     auctions_collection.find({ $text: { $search: searchText}}).toArray(function(err, result){
