@@ -6,7 +6,7 @@ myApp.service("MeService", function(mySocket){
 	this.auctions = [];
 	this.comments = [];
 	this.openAuctions = [];
-	this
+	this.profileImageURL = "";
 
 	this.callbacks = [];
 	this.setID = function(id,username,profileImageURL){
@@ -18,6 +18,7 @@ myApp.service("MeService", function(mySocket){
 				service.bids = data.bids;
 				service.auctions = data.auctions; 
 				service.comments = data.comments;
+				service.profileImageURL = data.profileImageURL;
 			}
 			mySocket.removeListener("login", callback);
 		}
@@ -52,7 +53,9 @@ myApp.service("MeService", function(mySocket){
 	this.getComments = function(){
 		return service.comments;
 	}
-
+	this.getProfileImageURL = function(){
+		return service.profileImageURL;
+	}
 	this.loadOpenAuctions = function(){
 		console.log("req");
 		callback = function(data){
