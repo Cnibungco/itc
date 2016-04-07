@@ -15,6 +15,7 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         $scope.createBid = function(bidAmount, auctionID){
             CreateBidService.createNewBid(bidAmount, auctionID);
         }
+        $scope.isLoggedIn = MeService.loggedIn;
         $scope.isClient = AuctionRoleService.isClient;
         $scope.isProvider = AuctionRoleService.isProvider;
         $scope.isClosed = AuctionDetailsService.isClosed;

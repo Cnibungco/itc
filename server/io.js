@@ -119,6 +119,11 @@ exports.listen = function(http,io){
     socket.on("stopAuctionListener", function(auctionID){
       socket.listenAuction[auctionID] = false;
     });
+    socket.on("closeAuction", function(auctionID){
+      mongo.closeAuction(auctionID,function (result) {
+        socket.emit("closeAuction", result);
+      })
+    })
     var auctionListenerCallback = function(auctionID){
       mongo.getAuctionDetails(auctionID, function (data) {
         for(var key in sockets){

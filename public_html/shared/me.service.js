@@ -64,4 +64,8 @@ myApp.service("MeService", function(mySocket){
 	this.getOpenAuctions = function(){
 		return service.openAuctions;
 	}
+	this.loggedIn = function(){
+		console.log("hi");
+		return service.uid != "";
+	}
 })
