@@ -59,7 +59,8 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
             userID: ""
         },
         feedbackForClient: {},
-        feedbackForProvider: {}
+        feedbackForProvider: {},
+        winner: {}
     };
 
     auctions_collection.insert(auction, function(err, result){
@@ -172,44 +173,66 @@ exports.getAuctionDetails = function(auctionID, callback){
     auctions_collection.findOne({ _id: new ObjectId(auctionID)}, function(err, result){
         if (err) throw err;
         var auctionDocument = result;
+        console.log("auctionDoc", auctionDocument)
         users_collection.findOne({_id: auctionDocument.userID}, function(err, result){
             auctionDocument.owner = result;
-            bids_collection.find({_id: { $in: auctionDocument.bids }})
-                .toArray(
-                    function(err, result){
-                        var auctionBids = result;
-                        var remainingQueries = auctionBids.length;
-                        auctionDocument.bidHistory = [];
-                        if (remainingQueries == 0){
-                            callback(auctionDocument);
-                            return;
-                        }
-                        for (var i = 0; i < auctionBids.length; i++) {
-                            var bid = auctionBids[i];
-                            (function (bid){
-                                users_collection.findOne(
-                                    {
-                                        _id: bid.userID
-                                    },
-                                    {
-                                        _id: true,
-                                        username: true,
-                                        comments: true
-                                    },
+            bids_collection.findOne(
+                {_id: new ObjectId(auctionDocument.winningBid)},
+                {_id: true, userID: true},
+                function(err, result){
+                    if (err) throw err;
+                    var bidderID = result.userID;
+
+                    users_collection.findOne(
+                        {_id: bidderID},
+                        {_id: true, username: true, rating: true},
+                        function(err, result){
+                            auctionDocument.winner = result;
+
+                            bids_collection.find({_id: { $in: auctionDocument.bids }})
+                                .toArray(
                                     function(err, result){
-                                        if (err) throw err;
-                                        bid.user = result;
-                                        remainingQueries--;
+                                        var auctionBids = result;
+                                        var remainingQueries = auctionBids.length;
+                                        auctionDocument.bidHistory = [];
                                         if (remainingQueries == 0){
-                                            auctionDocument.bidHistory = auctionBids;
                                             callback(auctionDocument);
+                                            return;
+                                        }
+                                        for (var i = 0; i < auctionBids.length; i++) {
+                                            var bid = auctionBids[i];
+                                            (function (bid){
+                                                users_collection.findOne(
+                                                    {
+                                                        _id: bid.userID
+                                                    },
+                                                    {
+                                                        _id: true,
+                                                        username: true,
+                                                        comments: true
+                                                    },
+                                                    function(err, result){
+                                                        if (err) throw err;
+                                                        bid.user = result;
+                                                        remainingQueries--;
+                                                        if (remainingQueries == 0){
+                                                            auctionDocument.bidHistory = auctionBids;
+                                                            callback(auctionDocument);
+                                                        }
+                                                    }
+                                                )
+                                            }(bid))
                                         }
                                     }
-                                )
-                            }(bid))
+                                );
                         }
-                    }
-                );
+                    );
+
+
+                }
+            )
+
+
         })
     });
 };

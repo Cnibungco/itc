@@ -44,9 +44,9 @@ function testDB(){
              console.log(result);
 
             //mongo.setFeedbackForClient(auctionID, "He didn't pay me", 1, outputCallback);
-            mongo.setFeedbackForProvider("5705fa49447888edd48a39a2", "He did a good job mowing my lawn", 4, outputCallback);
+            //mongo.setFeedbackForProvider("5705fa49447888edd48a39a2", "He did a good job mowing my lawn", 4, outputCallback);
 
-
+            mongo.getAuctionDetails("5705fa49447888edd48a39a2",outputCallback)
              //Bid on my own auction 3 times
              //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
              //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
