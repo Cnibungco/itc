@@ -10,7 +10,6 @@ exports.listen = function(http,io){
     console.log('Socket "' + socket.id + '" connected');
     sockets[socket.id] = socket;
 
-
     socket.on("disconnect", function(){
       console.log('Socket "' + socket.id + '" disconnected');
       delete sockets[socket.id];
@@ -103,7 +102,7 @@ exports.listen = function(http,io){
     socket.on("SetFeedbackForProvider", function (data) {
       mongo.setFeedbackForProvider(data.auctionID,data.comment,data.rating,function (result) {
         socket.emit("SetFeedbackForProvider", result);
-      })
+      });
     })
     socket.on("startNewAuctionListener",function(){
       socket.listenAuctions = true;

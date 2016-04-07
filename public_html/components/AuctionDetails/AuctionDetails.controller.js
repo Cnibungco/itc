@@ -1,8 +1,8 @@
 myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService','$stateParams', 
     'CreateBidService', 'AuctionListenerService', 'ChooseBidService', 'MeService', 'SetFeedbackForClientService',
-    'SetFeedbackForProviderService',
+    'SetFeedbackForProviderService', 'MongoTimeFactory',
     function($scope, AuctionDetailsService, $stateParams, CreateBidService, AuctionListenerService, ChooseBidService,
-             MeService, SetFeedbackForClientService, SetFeedbackForProviderService) {
+             MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory) {
         $scope.title = "AuctionDetails";
         AuctionDetailsService.getAuctionDetails($stateParams.auctionID);
         AuctionListenerService.listen($stateParams.auctionID);
@@ -15,20 +15,21 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
             CreateBidService.createNewBid(bidAmount, auctionID);
         }
         $scope.isClient = false;
-        $scope.isProvider = false;
+        $scope.isProvider = true;
         MeService.addCallback(function () {
             AuctionDetailsService.addCallback(function () {
                 console.log(AuctionDetailsService.getResult());
                 if(MeService.getUId() == AuctionDetailsService.getResult().userID){
                     $scope.isClient = true;
                 }
-                else if(AuctionDetailsService.getResult().isOpen == false){
+                if(AuctionDetailsService.getResult().isOpen == false){
                     if(MeService.getUId() == AuctionDetailsService.getResult().winner._id)
                         $scope.isProvider = true;
                 }
             })
 
         });
+
         AuctionDetailsService.addCallback(function () {
             $scope.providerComment = AuctionDetailsService.getResult().feedbackForClient.comment;
             $scope.providerRating = AuctionDetailsService.getResult().feedbackForClient.rating;
@@ -41,5 +42,6 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         $scope.setFeedbackForProvider = function () {
             SetFeedbackForProviderService.setFeedback($scope.clientComment, $scope.clientRating);
         }
+        $scope.decodeTime = MongoTimeFactory;
     }
 ]);

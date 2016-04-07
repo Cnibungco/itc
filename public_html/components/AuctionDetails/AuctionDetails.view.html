@@ -30,6 +30,7 @@
                 <a ui-sref="User({ userID: bid.userID })">{{bid.user.username}}</a>
                 {{bid.amount}}
                 isWinningBid:{{bid.isWinningBid}}
+                {{decodeTime(bid._id).toTimeString()}}
                 <button ng-show="isClient" ng-click="chooseBid(bid._id)">Select Offer</button>
             </div>
         </div>
