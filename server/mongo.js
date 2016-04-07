@@ -25,8 +25,8 @@ exports.createNewUser = function(userID, username, callback){
         auctions: [],
         participatingAuctionIDs: [],
         auctionsWon: [],
-        providerCommentRatings:[],
-        clientCommentRatings: []
+        feedbackForProvider:{},
+        feedbackForClient: {}
     };
 
     users_collection.insert(aUser, function(err, result){
@@ -307,9 +307,22 @@ exports.setFeedbackForClient = function(auctionID, comment, rating, callback){
         rating: rating
     };
     auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {feedbackForClient: feedback}}, function(err, result){
-        if (err) throw err
+        if (err) throw err;
         callback({value: "tell isaac if you need anything"});
     })
+
+    auctions_collection.findOne({_id: new ObjectId(auctionID)},{userID: true}, function(err, result){
+        var clientID = result.userID;
+        var key = "feedbackForClient."+auctionID;
+
+        var setObject = {};
+        setObject[key] = feedback;
+
+        users_collection.update({_id: clientID },{$set: setObject}, function(err, result){
+            if (err) throw err;
+        })
+    })
+
 };
 
 exports.setFeedbackForProvider = function(auctionID, comment, rating, callback){
@@ -321,6 +334,26 @@ exports.setFeedbackForProvider = function(auctionID, comment, rating, callback){
         if (err) throw err
         callback({value: "tell isaac if you need anything"});
     })
+
+    auctions_collection.findOne({_id: new ObjectId(auctionID)},{winningBid: true}, function(err, result){
+        var winningBidID = result.winningBid;
+        console.log("winningBidID", result)
+        bids_collection.findOne({_id: new ObjectId(winningBidID)},{userID: true}, function(err, result){
+            var providerID = result.userID;
+            console.log("providers id:", providerID);
+
+            var key = "feedbackForProvider."+auctionID;
+
+            var setObject = {};
+            setObject[key] = feedback;
+
+            //users_collection.update({_id: clientID },{$set: setObject}, function(err, result){
+            //    if (err) throw err;
+            //})
+        });
+
+    })
+
 };
 
 exports.getAuctionsWon = function(userID, callback){
