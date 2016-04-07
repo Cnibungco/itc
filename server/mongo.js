@@ -294,6 +294,15 @@ exports.getUserParticipatingOpenAuctions = function(userID, callback){
     })
 };
 
+exports.closeAuction = function(auctionID, callback){
+    auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {isOpen: false}},
+        function(err, added){
+            if(err) throw err;
+            callback({value: "tell isaac if you need anything"});
+        }
+    );
+}
+
 exports.clientChooseBid = function(userID, auctionID, bidID, callback){
     //update auction to be closed
     auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {isOpen: false, winningBid: bidID}},

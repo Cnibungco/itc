@@ -43,7 +43,8 @@ function testDB(){
              auctionID = result._id;
              console.log(result);
 
-            mongo.setFeedbackForClient(auctionID, "He didn't pay me", Math.floor(Math.random() * 5) + 1 , outputCallback);
+            mongo.closeAuction(auctionID, outputCallback);
+            //mongo.setFeedbackForClient(auctionID, "He didn't pay me", Math.floor(Math.random() * 5) + 1 , outputCallback);
             //mongo.setFeedbackForProvider("5705fa49447888edd48a39a2", "He did a good job mowing my lawn", 4, outputCallback);
 
             //mongo.getAuctionDetails("5705fa49447888edd48a39a2",outputCallback)
