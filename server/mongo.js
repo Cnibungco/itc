@@ -21,7 +21,7 @@ exports.createNewUser = function(userID, username, profileImageURL, callback){
     var aUser = {
         _id: userID,
         username: username,
-        profileImageURL: profileImageURL
+        profileImageURL: profileImageURL,
         bids: [],
         auctions: [],
         participatingAuctionIDs: [],
@@ -157,7 +157,8 @@ exports.login = function(userID, username, profileImageURL, callback){
 
 exports.getUserInfo = function(userID, callback){
     console.log("MONGO: getUserInfo");
-    users_collection.findOne({ _id: userID},{_id: true, username: true, comments: true},
+    users_collection.findOne({ _id: userID},
+        {_id: true, username: true, profileImageURL: true, ratings: true, feedbackForClient: true, feedbackForProvider: true},
         function(err,result){
             if (err) throw err;
             console.log("getUserIngo",result)
