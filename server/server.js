@@ -35,26 +35,30 @@ function testDB(){
     var auctionID;
 
     //mongo.login(UID, "cool_username", outputCallback);
-    mongo.getAuctionsWon(UID, outputCallback);
+    //mongo.getAuctionsWon(UID, outputCallback);
     //mongo.getUserInfo(UID, outputCallback);
     //
-    //mongo.createNewAuction(UID,"lawn","Mow my lawn twice a week. I live in Long Beach",20,
-    //    function(result){
-    //         auctionID = result._id;
-    //         console.log(result);
-    //
-    //         //Bid on my own auction 3 times
-    //         //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
-    //         //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
-    //         mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(data){
-    //             var bidID = data._id;
-    //             setTimeout(function(){
-    //                 //mongo.getAuctionDetails(auctionID,outputCallback)
-    //                 mongo.clientChooseBid(UID,auctionID, bidID, outputCallback);
-    //
-    //             },1000)
-    //         });
-    //    });
+    mongo.createNewAuction(UID,"lawn","Mow my lawn twice a week. I live in Long Beach",20,
+        function(result){
+             auctionID = result._id;
+             console.log(result);
+
+            mongo.setFeedbackForClient(auctionID, "He didn't pay me", 1, outputCallback);
+            mongo.setFeedbackForProvider(auctionID, "He did a good job mowing my lawn", 4, outputCallback);
+
+
+             //Bid on my own auction 3 times
+             //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+             //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
+             //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(data){
+             //    var bidID = data._id;
+             //    setTimeout(function(){
+             //        //mongo.getAuctionDetails(auctionID,outputCallback)
+             //        mongo.clientChooseBid(UID,auctionID, bidID, outputCallback);
+             //
+             //    },1000)
+             //});
+        });
 
     //mongo.getBidHistory(UID,outputCallback);
     //

@@ -58,8 +58,8 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
             price: "-",
             userID: ""
         },
-        clientCommentRating: {},
-        providerCommentRating: {}
+        feedbackForClient: {},
+        feedbackForProvider: {}
     };
 
     auctions_collection.insert(auction, function(err, result){
@@ -302,15 +302,26 @@ exports.clientChooseBid = function(userID, auctionID, bidID, callback){
 };
 
 exports.setFeedbackForClient = function(auctionID, comment, rating, callback){
-    var commentRating = {
+    var feedback = {
         comment: comment,
         rating: rating
     };
-    auctions_collection.update({_id: auctionID}, {}, function(){
-
+    auctions_collection.update({_id: auctionID}, {$set: {feedbackForClient: feedback}}, function(err, result){
+        if (err) throw err
+        callback({value: "tell isaac if you need anything"});
     })
+};
 
-}
+exports.setFeedbackForProvider = function(auctionID, comment, rating, callback){
+    var feedback = {
+        comment: comment,
+        rating: rating
+    };
+    auctions_collection.update({_id: auctionID}, {$set: {feedbackForProvider: feedback}}, function(err, result){
+        if (err) throw err
+        callback({value: "tell isaac if you need anything"});
+    })
+};
 
 exports.getAuctionsWon = function(userID, callback){
     users_collection.findOne({_id: userID},{auctionsWon: true}, function(err,result){
