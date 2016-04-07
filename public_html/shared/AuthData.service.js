@@ -40,7 +40,7 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
             service.loggedIn = false;
         } else {
             showDrawer();
-            MeService.setID(authData.uid, authData.google.displayName);
+            MeService.setID(authData.uid, authData.google.displayName, authData.google.profileImageURL);
             console.log('Logged in as', authData.uid);
             this.data = authData;
             console.log(this.data);
