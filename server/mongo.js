@@ -261,7 +261,6 @@ exports.getUserParticipatingOpenAuctions = function(userID, callback){
 
 exports.clientChooseBid = function(userID, auctionID, bidID, callback){
     //update auction to be closed
-    console.log(userID + " " + auctionID + " " + bidID);
     auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {isOpen: false, winningBid: bidID}},
         function(err, added){
             if(err) throw err;
@@ -283,7 +282,7 @@ exports.clientChooseBid = function(userID, auctionID, bidID, callback){
                 },
                 $push:
                 {
-                    auctionsWon: auctionID
+                    auctionsWon: new ObjectId(auctionID)
                 }
             },
             function(err, result){
@@ -302,11 +301,12 @@ exports.clientChooseBid = function(userID, auctionID, bidID, callback){
 };
 
 exports.setFeedbackForClient = function(auctionID, comment, rating, callback){
+    console.log(auctionID);
     var feedback = {
         comment: comment,
         rating: rating
     };
-    auctions_collection.update({_id: auctionID}, {$set: {feedbackForClient: feedback}}, function(err, result){
+    auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {feedbackForClient: feedback}}, function(err, result){
         if (err) throw err
         callback({value: "tell isaac if you need anything"});
     })
@@ -317,7 +317,7 @@ exports.setFeedbackForProvider = function(auctionID, comment, rating, callback){
         comment: comment,
         rating: rating
     };
-    auctions_collection.update({_id: auctionID}, {$set: {feedbackForProvider: feedback}}, function(err, result){
+    auctions_collection.update({_id: new ObjectId(auctionID)}, {$set: {feedbackForProvider: feedback}}, function(err, result){
         if (err) throw err
         callback({value: "tell isaac if you need anything"});
     })

@@ -91,8 +91,18 @@ exports.listen = function(http,io){
       });
     })
     socket.on("getAuctionsWon", function(uid){
-      mongo.getUserAuctionHistory(uid, function (result) {
+      mongo.getAuctionsWon(uid, function (result) {
         socket.emit("getAuctionsWon", result);
+      })
+    })
+    socket.on("SetFeedbackForClient", function(data){
+      mongo.setFeedbackForClient(data.auctionID,data.comment,data.rating,function(result){
+        socket.emit("SetFeedbackForClient",result);
+      })
+    })
+    socket.on("SetFeedbackForProvider", function (data) {
+      mongo.setFeedbackForProvider(data.auctionID,data.comment,data.rating,function (result) {
+        socket.emit("SetFeedbackForProvider", result);
       })
     })
     socket.on("startNewAuctionListener",function(){

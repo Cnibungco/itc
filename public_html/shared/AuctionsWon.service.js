@@ -8,7 +8,6 @@ myApp.service("AuctionsWonService", function(mySocket, MeService){
             return;
         }
         var callback = function(data){
-            console.log(data);
             service.auctionsWon = data;
         }
         mySocket.emit("getAuctionsWon",uid);
