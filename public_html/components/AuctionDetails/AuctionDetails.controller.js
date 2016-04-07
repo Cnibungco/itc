@@ -12,6 +12,14 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
     $scope.createBid = function(bidAmount, auctionID){
         CreateBidService.createNewBid(bidAmount, auctionID);
     }
+    $scope.isOwner = false;
+    MeService.addCallback(function () {
+        AuctionDetailsService.addCallback(function () {
+            console.log(AuctionDetailsService.getResult());
+            if(MeService.getUId() == AuctionDetailsService.getResult().userID){
+                $scope.isOwner = true;
+            }
+        })
 
-
+    });
 }]);

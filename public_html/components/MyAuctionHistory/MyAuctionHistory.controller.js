@@ -2,6 +2,6 @@ myApp.controller('MyAuctionHistoryController', ['$scope',  'AuctionHistoryServic
 	function($scope, AuctionHistoryService, MeService) {
 
    $scope.title = "MyAuctionHistory";
-   AuctionHistoryService.loadAuctionHistory(MeService.getUId());
+   MeService.addCallback(AuctionHistoryService.loadAuctionHistory);
    $scope.auctionHistory = AuctionHistoryService.getAuctionHistory;
 }]);

@@ -1,8 +1,9 @@
-myApp.service("AuctionHistoryService", function(mySocket){
-	service = this;
+myApp.service("AuctionHistoryService", function(mySocket, MeService){
+	var service = this;
 	this.auctionHistory = {};
 
-	this.loadAuctionHistory = function(uid){
+	this.loadAuctionHistory = function(){
+		var uid = MeService.getUId();
 		if(uid == null || uid == ""){
 			console.log("Blank uid, cannot load Auction History");
 			return;

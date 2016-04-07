@@ -1,9 +1,10 @@
-myApp.service("BidHistoryService", function(mySocket){
+myApp.service("BidHistoryService", function(mySocket, MeService){
 	service = this;
 	this.uid = "";
 	this.bidHistory = [];
 
-	this.loadBidHistory = function(uid){
+	this.loadBidHistory = function(){
+		var uid = MeService.getUId()
 		callback = function(data){
 			service.bidHistory = data;
 		}

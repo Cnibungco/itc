@@ -31,7 +31,11 @@ myApp.service("MeService", function(mySocket){
 		service.callbacks = [];
 	}
 	this.addCallback = function (callback) {
-		service.callbacks.push(callback);
+		if(service.username == ""){
+			service.callbacks.push(callback);
+ 		} else {
+			callback();
+		}
 	}
 	this.getUId = function(){
 		return service.uid;

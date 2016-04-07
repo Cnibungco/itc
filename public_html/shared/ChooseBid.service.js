@@ -5,7 +5,7 @@ myApp.service("ChooseBidService", function(mySocket){
 	this.chooseBid = function(userID, auctionID, bidID){
 		console.log(userID,auctionID,bidID);
 		if(auctionID == "" || auctionID == null) return;
-		callback = function(data){
+		var callback = function(data){
 			service.result = data;
 		}
 		mySocket.emit("ChooseBid",{

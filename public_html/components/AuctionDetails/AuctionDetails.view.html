@@ -25,14 +25,15 @@
         </div>
 
         <div class="mdl-cell mdl-cell--4-col">
-            <p>{{getAuction()}}</p>
             <h4>Bid History</h4>
             <div ng-repeat="bid in getAuction().bidHistory">
                 <a ui-sref="User({ userID: bid.userID })">{{bid.user.username}}</a>
                 {{bid.amount}}
                 isWinningBid:{{bid.isWinningBid}}
-                <button ng-click="chooseBid(bid._id)">Select Offer</button>
+                <button ng-show="isOwner" ng-click="chooseBid(bid._id)">Select Offer</button>
             </div>
         </div>
+
+
     </div>
 </div>

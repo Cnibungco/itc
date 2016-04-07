@@ -1,21 +1,29 @@
 myApp.service("AuctionDetailsService", function(mySocket){
-	service = this;
-	this.auctionID = "";
+	var service = this;
 	this.result = {};
+	this.callbacks = [];
 
 	this.getAuctionDetails = function(auctionID){
 		if(auctionID == "" || auctionID == null) return;
-		callback = function(data){
+		var callback = function(data){
 			service.result = data;
+			service.callbacks.forEach(function (obj) {
+				obj();
+			})
+			service.callbacks = [];
 		}
 		mySocket.emit("getAuctionDetails",auctionID);
 		mySocket.on("getAuctionDetails",callback);
 		service.auctionID = auctionID;
 	}
-	this.getAuctionID = function(){
-		return service.auctionID;
-	}
 	this.getResult = function(){
 		return service.result;
+	}
+	this.addCallback = function (callback){
+		if($.isEmptyObject(service.result)){
+			service.callbacks.push(callback);
+		} else {
+			callback();
+		}
 	}
 })
