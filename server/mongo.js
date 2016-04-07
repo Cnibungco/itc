@@ -96,10 +96,12 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
         var bidDocument = result.ops[0];
         users_collection.findOne({_id: userID},{_id: true, username: true}, function(err, result){
             bidDocument.user = result;
-            callback(bidDocument);
+            updateAuctionLowestBid(userID, auctionID, bidAmount, function(){
+                callback(bidDocument);
+            });
         });
 
-        updateAuctionLowestBid(userID, auctionID, bidAmount);
+
 
         //Update users_collections.bids[] and auction.bidHistory[]
         users_collection.update({_id: userID},
@@ -488,7 +490,7 @@ exports.searchAuctions = function(searchText, callback){
 };
 
 //PRIVATE FUNCTIONS
-function updateAuctionLowestBid(userID, auctionID, bidAmount){
+function updateAuctionLowestBid(userID, auctionID, bidAmount, callback){
     auctions_collection.findOne({_id: new ObjectId(auctionID)},{currentLowestBid: true}, function(err, result){
         var currentLowestBidPrice = result.currentLowestBid.price;
         if (currentLowestBidPrice == "-" ||  bidAmount < currentLowestBidPrice){
@@ -499,6 +501,9 @@ function updateAuctionLowestBid(userID, auctionID, bidAmount){
                     {
                         currentLowestBid: {price: bidAmount, userID: userID}
                     }
+                },
+                function(err, result){
+                    callback();
                 }
             );
         }
