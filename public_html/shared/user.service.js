@@ -1,10 +1,10 @@
 myApp.service("UserService", function(mySocket){
-	service = this;
+	var service = this;
 
 	this.user = {};
 
 	this.setID = function(uid){
-		callback = function(data){
+		var callback = function(data){
 			if(data == null){
 				alert("Could not find user: " + service.uid);
 			} else {

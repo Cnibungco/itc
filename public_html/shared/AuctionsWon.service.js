@@ -9,12 +9,12 @@ myApp.service("AuctionsWonService", function(mySocket, MeService){
         }
         var callback = function(data){
             service.auctionsWon = data;
+            mySocket.removeListener("getAuctionsWon", callback);
         }
         mySocket.emit("getAuctionsWon",uid);
         mySocket.on("getAuctionsWon",callback);
     }
     this.getAuctionsWon = function(){
-        console.log("hi");
         return service.auctionsWon;
     }
 })

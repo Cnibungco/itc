@@ -1,12 +1,13 @@
 myApp.service("BidHistoryService", function(mySocket, MeService){
-	service = this;
+	var service = this;
 	this.uid = "";
 	this.bidHistory = [];
 
 	this.loadBidHistory = function(){
 		var uid = MeService.getUId()
-		callback = function(data){
+		var callback = function(data){
 			service.bidHistory = data;
+			mySocket.removeListener("getBidHistory", callback);
 		}
 		mySocket.emit("getBidHistory",uid);
 		mySocket.on("getBidHistory",callback);

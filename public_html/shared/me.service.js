@@ -9,7 +9,7 @@ myApp.service("MeService", function(mySocket){
 
 	this.callbacks = [];
 	this.setID = function(id,username){
-		callback = function(data){
+		var callback = function(data){
 			if(data == null){
 				alert("Could not find user: " + service.uid);
 			} else {
@@ -23,7 +23,6 @@ myApp.service("MeService", function(mySocket){
 		mySocket.emit("login", {uid:id,username: username});
 		mySocket.on("login", callback);
 		service.uid = id;
-
 
 		service.callbacks.forEach(function (obj) {
 			obj();

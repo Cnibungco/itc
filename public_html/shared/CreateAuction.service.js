@@ -1,9 +1,10 @@
 myApp.service("CreateAuctionService", function(mySocket){
-	service = this;
+	var service = this;
 	this.auction = {};
 	this.createAuction = function(title,description,startingPrice){
-		callback = function(data){
+		var callback = function(data){
 			service.auction = data;
+			mySocket.removeListener("createNewAuction", callback);
 		}
 		mySocket.emit("createNewAuction",{
 			title: title,

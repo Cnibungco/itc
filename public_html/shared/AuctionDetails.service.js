@@ -15,6 +15,7 @@ myApp.service("AuctionDetailsService", function(mySocket){
 		mySocket.emit("getAuctionDetails",auctionID);
 		mySocket.on("getAuctionDetails",callback);
 		service.auctionID = auctionID;
+		mySocket.removeListener("getAuctionDetails", callback);
 	}
 	this.getResult = function(){
 		return service.result;

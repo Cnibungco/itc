@@ -1,12 +1,10 @@
 myApp.service("SearchService", function(mySocket){
-	service = this;
+	var service = this;
 
-	this.text = "";
 	this.results = [];
 
 	this.search = function(text){
-		console.log("searching: " + text);
-		callback = function(data){
+		var callback = function(data){
 			service.results = data;
 			console.log(service.results);
 			mySocket.removeListener("searchAuctions");
@@ -14,11 +12,6 @@ myApp.service("SearchService", function(mySocket){
 		mySocket.emit("searchAuctions", text);
 		mySocket.on("searchAuctions",callback);
 		service.text = text;
-	}
-    //AutoPopulate home with some sample results
-    this.search("lawn");
-	this.getText = function(){
-		return service.text;
 	}
 	this.getResults = function(){
 		return service.results;

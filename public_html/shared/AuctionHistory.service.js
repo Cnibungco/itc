@@ -8,9 +8,10 @@ myApp.service("AuctionHistoryService", function(mySocket, MeService){
 			console.log("Blank uid, cannot load Auction History");
 			return;
 		}
-		callback = function(data){
+		var callback = function(data){
 			console.log(data);
 			service.auctionHistory = data;
+			mySocket.removeListener("getAuctionHistory", callback);
 		}
 		mySocket.emit("getAuctionHistory",uid);
 		mySocket.on("getAuctionHistory",callback);
