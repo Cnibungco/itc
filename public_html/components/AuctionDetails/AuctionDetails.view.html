@@ -35,12 +35,12 @@
             </div>
         </div>
 
-        <div ng-show="isClient">
+        <div ng-show="isClient()">
             <input ng-model="providerComment" type="text" placeholder="Comment"/>
             <input ng-model="providerRating" type="number" placeholder="Rating"/>
             <button ng-click="setFeedbackForClient()">Submit</button>
         </div>
-        <div ng-show="isProvider">
+        <div ng-show="isProvider()">
             <input ng-model="clientComment" type="text" placeholder="Comment"/>
             <input ng-model="clientRating" type="number" placeholder="Rating"/>
             <button ng-click="setFeedbackForProvider()">Submit</button>

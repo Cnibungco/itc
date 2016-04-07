@@ -11,11 +11,11 @@ myApp.service("AuctionDetailsService", function(mySocket){
 				obj();
 			})
 			service.callbacks = [];
+			mySocket.removeListener("getAuctionDetails", callback);
 		}
 		mySocket.emit("getAuctionDetails",auctionID);
 		mySocket.on("getAuctionDetails",callback);
 		service.auctionID = auctionID;
-		mySocket.removeListener("getAuctionDetails", callback);
 	}
 	this.getResult = function(){
 		return service.result;

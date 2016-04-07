@@ -1,8 +1,9 @@
 myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService','$stateParams', 
     'CreateBidService', 'AuctionListenerService', 'ChooseBidService', 'MeService', 'SetFeedbackForClientService',
-    'SetFeedbackForProviderService', 'MongoTimeFactory',
+    'SetFeedbackForProviderService', 'MongoTimeFactory', 'AuctionRoleService', 
     function($scope, AuctionDetailsService, $stateParams, CreateBidService, AuctionListenerService, ChooseBidService,
-             MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory) {
+             MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory, AuctionRoleService) {
+        
         $scope.title = "AuctionDetails";
         AuctionDetailsService.getAuctionDetails($stateParams.auctionID);
         AuctionListenerService.listen($stateParams.auctionID);
@@ -14,21 +15,8 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         $scope.createBid = function(bidAmount, auctionID){
             CreateBidService.createNewBid(bidAmount, auctionID);
         }
-        $scope.isClient = false;
-        $scope.isProvider = false;
-        MeService.addCallback(function () {
-            AuctionDetailsService.addCallback(function () {
-                console.log(AuctionDetailsService.getResult());
-                if(MeService.getUId() == AuctionDetailsService.getResult().userID){
-                    $scope.isClient = true;
-                }
-                if(AuctionDetailsService.getResult().isOpen == false){
-                    if(MeService.getUId() == AuctionDetailsService.getResult().winner._id)
-                        $scope.isProvider = true;
-                }
-            })
-
-        });
+        $scope.isClient = AuctionRoleService.isClient;
+        $scope.isProvider = AuctionRoleService.isProvider;
 
         AuctionDetailsService.addCallback(function () {
             $scope.providerComment = AuctionDetailsService.getResult().feedbackForClient.comment;
