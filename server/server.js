@@ -44,27 +44,27 @@ function testDB(){
              console.log(result);
 
             //mongo.setFeedbackForClient(auctionID, "He didn't pay me", 1, outputCallback);
-            mongo.setFeedbackForProvider(auctionID, "He did a good job mowing my lawn", 4, outputCallback);
+            mongo.setFeedbackForProvider("5705fa49447888edd48a39a2", "He did a good job mowing my lawn", 4, outputCallback);
 
 
              //Bid on my own auction 3 times
              //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
              //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, outputCallback);
-             mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(data){
-                 var bidID = data._id;
-                 //setTimeout(function(){
-                     //mongo.getAuctionDetails(auctionID,outputCallback)
-                     mongo.clientChooseBid(UID,auctionID, bidID, function(){
-                         setTimeout(function(){
-
-                            mongo.setFeedbackForProvider(auctionID, "He did a good job mowing my lawn", 4, outputCallback);
-                         },1000)
-
-                     });
-
-
-                 //},1000)
-             });
+             //mongo.createNewBid(UID, (Math.random() * 10) + 1, auctionID, function(data){
+             //    var bidID = data._id;
+             //    //setTimeout(function(){
+             //        //mongo.getAuctionDetails(auctionID,outputCallback)
+             //        mongo.clientChooseBid(UID,auctionID, bidID, function(){
+             //            setTimeout(function(){
+             //
+             //               mongo.setFeedbackForProvider(auctionID, "He did a good job mowing my lawn", 4, outputCallback);
+             //            },1000)
+             //
+             //        });
+             //
+             //
+             //    //},1000)
+             //});
         });
 
     //mongo.getBidHistory(UID,outputCallback);

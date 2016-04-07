@@ -342,14 +342,13 @@ exports.setFeedbackForProvider = function(auctionID, comment, rating, callback){
             var providerID = result.userID;
             console.log("providers id:", providerID);
 
-            var key = "feedbackForProvider."+auctionID;
-
+           var key = "feedbackForProvider."+auctionID;
             var setObject = {};
             setObject[key] = feedback;
 
-            //users_collection.update({_id: clientID },{$set: setObject}, function(err, result){
-            //    if (err) throw err;
-            //})
+            users_collection.update({_id: providerID },{$set: setObject}, function(err, result){
+                if (err) throw err;
+            })
         });
 
     })
