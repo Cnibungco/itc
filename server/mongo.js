@@ -181,7 +181,13 @@ exports.getAuctionDetails = function(auctionID, callback){
                 {_id: true, userID: true},
                 function(err, result){
                     if (err) throw err;
-                    var bidderID = result.userID;
+                    var bidderID = "";
+
+                    if (result != null){
+                        bidderID = result.userID;
+                    }
+
+
 
                     users_collection.findOne(
                         {_id: bidderID},
