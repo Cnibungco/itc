@@ -5,7 +5,7 @@
         <textarea class="mdl-textfield__input" ng-model="formInput.description" type="text" rows= "3" placeholder="Auction Summary" required ></textarea>
         <input ng-model="formInput.startingPrice" type="number" placeholder="Auction Starting Price" required>
         <h5 >Auction Image</h5>
-        <input class="mdl-textfield__input" type="file" name="img" placeholder="No Choose Image"/>
+        <input id="img" class="mdl-textfield__input" type="file" name="img" placeholder="No Choose Image"/>
         <br>
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="submit()">Create Auction</button>
     </form>

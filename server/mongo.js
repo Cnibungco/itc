@@ -51,7 +51,7 @@ exports.createNewUser = function(userID, username, profileImageURL, email, callb
     })
 };
 
-exports.createNewAuction = function(userID, title, description, startingAmount, callback){
+exports.createNewAuction = function(userID, title, description, startingAmount, imageURL, callback){
     console.log("MONGO: createNewAuction");
 
     var auction = {
@@ -67,7 +67,8 @@ exports.createNewAuction = function(userID, title, description, startingAmount, 
         },
         feedbackForClient: {},
         feedbackForProvider: {},
-        winner: {}
+        winner: {},
+        imageURL: imageURL
     };
 
     auctions_collection.insert(auction, function(err, result){

@@ -2,6 +2,10 @@ $font-stack:    Helvetica, sans-serif;
 $primary-color: #ecf0f1;
 $text-color: #7f8c8d;
 
+$toolbar-color: #F5F5F5;
+$drawer-header-color: #263238;
+$drawer-color: #37474F;
+
 body {
 	font: 100% $font-stack;
 	color: $text-color;
@@ -90,8 +94,13 @@ body {
 }
 
 //Drawer classes
-
+.drawer {
+  height: 100%;
+  //border-right: 0px !important;
+  //background-color: $drawer-color !important;
+}
 .demo-drawer-header {
+    width: 240px;
     box-sizing: border-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -104,7 +113,7 @@ body {
     justify-content: flex-end;
     padding: 16px;
     height: 222px;
-    background-color:$primary-color;
+    //background-color:$drawer-header-color;
     text-align: center;
 }
 .drawer-button {
@@ -173,4 +182,13 @@ input {
 .image_button {
   width: auto;
   padding: 20px 0px;
+}
+
+
+$toolbar-color: #F5F5F5;
+$drawer-header-color: #263238;
+$drawer-color: #37474F;
+
+.toolbar {
+  background-color: $toolbar-color;
 }
