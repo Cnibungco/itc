@@ -6,7 +6,10 @@
     .state('Home', {
         url: "/",
         templateUrl: "components/Home/Home.view.html",
-        controller: "HomeController"
+        controller: "HomeController",
+        onEnter: function(){
+            $('#StateLabel').html('JobWellDone.io');
+        }
     })
     .state('ActiveBids', {
         url: "/ActiveBids",
