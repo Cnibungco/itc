@@ -5,6 +5,6 @@ myApp.controller('DrawerController', ['$scope', 'MeService', function($scope, Me
 }]);
 
 myApp.component('drawer', {
-  templateUrl: 'components/drawer.view.html',
+  templateUrl: 'components/Drawer.view.html',
   controller: 'DrawerController'
 });

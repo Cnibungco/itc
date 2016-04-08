@@ -8,6 +8,6 @@ myApp.controller('NavController', ['$scope','Auth', 'AuthData', function($scope,
 }]);
 
 myApp.component('navigation', {
-  templateUrl: 'components/navbar.view.html',
+  templateUrl: 'components/Navbar.view.html',
   controller: 'NavController'
 });
