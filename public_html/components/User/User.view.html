@@ -1,12 +1,16 @@
 <div class="top">
     <img>
     <div class="info">
-        <img  src="{{user().profileImageURL}}" class="demo-avatar">
+        <span>
+           <img  src="{{user().profileImageURL}}" class="demo-avatar">
+
+        </span>
 
         <h3>
             {{user().username}}
         </h3>
-        <input-stars max="5" ng-model="user().ratings.clientRating" readonly></input-stars>
+        <input-stars max="5" ng-model="user().ratings.overallRating" readonly></input-stars>
+
 
     </div>
     <hr>
