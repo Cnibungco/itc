@@ -8,8 +8,19 @@ body {
 	background-color: $primary-color;
     width: 100%;
 }
+.username {
+    text-decoration: none;
+    color: #757575; 
+}
+.title{
+    background-color: rgba(0,0,0, .6);
+    padding: 20px;
+}
 .container{
     text-align: center;
+}
+.det{
+    float:right;
 }
 .bg{
     padding: 80px;
@@ -22,11 +33,24 @@ body {
    padding: 80px;
   color: white;
 }
+.bg-auc{
+    padding: 80px;
+    margin-bottom: 30px;
+    background: url("http://www.peteslawncare.com/wp-content/uploads/2014/04/fertilization-slider.jpg")no-repeat center center fixed;
+  background-size: 100% 100%;
+   top: 0;
+   left: 0;
+   z-index: -5000;
+   padding: 80px;
+  color: white;
+    
+}
 .demo-card-wide {
   &.mdl-card {
     width: 512px;
     margin: 30px;
     display: inline-block;
+    text-align: center;
   }
   > {
     .mdl-card__title {
@@ -35,6 +59,24 @@ body {
       background: url('http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png') (center / cover);
     }
     .mdl-card__menu {
+      color: #fff;
+    }
+  }
+}
+.det-card-wide {
+  &.mdlcard {
+    width: 550px;
+    margin: 0px;
+    display: inline-block;
+    text-align: center;
+  }
+  > {
+    .mdlcard__title {
+      color: #fff;
+      height: 176px;
+      background: url('http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png') (center / cover);
+    }
+    .mdlcard__menu {
       color: #fff;
     }
   }
@@ -70,7 +112,6 @@ input[type=text] {
     border-radius: 24px;
     cursor: pointer;
 }
-
 //Navbar classes
 
 .nav-button {

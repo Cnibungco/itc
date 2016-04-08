@@ -1,14 +1,14 @@
 <header class="demo-drawer-header">
 	<img ui-sref="User({ userID: uid()})" src="{{profileImageURL()}}" class="demo-avatar">
-	<a ui-sref="User({ userID: uid()})">{{username()}}</a>
+	<h6>Welcome <br><a class="username" ui-sref="User({ userID: uid()})"> {{username()}}</a>!</h6>
 </header>
 
 <nav class="mdl-navigation">
-	<a class="mdl-navigation__link" ui-sref="Home">Search</a>
-    <a class="mdl-navigation__link" ui-sref="CreateAuction">Create Auction</a>
-    <a class="mdl-navigation__link" ui-sref="MyOpenAuctions">My Open Auctions</a>
-	<a class="mdl-navigation__link" ui-sref="MyAuctionHistory">My Closed Auctions</a>
-	<a class="mdl-navigation__link" ui-sref="ActiveBids">Active Bids</a>
-	<a class="mdl-navigation__link" ui-sref="AuctionsWon">Auctions Won</a>
-	<a class="mdl-navigation__link" ui-sref="BidHistory">Bid History</a>
+    <a class="mdl-navigation__link" ui-sref="Home"><i class="material-icons">search</i> Search</a>
+    <a class="mdl-navigation__link" ui-sref="CreateAuction"><i class="material-icons">add</i> Create Auction</a>
+    <a class="mdl-navigation__link" ui-sref="MyOpenAuctions"><i class="material-icons">check_circle</i> My Open Auctions</a>
+	<a class="mdl-navigation__link" ui-sref="MyAuctionHistory"><i class="material-icons">highlight_off</i> My Closed Auctions</a>
+	<a class="mdl-navigation__link" ui-sref="ActiveBids"><i class="material-icons">watch_later</i> Active Bids</a>
+	<a class="mdl-navigation__link" ui-sref="AuctionsWon"><i class="material-icons">gavel</i> Auctions Won</a>
+	<a class="mdl-navigation__link" ui-sref="BidHistory"><i class="material-icons">list</i> Bid History</a>
 </nav>
