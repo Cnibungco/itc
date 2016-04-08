@@ -51,7 +51,8 @@ body {
 }
 .demo-card-wide {
   &.mdl-card {
-    width: 512px;
+    cursor: pointer;
+    width: 300px;
     margin: 30px;
     display: inline-block;
     text-align: center;
