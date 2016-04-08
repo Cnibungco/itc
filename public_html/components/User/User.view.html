@@ -1,33 +1,40 @@
 <div class="top">
     <img>
     <div class="info">
-    <h3>
-        Name: {{user}}
-    </h3>
-    <h4>Rating</h4>
-    <p>
-    	Description:
-    </p>
+        <img  src="{{user().profileImageURL}}" class="demo-avatar">
+
+        <h3>
+            {{user().username}}
+        </h3>
+        <input-stars max="5" ng-model="user().ratings.clientRating" readonly></input-stars>
+
     </div>
     <hr>
     <div class="dem-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Buyer</h2>
-  </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Client Feedback</h2>
+            <input-stars max="5" ng-model="user().ratings.clientRating" readonly></input-stars>
+        </div>
         <div class="mdl-card__actions mdl-card--border"></div>
-        <h6 align="left">Comments:</h6>
-  <div class="mdl-card__supporting-text">
-    
-  </div>
-</div>
-<div class="dem-card-wide mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title">
-    <h2 class="mdl-card__title-text">Seller</h2>
-  </div>
-    <div class="mdl-card__actions mdl-card--border"></div>
-    <h6 align="left">Comments:</h6>
-  <div class="mdl-card__supporting-text">
-    
-  </div>
-</div>
+        <div class="mdl-card__supporting-text">
+            <h6 ng-repeat="(key, value) in user().feedbackForClient">
+                <input-stars max="5" ng-model="value.rating" readonly></input-stars>
+                <p> {{ value.comment }} </p>
+            </h6>
+        </div>
+    </div>
+    <div class="dem-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Provider Feedback</h2>
+            <input-stars max="5" ng-model="user().ratings.providerRating" readonly></input-stars>
+        </div>
+        <div class="mdl-card__actions mdl-card--border"></div>
+
+        <div class="mdl-card__supporting-text">
+            <h6 ng-repeat="(key, value) in user().feedbackForProvider">
+                <input-stars max="5" ng-model="value.rating" readonly></input-stars>
+                <p> {{ value.comment }} </p>
+            </h6>
+        </div>
+    </div>
 </div>
