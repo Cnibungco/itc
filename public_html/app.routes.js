@@ -11,67 +11,67 @@
     .state('ActiveBids', {
         url: "/ActiveBids",
         templateUrl: "components/ActiveBids/ActiveBids.view.html",
-        controller: "ActiveBidsController"
+        controller: "ActiveBidsController",
+        onEnter: function(){
+            $('#StateLabel').html('Active Bids');
+        }
     })
     .state('AuctionDetails', {
         url: "/AuctionDetails/:auctionID",
         templateUrl: "components/AuctionDetails/AuctionDetails.view.html",
-        controller: "AuctionDetailsController"
+        controller: "AuctionDetailsController",
+        onEnter: function(){
+            $('#StateLabel').html('Auction Details');
+        }
     })
     .state('BidHistory', {
         url: "/bidHistory",
         templateUrl: "components/BidHistory/BidHistory.view.html",
-        controller: "BidHistoryController"
+        controller: "BidHistoryController",
+        onEnter: function(){
+            $('#StateLabel').html('Bid History');
+        }
     })
 
     .state('MyAuctionHistory', {
         url: "/MyAuctionHistory",
         templateUrl: "components/MyAuctionHistory/MyAuctionHistory.view.html",
-        controller: "MyAuctionHistoryController"
+        controller: "MyAuctionHistoryController",
+        onEnter: function(){
+            $('#StateLabel').html('My Closed Auctions');
+        }
     })
     .state('MyOpenAuctions', {
         url: "/MyOpenAuctions",
         templateUrl: "components/MyOpenAuctions/MyOpenAuctions.view.html",
-        controller: "MyOpenAuctionsController"
+        controller: "MyOpenAuctionsController",
+        onEnter: function(){
+            $('#StateLabel').html('My Open Auctions');
+        }
     })
     .state('CreateAuction', {
         url: "/CreateAuction",
         templateUrl: "components/CreateAuction/CreateAuction.view.html",
-        controller: "CreateAuctionController"
+        controller: "CreateAuctionController",
+        onEnter: function(){
+            $('#StateLabel').html('Create Auction');
+        }
     })
     .state('User', {
         url: "/User/:userID",
         templateUrl: "components/User/User.view.html",
-        controller: "UserController"
+        controller: "UserController",
+        onEnter: function(){
+            $('#StateLabel').html('View User');
+        }
     })
     .state('AuctionsWon', {
         url: "/AuctionsWon",
         templateUrl: "components/AuctionsWon/AuctionsWon.view.html",
-        controller: "AuctionsWonController"
-    })
-    .state('state1', {
-      url: "/state1",
-      templateUrl: "state1.html"
-    })
-    .state('state1.list', {
-      url: "/list",
-      templateUrl: "state1.list.html",
-      controller: function($scope, mySocket) {
-        mySocket.on('hello', function () {
-          console.log("HELLO");
-        });
-        $scope.items = ["A", "List", "Of", "Items"];
-      }
-    })
-    .state('state2', {
-      url: "/state2",
-      templateUrl: "state2.html"
-    })
-    .state('state2.list', {
-      url: "/list",
-        templateUrl: "state2.list.html",
-        controller: function($scope) {
-          $scope.things = ["A", "Set", "Of", "Things"];
+        controller: "AuctionsWonController",
+        onEnter: function(){
+            $('#StateLabel').html('Auctions Won');
         }
-      })
+    })
+
     });
