@@ -65,6 +65,16 @@ input[type=text] {
     background-color:$primary-color;
     text-align: center;
 }
+.drawer-button {
+  font-weight:500;
+  cursor: pointer;
+  //padding: 0px !important;
+  padding-left: 20px !important;
+  //height:56px;
+}
+.drawer-icon {
+  margin-right: 32px
+}
 .demo-avatar {
     border-radius: 50px;
     cursor: pointer;
