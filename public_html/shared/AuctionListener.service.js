@@ -1,9 +1,9 @@
 myApp.service("AuctionListenerService", function(mySocket, AuctionDetailsService){
 	var service = this;
 	this.callback = function(){};
-	this.listen = function(auctionID){
+	this.listenCallback = function(){
+		var auctionID = AuctionDetailsService.getResult()._id;
 		service.callback = function(auction){
-			console.log("hi", auction);
 			AuctionDetailsService.setAuctionDetails(auction);
 		}
 		mySocket.emit("startAuctionListener",auctionID)
@@ -13,4 +13,5 @@ myApp.service("AuctionListenerService", function(mySocket, AuctionDetailsService
 		mySocket.emit("stopAuctionListener",auctionID);
 		mySocket.removeListener("AuctionUpdate", service.callback);
 	}
+	AuctionDetailsService.addCallback(service.listenCallback);
 })

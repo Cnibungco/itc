@@ -3,13 +3,14 @@
         {{title}}
     </h1>
 
-    <table class="mdl-data-table mdl-js-data-table">
+    <table class="mdl-data-table mdl-js-data-table" style="display:inline-block">
         <thead>
         <tr>
             <th class="mdl-data-table__cell--non-numeric">Auction</th>
             <th class="mdl-data-table__cell--non-numeric">Auction Status</th>
             <th>Bid Price</th>
             <th>Bid Time</th>
+            <th>Bid Date</th>
         </tr>
         </thead>
         <tbody>
@@ -22,7 +23,8 @@
                 <td ng-show="!bid.auction.isOpen" class="mdl-data-table__cell--non-numeric">Closed</td>
 
                 <td>${{bid.bid.amount}}</td>
-                <td>3:00pm</td>
+                <td>{{time(bid.bid._id)}}</td>
+                <td>{{date(bid.bid._id)}}</td>
             </tr>
         </tbody>
     </table>

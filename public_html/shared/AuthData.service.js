@@ -11,11 +11,11 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
         $("#main-header").find(".mdl-layout__drawer-button").css("visibility", "hidden");
 
     }
-    this.login = function (authMethod) {
-        Auth.$authWithOAuthRedirect(authMethod).then(function (authData) {
+    this.login = function () {
+        Auth.$authWithOAuthRedirect("google", { scope: "email"}).then(function (authData) {
         }).catch(function (error) {
             if (error.code === 'TRANSPORT_UNAVAILABLE') {
-                Auth.$authWithOAuthPopup(authMethod).then(function (authData) {
+                Auth.$authWithOAuthPopup("google", { scope: "email"}).then(function (authData) {
                 });
             } else {
                 console.log(error);
@@ -36,11 +36,15 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
         if (authData === null) {
             hideDrawer();
             console.log('Not logged in yet');
-            $state.go("Home");
+            if($state.current.name != "AuctionDetails" &&
+                $state.current.name != "Home" &&
+                $state.current.name != "User"){
+                $state.go("Home");
+            }
             service.loggedIn = false;
         } else {
             showDrawer();
-            MeService.setID(authData.uid, authData.google.displayName, authData.google.profileImageURL);
+            MeService.setID(authData.uid, authData.google.displayName, authData.google.profileImageURL, authData.google.email);
             console.log('Logged in as', authData.uid);
             this.data = authData;
             console.log(this.data);
@@ -52,6 +56,6 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
     }
     this.log = function(){
         if(service.loggedIn) service.logout();
-        else service.login('google');
+        else service.login();
     }
 });

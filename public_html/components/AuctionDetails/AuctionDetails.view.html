@@ -24,18 +24,24 @@
                         ng-click="createBid(bidAmount, getAuction()._id)">
                         <i class="material-icons">done</i>
                 </button>
-                    </div>
-                     
-            <div class="mdl-cell mdl-cell--8-col" ng-show="isClient() && isClosed()">
-                <input ng-model="providerComment" type="text" placeholder="Comment"/>
-                <input ng-model="providerRating" type="number" placeholder="Rating"/>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="setFeedbackForClient()"><i class="material-icons">done</i>Submit</button>
             </div>
-            <div class="mdl-cell mdl-cell--8-col" ng-show="isProvider() && isClosed()">
+            <div ng-show="isClient()">
+                <div ng-show="isClosed() && didFinish()">
+                    <input ng-model="providerComment" type="text" placeholder="Comment"/>
+                    <input ng-model="providerRating" type="number" placeholder="Rating"/>
+                    <button ng-click="setFeedbackForClient()">Submit</button>
+                </div>
+                <div ng-show="!isClosed()">
+                    <button ng-click="closeAuction()">Close Auction</button>
+                </div>
+            </div>
+            <div ng-show="isProvider() && isClosed() && didFinish()">
+>>>>>>> a4753d5abf5bcf8e1fdad55d6360697c2442f08b
                 <input ng-model="clientComment" type="text" placeholder="Comment"/>
                 <input ng-model="clientRating" type="number" placeholder="Rating"/>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="setFeedbackForProvider()"><i class="material-icons">done</i>Submit</button>
             </div>
+<<<<<<< HEAD
             <div class="mdl-cell mdl-cell--8-col" ng-show="isClosed()">
                 <h5 align="left"><b>Client Comment</b></h5><br><p> {{getAuction().feedbackForClient.comment}}</p><hr>
                 <h5 align="left"><b>Client Rating</b></h5><p class="det"> {{getAuction().feedbackForClient.rating}}</p><hr>
@@ -57,3 +63,26 @@
         </div>
             </div>
         </div>
+=======
+            <div ng-show="isClosed() && didFinish()">
+                <p>Client Comment: {{getAuction().feedbackForClient.comment}}</p>
+                <p>Client Rating: {{getAuction().feedbackForClient.rating}}</p>
+                <p>Provider Comment: {{getAuction().feedbackForProvider.comment}}</p>
+                <p>Provider Rating: {{getAuction().feedbackForProvider.rating}}</p>
+            </div>
+        </div>
+
+        <div class="mdl-cell mdl-cell--4-col">
+            <h4>Bid History</h4>
+            <div ng-repeat="bid in getAuction().bidHistory">
+                <a ui-sref="User({ userID: bid.userID })">{{bid.user.username}}</a>
+                {{bid.amount}}
+                isWinningBid:{{bid.isWinningBid}}
+                {{decodeTime(bid._id).toTimeString()}}
+                <button ng-show="isClient() && !isClosed()" ng-click="chooseBid(bid._id)">Select Offer</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+>>>>>>> a4753d5abf5bcf8e1fdad55d6360697c2442f08b

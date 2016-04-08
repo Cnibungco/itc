@@ -9,7 +9,7 @@ myApp.service("MeService", function(mySocket){
 	this.profileImageURL = "";
 
 	this.callbacks = [];
-	this.setID = function(id,username,profileImageURL){
+	this.setID = function(id,username,profileImageURL, email){
 		var callback = function(data){
 			if(data == null){
 				alert("Could not find user: " + service.uid);
@@ -22,7 +22,7 @@ myApp.service("MeService", function(mySocket){
 			}
 			mySocket.removeListener("login", callback);
 		}
-		mySocket.emit("login", {uid:id,username: username, profileImageURL: profileImageURL});
+		mySocket.emit("login", {uid:id,username: username, profileImageURL: profileImageURL, email: email});
 		mySocket.on("login", callback);
 		service.uid = id;
 

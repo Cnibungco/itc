@@ -15,13 +15,14 @@ exports.foo = function(){
 }
 
 //Creators
-exports.createNewUser = function(userID, username, profileImageURL, callback){
+exports.createNewUser = function(userID, username, profileImageURL, email, callback){
     console.log("MONGO: createNewUser");
 
     var aUser = {
         _id: userID,
         username: username,
         profileImageURL: profileImageURL,
+        email: email,
         bids: [],
         auctions: [],
         participatingAuctionIDs: [],
@@ -134,7 +135,7 @@ exports.createNewBid = function(userID, bidAmount, auctionID, callback){
 };
 
 //Getters
-exports.login = function(userID, username, profileImageURL, callback){
+exports.login = function(userID, username, profileImageURL, email, callback){
     console.log("MONGO: login");
     //users_collection.findOne({ _id: new ObjectId(userID)},
     users_collection.findOne({ _id: userID},
@@ -143,7 +144,7 @@ exports.login = function(userID, username, profileImageURL, callback){
             if (!result){
                 //first time user, create account
                 console.log("===NEW USER===")
-                exports.createNewUser(userID, username, profileImageURL, function(result){
+                exports.createNewUser(userID, username, profileImageURL, email, function(result){
                     callback(result);
                 });
             }
@@ -158,7 +159,7 @@ exports.login = function(userID, username, profileImageURL, callback){
 exports.getUserInfo = function(userID, callback){
     console.log("MONGO: getUserInfo");
     users_collection.findOne({ _id: userID},
-        {_id: true, username: true, profileImageURL: true, ratings: true, feedbackForClient: true, feedbackForProvider: true},
+        {_id: true, username: true, profileImageURL: true, ratings: true, feedbackForClient: true, feedbackForProvider: true, email: true},
         function(err,result){
             if (err) throw err;
             console.log("getUserIngo",result)

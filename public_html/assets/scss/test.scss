@@ -105,12 +105,22 @@ input[type=text] {
     padding: 16px;
     height: 151px;
     background-color:$primary-color;
+    text-align: center;
+}
+.drawer-button {
+  font-weight:500;
+  cursor: pointer;
+  padding-left: 20px !important;
+}
+.drawer-icon {
+  margin-right: 20px
 }
 .demo-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
+    border-radius: 50px;
     cursor: pointer;
+    margin:auto;
+    height:100px;
+    width: 100px;
 }
 //Navbar classes
 
