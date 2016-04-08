@@ -6,7 +6,7 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
              $state, CloseAuctionService) {
         $scope.title = "AuctionDetails";
         AuctionDetailsService.getAuctionDetails($stateParams.auctionID);
-        $state.get('AuctionDetails').onExit = AuctionListenerService.stop($stateParams.auctionID)
+        $state.get('AuctionDetails').onExit = AuctionListenerService.stop($stateParams.auctionID);
         //replace with obj returned by server
         $scope.getAuction = AuctionDetailsService.getResult;
         $scope.chooseBid = function(bidID){
@@ -41,6 +41,12 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
                 return "(Auction Closed)";
             }
             return "";
+        }
+        $scope.isReady = function(){
+            if($.isEmptyObject(AuctionDetailsService.getResult())){
+                return false;
+            }
+            return true;
         }
     }
 ]);

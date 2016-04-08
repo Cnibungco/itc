@@ -2,10 +2,10 @@ myApp.controller('CreateAuctionController', ['$scope', 'CreateAuctionService', '
     function ($scope, CreateAuctionService, AuthData, $http) {
         $scope.title = "Create Auction";
         $scope.formInput = {};
-        var isReady = true;
+        $scope.isReady = true;
         $scope.imageURL = "";
         $scope.submit = function () {
-            if(isReady){
+            if($scope.isReady){
                 CreateAuctionService.createAuction($scope.formInput.title,
                     $scope.formInput.description,$scope.formInput.startingPrice,
                     $scope.imageURL);
@@ -16,12 +16,12 @@ myApp.controller('CreateAuctionController', ['$scope', 'CreateAuctionService', '
         function EL(id) { return document.getElementById(id); } // Get el by ID helper function
     
         function readFile() {
-            isReady = false;
+            $scope.isReady = false;
             if (this.files && this.files[0]) {
                 var FR= new FileReader();
                 FR.onload = function(e) {
                     uploadImage(e.target.result, function(imageURL){
-                        isReady = true;
+                        $scope.isReady = true;
                         $scope.imageURL = imageURL
                     });
                 };

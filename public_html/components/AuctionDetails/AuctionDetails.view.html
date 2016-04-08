@@ -1,77 +1,83 @@
 <div>
-    <div class="bg-auc" ng-style="{ 'background-image': 'url(' + getAuction().imageURL + ')' }">
-        <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col">
-                <h3 class="title">{{getAuction().title}} {{closedText()}}</h3>
-            </div>
-        </div>
-    </div>
-    <div class="mdl-grid" >
-        <div class="mdl-cell mdl-cell--6-col mdl-grid">
-            <div class="mdl-cell--12-col">
-                <div class=" mdl-card  mdl-shadow--2dp" style="width:100%">
-                    <div class="mdl-card__title">
-                        <h4 class="mdl-card__title-text">About This Auction</h4>
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border"></div>
-                    <div class="mdl-card__supporting-text">
-                        <p> {{getAuction().description}}</p>
-                        <h5 align="left"><b>Starting Amount</b>
-                            <p class="det">${{getAuction().startingAmount}}</p>
-                        </h5>
-                        <h5 align="left"><b>Current Lowest Bid</b>
-                            <p class="det"> ${{getAuction().currentLowestBid.price}}</p>
-                        </h5>
-                        <h5 align="left"><b>Client</b>
-                            <p class="det" >
-                                <a class="username" ui-sref="User({ userID: getAuction().owner._id })"> {{getAuction().owner.username}}</a>
-                            </p>
-                        </h5>
-                    </div>
-                </div>
-            </div>
-            <div class="demo-separator mdl-cell--1-col" style="height: 32px;"></div>
-            <div class="mdl-cell--12-col" ng-show="isClosed()">
-                <div class=" mdl-card  mdl-shadow--2dp" style="width:100%">
-                    <div class="mdl-card__title">
-                        <h4 class="mdl-card__title-text">Ratings</h4>
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border"></div>
-                    <div ng-show="isClient()">
-                        <input ng-model="providerComment" type="text" placeholder="Comment"/>
-                        <input ng-model="providerRating" type="number" placeholder="Rating"/>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                                ng-click="setFeedbackForClient()">
-                            <i class="material-icons">send</i>
-                        </button>
-                    </div>
-                    <div ng-show="isProvider()">
-                        <input ng-model="clientComment" type="text" placeholder="Comment"/>
-                        <input ng-model="clientRating" type="number" placeholder="Rating"/>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                                ng-click="setFeedbackForProvider()">
-                            <i class="material-icons">send</i>
-                        </button>
-                    </div>
-                    <div>
-                        <p>Client Comment: {{getAuction().feedbackForClient.comment}}</p>
-                        <p>Client Rating: {{getAuction().feedbackForClient.rating}}</p>
-                        <p>Provider Comment: {{getAuction().feedbackForProvider.comment}}</p>
-                        <p>Client Rating: {{getAuction().feedbackForProvider.rating}}</p>
-                    </div>
+    <div ng-hide="isReady()" id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate" style="width: 100%;"></div>
+    <div ng-hide="!isReady()">
+        <div class="bg-auc" ng-style="{ 'background-image': 'url(' + getAuction().imageURL + ')' }">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h3 class="title">{{getAuction().title}} {{closedText()}}</h3>
                 </div>
             </div>
         </div>
-
-        <div class="mdl-cell mdl-cell--6-col">
-            <div class=" mdl-card mdl-shadow--2dp" style="width:100%; ">
-                <div class="mdl-card__title">
-                    <h4 class="mdl-card__title-text">Bids</h4>
+        <div class="mdl-grid" >
+            <div class="mdl-cell mdl-cell--6-col mdl-grid">
+                <div class="mdl-cell--12-col">
+                    <div class=" mdl-card  mdl-shadow--2dp" style="width:100%">
+                        <div class="mdl-card__title">
+                            <h4 class="mdl-card__title-text">About This Auction</h4>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border"></div>
+                        <div class="mdl-card__supporting-text">
+                            <p> {{getAuction().description}}</p>
+                            <h5 align="left"><b>Starting Amount</b>
+                                <p class="det">${{getAuction().startingAmount}}</p>
+                            </h5>
+                            <h5 align="left"><b>Current Lowest Bid</b>
+                                <p class="det"> ${{getAuction().currentLowestBid.price}}</p>
+                            </h5>
+                            <h5 align="left"><b>Client</b>
+                                <p class="det" >
+                                    <a class="username" ui-sref="User({ userID: getAuction().owner._id })"> {{getAuction().owner.username}}</a>
+                                </p>
+                            </h5>
+                            <br>
+                            <button ng-show="!isClosed() && isClient()" ng-click="closeAuction()" style="width:100%" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                Close Auction
+                            </button>
+                        </div>
+                    </div>
                 </div>
+                <div class="demo-separator mdl-cell--1-col" style="height: 32px;"></div>
+                <div class="mdl-cell--12-col" ng-show="isClosed()">
+                    <div class=" mdl-card  mdl-shadow--2dp" style="width:100%">
+                        <div class="mdl-card__title">
+                            <h4 class="mdl-card__title-text">Ratings</h4>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border"></div>
+                        <div ng-show="isClient()">
+                            <input ng-model="providerComment" type="text" placeholder="Comment"/>
+                            <input ng-model="providerRating" type="number" placeholder="Rating"/>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                    ng-click="setFeedbackForClient()">
+                                <i class="material-icons">send</i>
+                            </button>
+                        </div>
+                        <div ng-show="isProvider()">
+                            <input ng-model="clientComment" type="text" placeholder="Comment"/>
+                            <input ng-model="clientRating" type="number" placeholder="Rating"/>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                    ng-click="setFeedbackForProvider()">
+                                <i class="material-icons">send</i>
+                            </button>
+                        </div>
+                        <div>
+                            <p>Client Comment: {{getAuction().feedbackForClient.comment}}</p>
+                            <p>Client Rating: {{getAuction().feedbackForClient.rating}}</p>
+                            <p>Provider Comment: {{getAuction().feedbackForProvider.comment}}</p>
+                            <p>Client Rating: {{getAuction().feedbackForProvider.rating}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <div class="mdl-card__actions mdl-card--border"></div>
-                <div  class="mdl-card__supporting-text" >
-                    <div ng-show="!isClosed() && isLoggedIn() && !isClient()">
+            <div class="mdl-cell mdl-cell--6-col">
+                <div class=" mdl-card mdl-shadow--2dp" style="width:100%; ">
+                    <div class="mdl-card__title">
+                        <h4 class="mdl-card__title-text">Bids</h4>
+                    </div>
+
+                    <div class="mdl-card__actions mdl-card--border"></div>
+                    <div  class="mdl-card__supporting-text" >
+                        <div ng-show="!isClosed() && isLoggedIn() && !isClient()">
                         <span class="question">
                             <form id="bidForm" ng-submit="createBid()">
                                 <input id="bidInput" class="mdl-textfield__input" style="width: calc(100%)"; ng-model="bidAmount" type="text" required placeholder="Make a Bid...">
@@ -79,36 +85,38 @@
                         </span>
 
 
+                        </div>
+
+                        <br ng-show="!isClosed() && isLoggedIn() && !isClient()">
+
+                        <table class="mdl-data-table mdl-js-data-table" style="width:100% !important;">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="bid in getAuction().bidHistory">
+                                <td class="mdl-data-table__cell--non-numeric">
+                                    <a class="username" ui-sref="User({ userID: bid.userID })">{{bid.user.username}}</a>
+                                </td>
+                                <td>
+                                    ${{bid.amount}}
+                                </td>
+                                <td>12:00PM</td>
+                                <td>06/27/2016</td>
+                                <td>
+                                    <button class="det mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                            ng-show="isClient() && !isClosed()" ng-click="chooseBid(bid._id)">
+                                        <i class="material-icons">done</i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
                     </div>
-
-                    <br ng-show="!isClosed() && isLoggedIn() && !isClient()">
-
-                    <table class="mdl-data-table mdl-js-data-table" style="width:100% !important;">
-                        <thead>
-
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="bid in getAuction().bidHistory">
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a class="username" ui-sref="User({ userID: bid.userID })">{{bid.user.username}}</a>
-                            </td>
-                            <td>
-                                ${{bid.amount}}
-                            </td>
-                            <td>12:00PM</td>
-                            <td>06/27/2016</td>
-                            <td>
-                                <button class="det mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                                        ng-show="isClient() && !isClosed()" ng-click="chooseBid(bid._id)">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </td>
-
-                        </tr>
-
-                        </tbody>
-                    </table>
                 </div>
+
             </div>
         </div>
     </div>
