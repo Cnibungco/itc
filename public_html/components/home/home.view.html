@@ -1,36 +1,27 @@
 <div>
-
-
- <!---   <h1>
-        {{title}}
-        </br>
-        {{me.getUId()}}
-        {{me.getUsername()}}
-
-    </h1>-->
     <div>
         <div class="bg">
-        <h1>Seek and you shall find...</h1>
-        <input ng-model="formInput.searchText" type="text" placeholder="Search for Auctions...">
-    <button ng-click="search()" ng-submit="search()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button"><label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-      <i class="material-icons">search</i>
-    </label></button>
-            </div>
+            <h1>Seek and you shall find...</h1>
+            <input id="search" ng-model="formInput.searchText" type="text" placeholder="Search for Auctions...">
+            <button ng-click="search()" ng-submit="search()" class="mdl-button mdl-js-button mdl-button--raised
+            mdl-js-ripple-effect mdl-button--accent" type="button">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                    <i class="material-icons">search</i>
+                </label>
+            </button>
+        </div>
+    </div>
     <div>
-
         <card ng-repeat="auction in auctionSearchResults()" auction=auction>
         </card>
-
     </div>
 
     <div ng-if="authData.google" class="list card">
-      <div class="item item-avatar">
-        <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
-        <h2>{{authData.google.displayName}}</h2>
-        <p>{{authData.google.username}}</p>
-
-          <p>Google</p>
-      </div>
+        <div class="item item-avatar">
+            <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
+            <h2>{{authData.google.displayName}}</h2>
+            <p>{{authData.google.username}}</p>
+            <p>Google</p>
+        </div>
     </div>
-
 </div>
