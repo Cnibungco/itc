@@ -46,6 +46,7 @@
                         <div ng-show="isClient()">
                             <input ng-model="providerComment" type="text" placeholder="Comment"/>
                             <input ng-model="providerRating" type="number" placeholder="Rating"/>
+
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                                     ng-click="setFeedbackForClient()">
                                 <i class="material-icons">send</i>
@@ -120,8 +121,8 @@
                                 <td>
                                     ${{bid.amount}}
                                 </td>
-                                <td>12:00PM</td>
-                                <td>06/27/2016</td>
+                                <td>{{time(bid._id)}}</td>
+                                <td>{{date(bid._id)}}</td>
                                 <td>
                                     <button class="det mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                                             ng-show="isClient() && !isClosed()" ng-click="chooseBid(bid._id)">

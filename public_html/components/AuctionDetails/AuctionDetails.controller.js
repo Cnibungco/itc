@@ -54,5 +54,11 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         $scope.providerHasFeedback = function () {
             return AuctionDetailsService.getResult().feedbackForProvider == null;
         }
+        $scope.time = function(bidID){
+            return MongoTimeFactory(bidID).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+        }
+        $scope.date = function(bidID){
+            return MongoTimeFactory(bidID).toLocaleDateString()
+        }
     }
 ]);
