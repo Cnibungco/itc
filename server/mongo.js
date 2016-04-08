@@ -159,7 +159,7 @@ exports.login = function(userID, username, profileImageURL, email, callback){
 exports.getUserInfo = function(userID, callback){
     console.log("MONGO: getUserInfo");
     users_collection.findOne({ _id: userID},
-        {_id: true, username: true, profileImageURL: true, ratings: true, feedbackForClient: true, feedbackForProvider: true},
+        {_id: true, username: true, profileImageURL: true, ratings: true, feedbackForClient: true, feedbackForProvider: true, email: true},
         function(err,result){
             if (err) throw err;
             console.log("getUserIngo",result)
