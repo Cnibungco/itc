@@ -51,7 +51,9 @@
                                 <i class="material-icons">send</i>
                             </button>
                         </div>
+
                         <div ng-show="isProvider()">
+                            <p>Client's Email: {{getAuction().owner.email}}</p>
                             <input ng-model="clientComment" type="text" placeholder="Comment"/>
                             <input ng-model="clientRating" type="number" placeholder="Rating"/>
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
