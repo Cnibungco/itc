@@ -66,6 +66,8 @@
                         <div ng-show="!providerHasFeedback()">
                             No provider feedback has been given.
                             <br>
+                            <br>
+
                         </div>
                         <div style="margin-bottom: 0px !important;" ng-show="providerHasFeedback()">
                             <h6 style="margin-top:0px">Feedback of Provider: <input-stars max="5" ng-model="getAuction().feedbackForProvider.rating" readonly></input-stars></h6>
@@ -74,6 +76,7 @@
                         <div class="mdl-card__actions mdl-card--border"></div>
                         <div ng-show="!clientHasFeedback()">
                             No client feedback has been given.
+                            <br>
                             <br>
                         </div>
                         <div ng-show="clientHasFeedback()">
