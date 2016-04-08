@@ -12,9 +12,9 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
 
     }
     this.login = function () {
-        Auth.$authWithOAuthRedirect("google", { scope: "email"}).then(function (authData) {
+        Auth.$authWithOAuthPopup("google", { scope: "email"}).then(function (authData) {
         }).catch(function (error) {
-            if (error.code === 'TRANSPORT_UNAVAILABLE') {
+            if (error.code !== 'TRANSPORT_UNAVAILABLE') {
                 Auth.$authWithOAuthPopup("google", { scope: "email"}).then(function (authData) {
                 });
             } else {
