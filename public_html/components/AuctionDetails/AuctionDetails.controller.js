@@ -12,8 +12,9 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         $scope.chooseBid = function(bidID){
             ChooseBidService.chooseBid(MeService.getUId(), AuctionDetailsService.getResult()._id,bidID);
         }
-        $scope.createBid = function(bidAmount, auctionID){
-            CreateBidService.createNewBid(bidAmount, auctionID);
+        $scope.createBid = function(){
+            CreateBidService.createNewBid($scope.bidAmount, $stateParams.auctionID);
+            $('#bidForm')[0].reset();
         }
         $scope.didFinish = AuctionDetailsService.didFinish;
         $scope.isLoggedIn = MeService.loggedIn;
@@ -35,5 +36,11 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         }
         $scope.decodeTime = MongoTimeFactory;
         $scope.closeAuction = CloseAuctionService.closeAuction;
+        $scope.closedText = function(){
+            if($scope.isClosed()){
+                return "(Auction Closed)";
+            }
+            return "";
+        }
     }
 ]);
