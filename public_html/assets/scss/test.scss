@@ -81,7 +81,7 @@ body {
     }
   }
 }
-input[type=text] {
+#search {
     width: 295px;
     padding: 5px;
     outline: none;
@@ -168,4 +168,9 @@ input {
   -ms-user-select: none;       /* IE/Edge */
   user-select: none;           /* non-prefixed version, currently
                                   not supported by any browser */
+}
+
+.image_button {
+  width: auto;
+  padding: 20px 0px;
 }

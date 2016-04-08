@@ -1,15 +1,7 @@
 <div>
-
-
- <!---   <h1>
-        {{title}}
-        </br>
-        {{me.getUId()}}
-        {{me.getUsername()}}
-
-    </h1>-->
     <div>
         <div class="bg">
+<<<<<<< HEAD
         <h1>Seek and you shall find...</h1>
             <form id="search">
                 <input ng-model="formInput.searchText" type="text" placeholder="Search for Auctions...">
@@ -18,20 +10,16 @@
     </label></button></form>
             </div>
     <div>
-
         <card ng-repeat="auction in auctionSearchResults()" auction=auction>
         </card>
-
     </div>
 
     <div ng-if="authData.google" class="list card">
-      <div class="item item-avatar">
-        <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
-        <h2>{{authData.google.displayName}}</h2>
-        <p>{{authData.google.username}}</p>
-
-          <p>Google</p>
-      </div>
+        <div class="item item-avatar">
+            <img ng-src="{{authData.google.cachedUserProfile.picture}}" alt="">
+            <h2>{{authData.google.displayName}}</h2>
+            <p>{{authData.google.username}}</p>
+            <p>Google</p>
+        </div>
     </div>
-
 </div>

@@ -64,7 +64,7 @@ body {
 .det-card-wide > .mdlcard__menu {
   color: #fff; }
 
-input[type=text] {
+#search {
   width: 295px;
   padding: 5px;
   outline: none;
@@ -150,3 +150,7 @@ input {
   user-select: none;
   /* non-prefixed version, currently
      not supported by any browser */ }
+
+.image_button {
+  width: auto;
+  padding: 20px 0px; }
