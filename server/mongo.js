@@ -263,7 +263,8 @@ exports.getUserOpenAuctions = function(userID, callback){
         }
 
         auctions_collection.find({_id: {$in: auctionIDs}, isOpen: true}).toArray( function(err, result){
-            callback(result);
+            var auctions = result;
+            exploreUserInAuctions(auctions, callback);
         });
     })
 };
@@ -278,7 +279,8 @@ exports.getUserAuctionHistory = function(userID, callback){
         }
 
         auctions_collection.find({_id: {$in: auctionIDs}}).toArray( function(err, result){
-            callback(result);
+            var auctions = result;
+            exploreUserInAuctions(auctions, callback);
         });
     })
 };
@@ -589,4 +591,37 @@ mongodb.MongoClient.connect(uri, function(err, dbRef) {
     setupCollections();
 });
 
+function exploreUserInAuctions(auctions, callback){
+    var remainingQueries = auctions.length;
+    if (remainingQueries == 0){
+        callback(auctions);
+        return;
+    }
+
+    for (var i = 0; i < auctions.length; i++) {
+        var auction = auctions[i];
+        (function (auction){
+            users_collection.findOne(
+                {
+                    _id: auction.userID
+                },
+                {
+                    _id: true,
+                    username: true,
+                    ratings: true,
+                    profileImageURL: true
+                },
+                function(err, result){
+                    if (err) throw err;
+                    auction.user = result;
+                    remainingQueries--;
+                    if (remainingQueries == 0){
+                        callback(auctions);
+                    }
+                }
+            )
+        }(auction))
+    }
+
+}
 
