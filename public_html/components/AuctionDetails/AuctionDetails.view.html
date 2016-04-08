@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="AuctionDetailsController as crtl">
     <div ng-hide="isReady()" id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate" style="width: 100%;"></div>
     <div ng-hide="!isReady()">
         <div class="bg-auc" ng-style="{ 'background-image': 'url(' + getAuction().imageURL + ')' }">
@@ -43,22 +43,22 @@
                             <h4 class="mdl-card__title-text">Ratings</h4>
                         </div>
                         <div class="mdl-card__actions mdl-card--border"></div>
-                        <div ng-show="isClient()">
-                            <input ng-model="providerComment" type="text" placeholder="Comment"/>
-                            <input ng-model="providerRating" type="number" placeholder="Rating"/>
-
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                                    ng-click="setFeedbackForClient()">
+                        <div ng-show="isClient()" ng-init="ctrl.providerRating = 0;">
+                            <input-stars max="5" ng-model="ctrl.providerRating"></input-stars>
+                            <input style="width:60%" ng-model="providerComment" type="text" placeholder="Comment"/>
+                            <button style="display:inline" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                    ng-click="providerRating = ctrl.providerRating;  setFeedbackForClient()">
                                 <i class="material-icons">send</i>
                             </button>
                         </div>
 
-                        <div ng-show="isProvider()">
+                        <div ng-show="isProvider()" ng-init="ctrl.clientRating = 0;">
                             <p>Client's Email: {{getAuction().owner.email}}</p>
-                            <input ng-model="clientComment" type="text" placeholder="Comment"/>
-                            <input ng-model="clientRating" type="number" placeholder="Rating"/>
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                                    ng-click="setFeedbackForProvider()">
+                            <input-stars max="5" ng-model="ctrl.clientRating"></input-stars>
+                            <br>
+                            <input style="width:60%; " ng-model="clientComment" type="text" placeholder="Comment"/>
+                            <button style="display:inline" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                    ng-click="clientRating = ctrl.clientRating; setFeedbackForProvider()">
                                 <i class="material-icons">send</i>
                             </button>
                         </div>

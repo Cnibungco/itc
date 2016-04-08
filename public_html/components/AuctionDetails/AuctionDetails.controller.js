@@ -23,10 +23,10 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         $scope.isClosed = AuctionDetailsService.isClosed;
         
         AuctionDetailsService.addCallback(function () {
-            $scope.providerComment = AuctionDetailsService.getResult().feedbackForClient.comment;
-            $scope.providerRating = AuctionDetailsService.getResult().feedbackForClient.rating;
-            $scope.clientComment = AuctionDetailsService.getResult().feedbackForProvider.comment;
-            $scope.clientRating = AuctionDetailsService.getResult().feedbackForProvider.rating;
+            // $scope.providerComment = AuctionDetailsService.getResult().feedbackForClient.comment;
+            // $scope.providerRating = AuctionDetailsService.getResult().feedbackForClient.rating;
+            // $scope.clientComment = AuctionDetailsService.getResult().feedbackForProvider.comment;
+            // $scope.clientRating = AuctionDetailsService.getResult().feedbackForProvider.rating;
         });
         $scope.setFeedbackForClient = function () {
             SetFeedbackForProviderService.setFeedback($scope.providerComment, $scope.providerRating);
