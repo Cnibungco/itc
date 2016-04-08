@@ -97,6 +97,13 @@ body {
   height: 100px;
   width: 100px; }
 
+.demo-avatar-small {
+  border-radius: 15px;
+  cursor: pointer;
+  margin: auto;
+  height: 30px;
+  width: 30px; }
+
 input {
   border-radius: 5px; }
 

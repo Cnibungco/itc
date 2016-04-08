@@ -5,13 +5,19 @@
         <h2 class="mdl-card__title-text">{{$ctrl.auction.title}}</h2>
     </div>
     <div class="mdl-card__supporting-text">
-        Description: {{$ctrl.auction.description}}
+        <h6>Description</h6>
+        <p>{{$ctrl.auction.description}}</p>
+
     </div>
-    <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            <p>Bottom User
-                {{$ctrl.auction.bottomuser.username}}<br>
-                {{$ctrl.auction.bottomuser.rating.overallRating}}</p>
-        </a>
+    <div class="mdl-card__actions mdl-card--border"></div>
+
+    <div class="mdl-card__supporting-text " style="padding-top: 0; padding-bottom: 0">
+         <h6 style="margin-bottom: 0; margin-top: 0">{{$ctrl.auction.user.username}}</h6>
+
+        <img  src="{{$ctrl.auction.user.profileImageURL}}" class="demo-avatar-small">
+
+        <input-stars max="5" ng-model="$ctrl.auction.user.ratings.clientRating" readonly></input-stars>
+
+
     </div>
 </div>
