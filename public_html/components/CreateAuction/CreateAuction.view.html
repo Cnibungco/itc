@@ -1,7 +1,7 @@
 <div class="form-style-8">
     <h2>{{title}}</h2>
     <form>
-        <input class="mdl-textfield__input" type="text" placeholder="Auction Title" required>
+        <input ng-model="formInput.title" class="mdl-textfield__input" type="text" placeholder="Auction Title" required>
         <textarea class="mdl-textfield__input" ng-model="formInput.description" type="text" rows= "3" placeholder="Auction Summary" required ></textarea>
         <input ng-model="formInput.startingPrice" type="number" placeholder="Auction Starting Price" required>
         <h5 >Auction Image</h5>

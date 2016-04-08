@@ -2,6 +2,8 @@ myApp.service("CreateAuctionService", function(mySocket, $state){
 	var service = this;
 	this.auction = {};
 	this.createAuction = function(title,description,startingPrice, imageURL){
+
+		console.log(title + "asdas");
 		var callback = function(data){
 			service.auction = data;
 			mySocket.removeListener("createNewAuction", callback);

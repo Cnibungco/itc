@@ -86,20 +86,7 @@ body {
     }
   }
 }
-#search {
-    width: 295px;
-    padding: 5px;
-    outline: none;
-    border: 2px solid #999999;
-    border-radius: 5px;
-}
-
 //Drawer classes
-.drawer {
-  height: 100%;
-  //border-right: 0px !important;
-  //background-color: $drawer-color !important;
-}
 .demo-drawer-header {
     width: 240px;
     box-sizing: border-box;
@@ -114,7 +101,7 @@ body {
     justify-content: flex-end;
     padding: 16px;
     height: 222px;
-    //background-color:$drawer-header-color;
+    background-color:$primary-color;
     text-align: center;
 }
 .drawer-button {
@@ -192,4 +179,8 @@ $drawer-color: #37474F;
 
 .toolbar {
   background-color: $toolbar-color;
+}
+.mdl-card__supporting-text {
+  padding-left: 5% !important;
+  padding-right: 5% !important;
 }
