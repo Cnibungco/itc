@@ -507,6 +507,8 @@ function updateAuctionLowestBid(userID, auctionID, bidAmount, callback){
                     callback();
                 }
             );
+        } else {
+            callback();
         }
     })
 }
