@@ -35,4 +35,7 @@ myApp.service("AuctionDetailsService", function(mySocket){
 		service.result = auction;
 		console.log(service.result);
 	}
+	this.didFinish = function (){
+		return service.result.winner != null
+	}
 })

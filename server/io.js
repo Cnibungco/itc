@@ -18,8 +18,10 @@ exports.listen = function(http,io){
       if(user == null){
         console.log("ERROR:: User not logged in.");
         return;
-      } 
+      }
+      console.log("before");
       mongo.createNewBid(user.uid,data.bidAmount,data.auctionID,function(result){
+        console.log("after");
         socket.emit("createNewBid",result);
         auctionListenerCallback(data.auctionID);
       });
@@ -98,8 +100,8 @@ exports.listen = function(http,io){
     socket.on("SetFeedbackForClient", function(data){
       mongo.setFeedbackForClient(data.auctionID,data.comment,data.rating,function(result){
         socket.emit("SetFeedbackForClient",result);
+        auctionListenerCallback(data.auctionID);
       })
-      auctionListenerCallback(data.auctionID);
     }); 
     socket.on("SetFeedbackForProvider", function (data) {
       mongo.setFeedbackForProvider(data.auctionID,data.comment,data.rating,function (result) {
@@ -119,9 +121,11 @@ exports.listen = function(http,io){
     socket.on("stopAuctionListener", function(auctionID){
       socket.listenAuction[auctionID] = false;
     });
-    socket.on("closeAuction", function(auctionID){
+    socket.on("CloseAuction", function(auctionID){
+      console.log("Closing " + auctionID);
       mongo.closeAuction(auctionID,function (result) {
         socket.emit("closeAuction", result);
+        auctionListenerCallback(auctionID);
       })
     })
     var auctionListenerCallback = function(auctionID){

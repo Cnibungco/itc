@@ -36,7 +36,11 @@ myApp.service("AuthData", function(Auth, MeService, $state) {
         if (authData === null) {
             hideDrawer();
             console.log('Not logged in yet');
-            $state.go("Home");
+            if($state.current.name != "AuctionDetails" &&
+                $state.current.name != "Home" &&
+                $state.current.name != "User"){
+                $state.go("Home");
+            }
             service.loggedIn = false;
         } else {
             showDrawer();

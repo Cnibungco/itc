@@ -25,22 +25,26 @@
                 </button>
 
             </div>
-
-            <div ng-show="isClient() && isClosed()">
-                <input ng-model="providerComment" type="text" placeholder="Comment"/>
-                <input ng-model="providerRating" type="number" placeholder="Rating"/>
-                <button ng-click="setFeedbackForClient()">Submit</button>
+            <div ng-show="isClient()">
+                <div ng-show="isClosed() && didFinish()">
+                    <input ng-model="providerComment" type="text" placeholder="Comment"/>
+                    <input ng-model="providerRating" type="number" placeholder="Rating"/>
+                    <button ng-click="setFeedbackForClient()">Submit</button>
+                </div>
+                <div ng-show="!isClosed()">
+                    <button ng-click="closeAuction()">Close Auction</button>
+                </div>
             </div>
-            <div ng-show="isProvider() && isClosed()">
+            <div ng-show="isProvider() && isClosed() && didFinish()">
                 <input ng-model="clientComment" type="text" placeholder="Comment"/>
                 <input ng-model="clientRating" type="number" placeholder="Rating"/>
                 <button ng-click="setFeedbackForProvider()">Submit</button>
             </div>
-            <div ng-show="isClosed()">
+            <div ng-show="isClosed() && didFinish()">
                 <p>Client Comment: {{getAuction().feedbackForClient.comment}}</p>
                 <p>Client Rating: {{getAuction().feedbackForClient.rating}}</p>
                 <p>Provider Comment: {{getAuction().feedbackForProvider.comment}}</p>
-                <p>Client Rating: {{getAuction().feedbackForProvider.rating}}</p>
+                <p>Provider Rating: {{getAuction().feedbackForProvider.rating}}</p>
             </div>
         </div>
 
@@ -51,10 +55,9 @@
                 {{bid.amount}}
                 isWinningBid:{{bid.isWinningBid}}
                 {{decodeTime(bid._id).toTimeString()}}
-                <button ng-show="isClient" ng-click="chooseBid(bid._id)">Select Offer</button>
+                <button ng-show="isClient() && !isClosed()" ng-click="chooseBid(bid._id)">Select Offer</button>
             </div>
         </div>
-
 
     </div>
 </div>

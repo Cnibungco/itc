@@ -1,12 +1,11 @@
 myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService','$stateParams', 
     'CreateBidService', 'AuctionListenerService', 'ChooseBidService', 'MeService', 'SetFeedbackForClientService',
-    'SetFeedbackForProviderService', 'MongoTimeFactory', 'AuctionRoleService', "$state",
+    'SetFeedbackForProviderService', 'MongoTimeFactory', 'AuctionRoleService', "$state", 'CloseAuctionService',
     function($scope, AuctionDetailsService, $stateParams, CreateBidService, AuctionListenerService, ChooseBidService,
-             MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory, AuctionRoleService, $state) {
-        
+             MeService, SetFeedbackForClientService, SetFeedbackForProviderService, MongoTimeFactory, AuctionRoleService,
+             $state, CloseAuctionService) {
         $scope.title = "AuctionDetails";
         AuctionDetailsService.getAuctionDetails($stateParams.auctionID);
-        AuctionListenerService.listen($stateParams.auctionID);
         $state.get('AuctionDetails').onExit = AuctionListenerService.stop($stateParams.auctionID)
         //replace with obj returned by server
         $scope.getAuction = AuctionDetailsService.getResult;
@@ -16,10 +15,12 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
         $scope.createBid = function(bidAmount, auctionID){
             CreateBidService.createNewBid(bidAmount, auctionID);
         }
+        $scope.didFinish = AuctionDetailsService.didFinish;
         $scope.isLoggedIn = MeService.loggedIn;
         $scope.isClient = AuctionRoleService.isClient;
         $scope.isProvider = AuctionRoleService.isProvider;
         $scope.isClosed = AuctionDetailsService.isClosed;
+        
         AuctionDetailsService.addCallback(function () {
             $scope.providerComment = AuctionDetailsService.getResult().feedbackForClient.comment;
             $scope.providerRating = AuctionDetailsService.getResult().feedbackForClient.rating;
@@ -33,5 +34,6 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
             SetFeedbackForProviderService.setFeedback($scope.clientComment, $scope.clientRating);
         }
         $scope.decodeTime = MongoTimeFactory;
+        $scope.closeAuction = CloseAuctionService.closeAuction;
     }
 ]);
