@@ -4,7 +4,8 @@
          ng-style="{ 'background-image': 'url(' + $ctrl.auction.imageURL + ')' }">
         <h2 class="mdl-card__title-text">{{$ctrl.auction.title}}</h2>
     </div>
-    <div class="mdl-card__supporting-text">
+    <div style="overflow:hidden; -ms-text-overflow: ellipsis;text-overflow: ellipsis;
+        line-height: 16px; max-height: 32px; min-height: 32px;" class="mdl-card__supporting-text">
         <p>{{$ctrl.auction.description}}</p>
 
     </div>

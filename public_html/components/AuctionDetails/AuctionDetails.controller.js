@@ -49,10 +49,12 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
             return true;
         }
         $scope.clientHasFeedback = function(){
-            return AuctionDetailsService.getResult().feedbackForClient == null;
+            if(AuctionDetailsService.getResult().feedbackForClient == null) return false;
+            return Object.keys(AuctionDetailsService.getResult().feedbackForClient).length > 0;
         }
         $scope.providerHasFeedback = function () {
-            return AuctionDetailsService.getResult().feedbackForProvider == null;
+            if(AuctionDetailsService.getResult().feedbackForProvider == null) return false;
+            return Object.keys(AuctionDetailsService.getResult().feedbackForProvider).length > 0;
         }
         $scope.time = function(bidID){
             return MongoTimeFactory(bidID).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
