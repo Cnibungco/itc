@@ -29,10 +29,10 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
             $scope.clientRating = AuctionDetailsService.getResult().feedbackForProvider.rating;
         });
         $scope.setFeedbackForClient = function () {
-            SetFeedbackForClientService.setFeedback($scope.providerComment, $scope.providerRating);
+            SetFeedbackForProviderService.setFeedback($scope.providerComment, $scope.providerRating);
         }
         $scope.setFeedbackForProvider = function () {
-            SetFeedbackForProviderService.setFeedback($scope.clientComment, $scope.clientRating);
+            SetFeedbackForClientService.setFeedback($scope.clientComment, $scope.clientRating);
         }
         $scope.decodeTime = MongoTimeFactory;
         $scope.closeAuction = CloseAuctionService.closeAuction;
@@ -47,6 +47,12 @@ myApp.controller('AuctionDetailsController', ['$scope', 'AuctionDetailsService',
                 return false;
             }
             return true;
+        }
+        $scope.clientHasFeedback = function(){
+            return AuctionDetailsService.getResult().feedbackForClient == null;
+        }
+        $scope.providerHasFeedback = function () {
+            return AuctionDetailsService.getResult().feedbackForProvider == null;
         }
     }
 ]);

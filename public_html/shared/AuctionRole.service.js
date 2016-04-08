@@ -7,6 +7,7 @@ myApp.service("AuctionRoleService", function(MeService, AuctionDetailsService){
                 service.role = 1;
             }
             if(AuctionDetailsService.getResult().winner != null){
+                console.log(MeService.getUId(),  AuctionDetailsService.getResult().winner._id, "asdas");
                 if(MeService.getUId() == AuctionDetailsService.getResult().winner._id)
                     service.role = 2;
             }

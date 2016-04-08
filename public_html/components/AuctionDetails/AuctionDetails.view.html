@@ -61,11 +61,25 @@
                                 <i class="material-icons">send</i>
                             </button>
                         </div>
-                        <div>
-                            <p>Client Comment: {{getAuction().feedbackForClient.comment}}</p>
-                            <p>Client Rating: {{getAuction().feedbackForClient.rating}}</p>
-                            <p>Provider Comment: {{getAuction().feedbackForProvider.comment}}</p>
-                            <p>Client Rating: {{getAuction().feedbackForProvider.rating}}</p>
+                        <br>
+                        <div class="mdl-card__actions mdl-card--border"></div>
+                        <div ng-show="!providerHasFeedback()">
+                            No provider feedback has been given.
+                            <br>
+                        </div>
+                        <div style="margin-bottom: 0px !important;" ng-show="providerHasFeedback()">
+                            <h6 style="margin-top:0px">Feedback of Provider: <input-stars max="5" ng-model="getAuction().feedbackForProvider.rating" readonly></input-stars></h6>
+                                <p>{{getAuction().feedbackForProvider.comment}}</p>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border"></div>
+                        <div ng-show="!clientHasFeedback()">
+                            No client feedback has been given.
+                            <br>
+                        </div>
+                        <div ng-show="clientHasFeedback()">
+
+                            <h6 style="margin-top:0px">Feedback of Client: <input-stars max="5" ng-model="getAuction().feedbackForClient.rating" readonly></input-stars></h6>
+                            <p>{{getAuction().feedbackForClient.comment}}</p>
                         </div>
                     </div>
                 </div>
