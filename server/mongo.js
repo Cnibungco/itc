@@ -444,10 +444,12 @@ exports.getAuctionsWon = function(userID, callback){
                         {
                             _id: true,
                             username: true,
+                            ratings: true,
+                            profileImageURL: true
                         },
                         function(err, result){
                             if (err) throw err;
-                            auction.owner = result;
+                            auction.user = result;
                             remainingQueries--;
                             if (remainingQueries == 0){
                                 callback(auctionsWon);
