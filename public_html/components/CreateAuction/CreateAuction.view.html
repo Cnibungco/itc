@@ -1,25 +1,81 @@
-<div class="mdl-grid"  >
-        <div class="mdl-cell mdl-cell--8-col">
-    <div class="demo-card-square mdl-card mdl-shadow--2dp">
-  <div class="mdl-card__title mdl-card--expand">
-    <h1 class="mdl-card__title-text">
-        {{title}}
-    </h1>
-      </div>
-        <div class="mdl-card__actions mdl-card--border"></div>
-    <form><div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="sample3">
-        <label class="mdl-textfield__label" for="sample3">Auction Title</label>
-        </div></form> </br>
-    <form><div class="mdl-textfield mdl-js-textfield">
-    <input ng-model="formInput.description" type="text" class="mdl-textfield__input" id="sample2">
-    <label class="mdl-textfield__label" for="sample2">Auction Summary</label>
-        </div> </form></br>
-    <form> <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input ng-model="formInput.startingPrice" type="text" class="mdl-textfield__input" id="sample3">
-    <label class="mdl-textfield__label" for="sample3">Auction Starting Price</label>
-        </div> </form></div>    </div>
-</div>
+<div class="form-style-8">
+    <h2>{{title}}</h2>
+        <form>
+        <input class="mdl-textfield__input" type="text" placeholder="Auction Title" required>
+  <textarea class="mdl-textfield__input" ng-model="formInput.description" type="text" rows= "3" placeholder="Auction Summary" required ></textarea>
+    <input ng-model="formInput.startingPrice" type="number" placeholder="Auction Starting Price" required>
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="submit()">Create Auction</button>
-
 </form>
+        </div>
+</div>
+<style>
+.form-style-8{
+    width: 500px;
+    padding: 30px;
+    background: #FFFFFF;
+    margin: 50px auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+
+}
+.form-style-8 h2{
+    background: 2196f3;
+    text-transform: uppercase;
+    color: #797979;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+}
+.form-style-8 input[type="text"],
+.form-style-8 input[type="date"],
+.form-style-8 input[type="datetime"],
+.form-style-8 input[type="email"],
+.form-style-8 input[type="number"],
+.form-style-8 input[type="search"],
+.form-style-8 input[type="time"],
+.form-style-8 input[type="url"],
+.form-style-8 input[type="password"],
+.form-style-8 textarea,
+.form-style-8 select 
+{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+}
+.form-style-8 textarea{
+    resize:none;
+    overflow: hidden;
+}
+.form-style-8 input[type="button"], 
+.form-style-8 input[type="submit"]{
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    background-color: #2CBBBB;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.form-style-8 input[type="button"]:hover, 
+.form-style-8 input[type="submit"]:hover {
+    background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
+    background-color:#34CACA;
+}
+</style>

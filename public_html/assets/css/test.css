@@ -102,6 +102,9 @@ input[type=text] {
   height: 100px;
   width: 100px; }
 
+input {
+  border-radius: 5px; }
+
 .nav-button {
   cursor: pointer; }
 
