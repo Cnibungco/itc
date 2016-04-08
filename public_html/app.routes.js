@@ -5,7 +5,7 @@
   $stateProvider
     .state('Home', {
         url: "/",
-        templateUrl: "components/home/Home.view.html",
+        templateUrl: "components/Home/Home.view.html",
         controller: "HomeController"
     })
     .state('ActiveBids', {
