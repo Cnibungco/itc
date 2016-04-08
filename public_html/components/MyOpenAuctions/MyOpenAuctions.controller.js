@@ -1,6 +1,6 @@
 myApp.controller('MyOpenAuctionsController', ['$scope', 'MeService', function($scope, MeService) {
 
-    $scope.title = "MyOpenAuctions";
+    $scope.title = "Open Auctions";
     MeService.loadOpenAuctions();
     $scope.openAuctions = function(){
     	return MeService.getOpenAuctions();

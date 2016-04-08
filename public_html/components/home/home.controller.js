@@ -1,7 +1,6 @@
 myApp.controller('HomeController', ['$scope', 'mySocket', 'MeService','Auth', 'AuthData', 'SearchService', 
 	function($scope, mySocket,MeService, Auth, AuthData, SearchService) {
 
-        $scope.items = ["A", "List", "From", "HomeCtrl"];
         $scope.title = "Home";
         $scope.me = MeService;
 

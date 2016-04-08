@@ -1,30 +1,16 @@
 <div class="demo-card-wide mdl-card mdl-shadow--2dp" ui-sref="AuctionDetails({ auctionID: $ctrl.auction._id })">
-    <div class="mdl-card__title"> 
-        <h2 class="mdl-card__title-text">{{$ctrl.auction.title}}</h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-    Description: {{$ctrl.auction.description}}
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-    Client: {{$ctrl.auction.user.username}}
-        </a><br>
-        <p>about the lowest bidder or auction owner
-    {{$ctrl.auction.currentLowestBid.userID}}   </p> 
-  </div>
+
+<div class="mdl-card__title"> 
+            <h2 class="mdl-card__title-text">{{$ctrl.auction.title}}</h2>
+            </div>
+<div class="mdl-card__supporting-text">
+                Description: {{$ctrl.auction.description}}
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            <p>Bottom User
+                {{$ctrl.auction.bottomuser.username}}<br>
+          {{$ctrl.auction.bottomuser.rating.overallRating}}</p>
+            </a>
+            </div>
 </div>
-<style>
-.demo-card-wide.mdl-card {
-  width: 512px;
-  margin: 30px;
-  display: inline-block;
-}
-.demo-card-wide > .mdl-card__title {
-  color: #fff;
-  height: 176px;
-  background: url('http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png') center / cover;
-}
-.demo-card-wide > .mdl-card__menu {
-  color: #fff;
-}
-</style>

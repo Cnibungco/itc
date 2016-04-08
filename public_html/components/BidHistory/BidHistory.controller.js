@@ -1,6 +1,6 @@
 myApp.controller('BidHistoryController', ['$scope', 'BidHistoryService', 'MeService', "MongoTimeFactory", 
     function($scope, BidHistoryService, MeService, MongoTimeFactory) {
-        $scope.title = "BidHistory";
+        $scope.title = "Bid History";
         MeService.addCallback(BidHistoryService.loadBidHistory);
         $scope.bidHistory = BidHistoryService.getBidHistory;
         $scope.time = function(bidID){

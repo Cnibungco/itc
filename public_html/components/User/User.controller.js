@@ -4,4 +4,6 @@ myApp.controller('UserController', ['$scope','$stateParams', 'UserService',
         UserService.setID($stateParams.userID);
         //TODO: use $stateParams.userID to query for user data
         $scope.user = UserService.getUser;
+        $scope.uid = UserService.getUId;
+    $scope.profileImageURL = UserService.getProfileImageURL;
     }]);
