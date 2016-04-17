@@ -45,6 +45,7 @@
                         <div class="mdl-card__actions mdl-card--border"></div>
                         <div ng-show="isClient()" ng-init="ctrl.providerRating = 0;">
                             <input-stars max="5" ng-model="ctrl.providerRating"></input-stars>
+                            <br>
                             <input style="width:60%" ng-model="providerComment" type="text" placeholder="Comment"/>
                             <button style="display:inline" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                                     ng-click="providerRating = ctrl.providerRating;  setFeedbackForClient()">
